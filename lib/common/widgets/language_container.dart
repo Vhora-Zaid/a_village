@@ -1,3 +1,4 @@
+import 'package:a_village/utils/constants/app_fonts.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 
@@ -5,58 +6,42 @@ class LanguageContainer {
   static Widget container({
     double? width,
     double? height,
-    bool isBorder = false,
     Color borderColor = Colors.black,
-    double borderWidth = 1.0,
     double borderRadius = 15.0,
     Color? color,
     AlignmentGeometry? alignment,
     String text = '',
     String imagePath = '',
+    Color? textColor,
   }) {
     return Container(
       width: width,
       height: height,
       decoration: BoxDecoration(
         color: color,
-        border: isBorder
-            ? Border.all(color: borderColor, width: borderWidth)
-            : null,
         borderRadius: BorderRadius.circular(borderRadius),
       ),
       alignment: alignment,
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          imagePath.isNotEmpty
-              ?
           Image.asset(
-                  imagePath,
-                  width: 50,
-                  height: 50,
-                )
-              : const SizedBox(),
-          const SizedBox(
-            width: 10,
-          ),
-          SizedBox(
-            width: 25,
+            imagePath,
+            width: 50,
+            height: 50,
           ),
           Text(
             text,
             style: TextStyle(
               fontSize: 27,
-              color: Colors.white,
-              fontFamily: 'Inter Tight',
+              color: textColor,
+              fontFamily: AppFonts.bold,
             ),
-          ),
-          SizedBox(
-            width: 52,
           ),
           Container(
             width: 58,
             height: 58,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: Colors.white,
               shape: BoxShape.circle,
             ),

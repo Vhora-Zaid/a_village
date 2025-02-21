@@ -25,14 +25,15 @@ flutter:
 
   assets:
     - assets/images/splashscreen_logo.png
-    - assets/images/englishLanguageLogo.png
-    - assets/images/rightArrow.png
-    - assets/images/chineseLanguageLogo.png
+    - assets/images/englishlang_logo.png
+    - assets/images/arrow.png
+    - assets/images/chineselang_logo.png
 
   fonts:
     - family: InterTight
       fonts:
         - asset: assets/fonts/InterTight-Bold.ttf
+        - asset: assets/fonts/InterTight-Regular.ttf
 
 
   # fonts:
