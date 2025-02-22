@@ -1,5 +1,27 @@
 {
   "logoTitleMessage": "A Village",
   "logoSubtitleMessage": "It takes a Village",
-  "selectLanguage": "Select Language"
+  "selectLanguage": "Select Language",
+  "intro1": "Find your first village matches",
+  "intro2": "Talk with the people you admire",
+  "intro3": "Find perfect partner for you",
+  "lorem": "It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.",
+  "login": "Login",
+  "register": "Register",
+  "email": "Email",
+  "password": "Password",
+  "confirmpassword": "Confirm Password",
+  "forgotPassword": "Forgot Password?",
+  "loginwith": "OR Login With",
+  "alreadyhaveanaccount": "Already have an account? ",
+  "donthaveanaccount": "Don't have an account? ",
+  "emailrequired": "Email is required",
+  "passwordrequired": "Password is required",
+  "emailinvalid": "Email is invalid",
+  "passwordinvalid": "Password must include:\n- At least one uppercase letter\n- At least one lowercase letter\n- At least one digit\n- At least one special character (!@#\\$&*~)",
+  "name": "Full Name",
+  "mobile": "Mobile Number",
+  "submit": "Submit",
+  "enteryouremail": "Please enter the email address you'd like to your password reset information sent to",
+  "namerequired": "Name is required"
 }

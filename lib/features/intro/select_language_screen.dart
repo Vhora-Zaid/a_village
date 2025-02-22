@@ -1,11 +1,14 @@
 import 'package:a_village/common/widgets/language_container.dart';
+import 'package:a_village/features/intro/first_intro_screen.dart';
 import 'package:a_village/utils/constants/app_fonts.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SelectLanguageScreen extends StatefulWidget {
-  const SelectLanguageScreen({super.key});
+  final Function(Locale) changeLanguage;
+  const SelectLanguageScreen({super.key, required this.changeLanguage});
 
   @override
   State<SelectLanguageScreen> createState() => _SelectLanguageScreenState();
@@ -15,18 +18,28 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
+      body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 25),
+          padding: const EdgeInsets.only(top: 184, left: 25, right: 25),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'Select Language',
-                style: TextStyle(fontFamily: AppFonts.bold, fontSize: 30),
+                style: TextStyle(fontFamily: AppFonts.interbold, fontSize: 30, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 35),
               LanguageContainer.container(
+                onTap: () {
+                  widget.changeLanguage(const Locale('en'));
+                  setState(() {});
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FirstIntroScreen(),
+                    ),
+                  );
+                },
                 imagePath: ImageStrings.englishLanguageLogo,
                 text: 'English',
                 textColor: Colors.white,
@@ -36,6 +49,16 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
               ),
               const SizedBox(height: 9),
               LanguageContainer.container(
+                onTap: () {
+                  widget.changeLanguage(const Locale('zh'));
+                  setState(() {});
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => FirstIntroScreen(),
+                    ),
+                  );
+                },
                 imagePath: ImageStrings.chineseLanguageLogo,
                 text: 'Chinese',
                 textColor: Colors.black,
@@ -45,10 +68,10 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
               ),
               const SizedBox(height: 23),
               Text(
-                'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.',
+                AppLocalizations.of(context)!.lorem,
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontFamily: AppFonts.regular,
+                  fontFamily: AppFonts.interregular,
                   fontSize: 12,
                 ),
               )

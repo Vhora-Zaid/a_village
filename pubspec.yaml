@@ -28,6 +28,17 @@ flutter:
     - assets/images/englishlang_logo.png
     - assets/images/arrow.png
     - assets/images/chineselang_logo.png
+    - assets/images/nextbutton.png
+    - assets/images/app_logo.png
+    - assets/images/email.png
+    - assets/images/password.png
+    - assets/images/eye.png
+    - assets/images/googlelogo.png
+    - assets/images/applelogo.png
+    - assets/images/user.png
+    - assets/images/userlogo.png
+    - assets/images/mobile.png
+    - assets/images/backarrowicon.png
 
   fonts:
     - family: InterTight

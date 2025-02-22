@@ -13,47 +13,52 @@ class LanguageContainer {
     String text = '',
     String imagePath = '',
     Color? textColor,
+    VoidCallback? onTap,
   }) {
-    return Container(
-      width: width,
-      height: height,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(borderRadius),
-      ),
-      alignment: alignment,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          Image.asset(
-            imagePath,
-            width: 50,
-            height: 50,
-          ),
-          Text(
-            text,
-            style: TextStyle(
-              fontSize: 27,
-              color: textColor,
-              fontFamily: AppFonts.bold,
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: width,
+        height: height,
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.circular(borderRadius),
+        ),
+        alignment: alignment,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Image.asset(
+              imagePath,
+              width: 50,
+              height: 50,
             ),
-          ),
-          Container(
-            width: 58,
-            height: 58,
-            decoration: const BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: Center(
-              child: Image.asset(
-                ImageStrings.arrowRight,
-                width: 24,
-                height: 24,
+            Text(
+              text,
+              style: TextStyle(
+                fontSize: 27,
+                color: textColor,
+                fontFamily: AppFonts.interbold,
+                fontWeight: FontWeight.bold
               ),
             ),
-          ),
-        ],
+            Container(
+              width: 58,
+              height: 58,
+              decoration: const BoxDecoration(
+                color: Colors.white,
+                shape: BoxShape.circle,
+              ),
+              child: Center(
+                child: Image.asset(
+                  ImageStrings.arrowRight,
+                  width: 24,
+                  height: 24,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

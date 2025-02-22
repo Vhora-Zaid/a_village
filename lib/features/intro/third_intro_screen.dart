@@ -1,19 +1,20 @@
-import 'package:a_village/features/intro/second_intro_screen.dart';
+import 'package:a_village/features/login/login_screen.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
 
-class FirstIntroScreen extends StatefulWidget {
-  const FirstIntroScreen({super.key});
+class ThirdIntroScreen extends StatefulWidget {
+  const ThirdIntroScreen({super.key});
 
   @override
-  State<FirstIntroScreen> createState() => _FirstIntroScreenState();
+  State<ThirdIntroScreen> createState() => _ThirdIntroScreenState();
 }
 
-class _FirstIntroScreenState extends State<FirstIntroScreen> {
-  int activeIndex = 0;
+class _ThirdIntroScreenState extends State<ThirdIntroScreen> {
+
+  int activeIndex = 2;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +51,7 @@ class _FirstIntroScreenState extends State<FirstIntroScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => SecondIntroScreen(),
+                    builder: (context) => LoginScreen(),
                   ),
                 );
               },
@@ -65,12 +66,12 @@ class _FirstIntroScreenState extends State<FirstIntroScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 80, left: 25, right: 25),
+          padding: const EdgeInsets.only(left: 25, right: 25, top: 80),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
-                AppLocalizations.of(context)!.intro1,
+                AppLocalizations.of(context)!.intro3,
                 style: TextStyle(fontFamily: AppFonts.interbold, fontSize: 30, fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),

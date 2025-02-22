@@ -1,5 +1,27 @@
 {
   "logoTitleMessage": "村庄",
   "logoSubtitleMessage": "它需要一个村庄",
-  "selectLanguage": "选择语言"
+  "selectLanguage": "选择语言",
+  "intro1": "找到您的第一个乡村比赛",
+  "intro2": "与您欣赏的人交谈",
+  "intro3": "寻找适合您的理想伴侣",
+  "lorem": "长期以来的事实是,在查看页面的布局时,读者会被页面的可读内容分散注意力。",
+  "login": "登录",
+  "register": "登录",
+  "email": "电子邮件",
+  "password": "密码",
+  "confirmpassword": "确认密码",
+  "forgotPassword": "忘记密码了？",
+  "loginwith": "或登录",
+  "alreadyhaveanaccount": "已经有一个帐户？ ",
+  "donthaveanaccount": "没有帐户？",
+  "emailrequired": "需要电子邮件",
+  "passwordrequired": "需要密码",
+  "emailinvalid": "电子邮件无效",
+  "passwordinvalid": "密码必须包括:\n-至少一封大写字母\n-至少一个小写字母\n-至少一位\n-至少一个特殊角色(！@#\\ $&* ~)",
+  "name": "全名",
+  "mobile": "手机号码",
+  "submit": "提交",
+  "enteryouremail": "请输入您想要密码重置信息的电子邮件地址",
+  "namerequired": "需要姓名"
 }

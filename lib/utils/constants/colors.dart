@@ -4,6 +4,9 @@ class TColors {
 
   static const Color primary = Color(0xFF7F65FF);
   static const Color secondary = Color(0xFFFFD62E);
+  static const Color blue = Color(0xff2654FF);
+  static const Color grey = Color(0xff6F778B);
+  static const Color white = Color(0xffffffff);
   static const Gradient mainGradient = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,
