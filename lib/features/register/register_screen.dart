@@ -73,7 +73,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 32, right: 32, top: 100),
+          padding: const EdgeInsets.only(left: 32, right: 32, top: 100, bottom: 62),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -117,7 +117,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       suffixImage: null,
                       hintText: AppLocalizations.of(context)!.mobile,
                       validator: (value) =>
-                          AllValidators.validateEmail(value, context),
+                          AllValidators.validatePhoneNumber(value, context),
                     ),
                     SizedBox(
                       height: 20,

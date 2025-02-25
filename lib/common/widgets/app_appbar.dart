@@ -1,3 +1,4 @@
+import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 
@@ -26,6 +27,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         automaticallyImplyLeading: false,
         backgroundColor: Colors.transparent,
+        surfaceTintColor: TColors.white,
         elevation: 0,
         title: Text(
           title == null ? '' : title!,

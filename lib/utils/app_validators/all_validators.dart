@@ -37,5 +37,18 @@ static String? validateName(String? value, BuildContext context) {
   return null;
 }
 
+  static String? validatePhoneNumber(String? value, BuildContext context) {
+    var nonNullValue = value ?? '';
+    if (nonNullValue.isEmpty) {
+      return AppLocalizations.of(context)!.phonerequired;
+    }
+    String pattern = r'^\+?(\d[\d-. ]+)?(\([\d-. ]+\))?[\d-. ]+\d$';
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(nonNullValue)) {
+      return AppLocalizations.of(context)!.phoneinvalid;
+    }
+    return null;
+  }
+
 
 }
