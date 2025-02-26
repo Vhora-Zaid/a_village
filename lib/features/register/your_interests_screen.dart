@@ -7,6 +7,8 @@ import '../../utils/constants/colors.dart';
 import '../../utils/constants/app_fonts.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import '../../utils/constants/image_strings.dart';
+
 class YourInterestsScreen extends StatefulWidget {
   const YourInterestsScreen({super.key});
 
@@ -21,9 +23,16 @@ class _YourInterestsScreenState extends State<YourInterestsScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: MyAppBar(
-        onTap: () {
-          Navigator.pop(context);
-        },
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Image.asset(
+            ImageStrings.backarrow,
+            height: 44,
+            width: 44,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -60,7 +69,7 @@ class _YourInterestsScreenState extends State<YourInterestsScreen> {
                 height: 64,
               ),
               AppButton(
-                title: 'Continue',
+                title: AppLocalizations.of(context)!.buttoncontinue,
                 onTap: () {
                   Navigator.push(
                     context,

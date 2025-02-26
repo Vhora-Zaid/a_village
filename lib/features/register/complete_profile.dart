@@ -25,9 +25,16 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: MyAppBar(
-        onTap: () {
-          Navigator.pop(context);
-        },
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Image.asset(
+            ImageStrings.backarrow,
+            height: 44,
+            width: 44,
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -134,7 +141,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 height: 19,
               ),
               AppButton(
-                title: 'Continue',
+                title: AppLocalizations.of(context)!.buttoncontinue,
                 onTap: () {
                   Navigator.push(context, MaterialPageRoute(builder: (context) => YourInterestsScreen()));
                 },

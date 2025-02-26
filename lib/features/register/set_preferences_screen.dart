@@ -7,6 +7,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../common/widgets/app_button.dart';
 import '../../utils/constants/app_fonts.dart';
+import '../../utils/constants/image_strings.dart';
 
 class SetPreferencesScreen extends StatefulWidget {
   const SetPreferencesScreen({super.key});
@@ -31,9 +32,19 @@ class _SetPreferencesScreenState extends State<SetPreferencesScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: MyAppBar(
-        onTap: () {
-          Navigator.pop(context);
-        },
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Image.asset(
+              ImageStrings.backarrow,
+              height: 44,
+              width: 44,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -70,7 +81,7 @@ class _SetPreferencesScreenState extends State<SetPreferencesScreen> {
                 height: 81,
               ),
               AppButton(
-                title: 'Continue',
+                title: AppLocalizations.of(context)!.buttoncontinue,
                 onTap: () {
                   Navigator.push(
                     context,

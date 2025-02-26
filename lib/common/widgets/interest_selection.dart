@@ -121,3 +121,126 @@ class _InterestSelectionState extends State<InterestSelection> {
     );
   }
 }
+
+class PreferenceSelection extends StatefulWidget {
+  const PreferenceSelection({super.key});
+
+  @override
+  _PreferenceSelectionState createState() => _PreferenceSelectionState();
+}
+
+class _PreferenceSelectionState extends State<PreferenceSelection> {
+  List<String> selectedPreference = ['Men'];
+
+  @override
+  Widget build(BuildContext context) {
+    final preferences = [
+      AppLocalizations.of(context)!.men,
+      AppLocalizations.of(context)!.women,
+      AppLocalizations.of(context)!.both,
+    ];
+
+    return Column(
+      children: [
+        Wrap(
+          spacing: 10,
+          children: preferences.map((preference) {
+            bool isSelected = selectedPreference.contains(preference);
+            return ChoiceChip(
+              label: Text(preference),
+              backgroundColor: TColors.white,
+              selectedColor: TColors.yellow,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: isSelected ? Colors.transparent : Color(0xffE3E3E3),
+                ),
+                borderRadius: BorderRadius.circular(40),
+              ),
+              labelStyle: TextStyle(
+                fontSize: 14,
+                color: TColors.black,
+                fontFamily: AppFonts.interregular,
+              ),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    selectedPreference.add(preference);
+                  } else {
+                    selectedPreference.remove(preference);
+                  }
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+
+class InterestFilterSelection extends StatefulWidget {
+  const InterestFilterSelection({super.key});
+
+  @override
+  _InterestFilterSelectionState createState() => _InterestFilterSelectionState();
+}
+
+class _InterestFilterSelectionState extends State<InterestFilterSelection> {
+  List<String> selectedInterests = ['Dancing & Singing', 'Language'];
+
+  @override
+  Widget build(BuildContext context) {
+    final interests = [
+      AppLocalizations.of(context)!.gaming,
+      AppLocalizations.of(context)!.dancing,
+      AppLocalizations.of(context)!.language,
+      AppLocalizations.of(context)!.movie,
+      AppLocalizations.of(context)!.book,
+      AppLocalizations.of(context)!.architecture,
+      AppLocalizations.of(context)!.photography,
+      AppLocalizations.of(context)!.fashion,
+      AppLocalizations.of(context)!.writing,
+    ];
+
+    return Column(
+      children: [
+        Wrap(
+          spacing: 10,
+          runSpacing: -4,
+          children: interests.map((interest) {
+            bool isSelected = selectedInterests.contains(interest);
+            return ChoiceChip(
+              label: Text(interest),
+              backgroundColor: TColors.white,
+              selectedColor: TColors.yellow,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: isSelected ? Colors.transparent : Color(0xffE3E3E3),
+                ),
+                borderRadius: BorderRadius.circular(40),
+              ),
+              labelStyle: TextStyle(
+                fontSize: 14,
+                color: TColors.black,
+                fontFamily: AppFonts.interregular,
+              ),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(() {
+                  if (selected) {
+                    selectedInterests.add(interest);
+                  } else {
+                    selectedInterests.remove(interest);
+                  }
+                });
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+

@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:a_village/common/widgets/app_appbar.dart';
 import 'package:a_village/common/widgets/app_gridview.dart';
+import 'package:a_village/features/discover/discover_screen.dart';
+import 'package:a_village/features/filter/filters_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,14 +25,24 @@ class _UploadYourPhotosScreenState extends State<UploadYourPhotosScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: MyAppBar(
-        onTap: () {
-          Navigator.pop(context);
-        },
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Image.asset(
+              ImageStrings.backarrow,
+              height: 44,
+              width: 44,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
           padding:
-          const EdgeInsets.only(left: 16, right: 16, top: 7, bottom: 10),
+              const EdgeInsets.only(left: 16, right: 16, top: 7, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -55,21 +69,20 @@ class _UploadYourPhotosScreenState extends State<UploadYourPhotosScreen> {
               SizedBox(
                 height: 15,
               ),
-              AppGridViewForPhotos(
-                items: List.generate(6, (index) => ImageStrings.defaultperson),
-                selectedItems: List.generate(6, (index) => false),
-                onTap: (index) {},
-                addImage: ImageStrings.male,
+              SelectableImageGrid(
+                crossAxisCount: 2,
               ),
-
-
+              SizedBox(
+                height: 20,
+              ),
               AppButton(
-                title: 'Continue',
+                title: AppLocalizations.of(context)!.getstarted,
+
                 onTap: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => UploadYourPhotosScreen(),
+                      builder: (context) => DiscoverScreen(),
                     ),
                   );
                 },

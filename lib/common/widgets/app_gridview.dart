@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
@@ -15,13 +18,13 @@ class _SelectableGridState extends State<SelectableGrid> {
   List<bool> selectedItems = List.filled(6, false);
 
   get categoryNames => [
-    AppLocalizations.of(context)!.love,
-    AppLocalizations.of(context)!.friends,
-    AppLocalizations.of(context)!.business,
-    AppLocalizations.of(context)!.fling,
-    AppLocalizations.of(context)!.male,
-    AppLocalizations.of(context)!.female
-  ];
+        AppLocalizations.of(context)!.love,
+        AppLocalizations.of(context)!.friends,
+        AppLocalizations.of(context)!.business,
+        AppLocalizations.of(context)!.fling,
+        AppLocalizations.of(context)!.male,
+        AppLocalizations.of(context)!.female
+      ];
 
   @override
   Widget build(BuildContext context) {
@@ -48,12 +51,13 @@ class _SelectableGridState extends State<SelectableGrid> {
                   width: 164,
                   decoration: BoxDecoration(
                     border: selectedItems[index]
-                      ? null
-                      : Border.all(
-                          color: TColors.bordercolor,
-                          width: 1,
-                        ),
-                    color: selectedItems[index] ? TColors.yellow : TColors.white,
+                        ? null
+                        : Border.all(
+                            color: TColors.bordercolor,
+                            width: 1,
+                          ),
+                    color:
+                        selectedItems[index] ? TColors.yellow : TColors.white,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
@@ -66,7 +70,9 @@ class _SelectableGridState extends State<SelectableGrid> {
                           width: 67,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(50),
-                            color: selectedItems[index] ? TColors.white : Color(0xffFFFAE8),
+                            color: selectedItems[index]
+                                ? TColors.white
+                                : Color(0xffFFFAE8),
                           ),
                           child: Image.asset(
                             [
@@ -101,22 +107,22 @@ class _SelectableGridState extends State<SelectableGrid> {
                   right: 0,
                   top: 0,
                   child: selectedItems[index]
-                    ? Padding(
-                      padding: const EdgeInsets.all(8),
-                      child: Container(
-                        height: 24,
-                        width: 24,
-                        decoration: BoxDecoration(
-                          color: TColors.yellow,
-                          borderRadius: BorderRadius.circular(50),
-                        ),
-                        child: Image.asset(
-                          ImageStrings.tick,
-                          scale: 4,
-                        ),
-                      ),
-                    )
-                    : Container(),
+                      ? Padding(
+                          padding: const EdgeInsets.all(8),
+                          child: Container(
+                            height: 24,
+                            width: 24,
+                            decoration: BoxDecoration(
+                              color: TColors.yellow,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Image.asset(
+                              ImageStrings.tick,
+                              scale: 4,
+                            ),
+                          ),
+                        )
+                      : Container(),
                 ),
               ],
             ),
@@ -127,62 +133,120 @@ class _SelectableGridState extends State<SelectableGrid> {
   }
 }
 
-class AppGridViewForPhotos extends StatelessWidget {
-  final List<String> items;
-  final List<bool> selectedItems;
-  final Function(int index) onTap;
-  final String addImage;
+class SelectableImageGrid extends StatefulWidget {
+  final int crossAxisCount;
+  final double height;
+  final double width;
+  final Color selectedColor;
+  final Color unselectedColor;
+  final Color borderColor;
+  final Color textColor;
 
-  const AppGridViewForPhotos({
+  const SelectableImageGrid({
     Key? key,
-    required this.items,
-    required this.selectedItems,
-    required this.onTap,
-    required this.addImage,
+    this.crossAxisCount = 2,
+    this.height = 192,
+    this.width = 164,
+    this.selectedColor = Colors.transparent,
+    this.unselectedColor = TColors.white,
+    this.borderColor = TColors.imageborder,
+    this.textColor = TColors.black,
   }) : super(key: key);
+
+  @override
+  _SelectableImageGridState createState() => _SelectableImageGridState();
+}
+
+class _SelectableImageGridState extends State<SelectableImageGrid> {
+  List<File?> selectedImages = List.filled(6, null);
 
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 10,
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: widget.crossAxisCount,
+        childAspectRatio: widget.width / widget.height,
       ),
-      itemCount: items.length + 1,
+      itemCount: selectedImages.length,
       itemBuilder: (context, index) {
-        if (index == items.length) {
-          return GestureDetector(
-            onTap: () => onTap(index),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Color(0xffFFFAE8),
-              ),
-              child: Image.asset(
-                addImage,
-                fit: BoxFit.cover,
-              ),
+        return GestureDetector(
+          onTap: () => _selectImage(index),
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Stack(
+              children: [
+                Container(
+                  height: widget.height,
+                  width: widget.width,
+                  decoration: BoxDecoration(
+                    border: selectedImages[index] == null
+                        ? Border.all(
+                            color: widget.borderColor,
+                            width: 1,
+                          )
+                        : null,
+                    color: selectedImages[index] != null
+                        ? widget.selectedColor
+                        : widget.unselectedColor,
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: selectedImages[index] != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image.file(
+                            selectedImages[index]!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                        )
+                      : Center(
+                          child: Image.asset(
+                            ImageStrings.plus,
+                            height: 24,
+                            width: 24,
+                          ),
+                        ),
+                ),
+                if (selectedImages[index] != null)
+                  Positioned(
+                    top: 6,
+                    right: 6,
+                    child: GestureDetector(
+                      onTap: () => _removeImage(index),
+                      child: Padding(
+                        padding: const EdgeInsets.all(7.0),
+                        child: Image.asset(
+                          ImageStrings.delete,
+                          height: 36,
+                          width: 36,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
             ),
-          );
-        } else {
-          return GestureDetector(
-            onTap: () => onTap(index),
-            child: Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: selectedItems[index] ? TColors.white : Color(0xffFFFAE8),
-              ),
-              child: Image.asset(
-                items[index],
-                fit: BoxFit.cover,
-              ),
-            ),
-          );
-        }
+          ),
+        );
       },
     );
+  }
+
+  Future<void> _selectImage(int index) async {
+    final pickedFile =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        selectedImages[index] = File(pickedFile.path);
+      });
+    }
+  }
+
+  void _removeImage(int index) {
+    setState(() {
+      selectedImages[index] = null;
+    });
   }
 }

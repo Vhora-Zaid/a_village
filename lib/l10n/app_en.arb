@@ -59,5 +59,21 @@
   "male": "Male",
   "female": "Female",
   "uploadphotos": "Upload your Photos",
-  "bestphotos": "Your best photos..."
+  "bestphotos": "Your best photos...",
+  "clear": "Clear",
+  "filter": "Filters",
+  "preference": "Preference",
+  "men": "Men",
+  "women": "Women",
+  "both": "Both",
+  "interest": "Interests",
+  "selectall": "Select All",
+  "viewall": "View All",
+  "distance": "Distance",
+  "miles": "miles",
+  "apply": "Apply",
+  "buttoncontinue": "Continue",
+  "getstarted": "Get Started",
+  "agerange": "Age Range",
+  "discover": "Discover"
 }

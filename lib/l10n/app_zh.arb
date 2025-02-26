@@ -59,5 +59,21 @@
   "male": "坏",
   "female": "女",
   "uploadphotos": "上载您的照片",
-  "bestphotos": "你最好的照片..."
+  "bestphotos": "你最好的照片...",
+  "clear": "明确",
+  "filter": "过滤器",
+  "preference": "偏好",
+  "men": "但",
+  "women": "女",
+  "both": "两者",
+  "interest": "兴趣",
+  "selectall": "选择全部",
+  "viewall": "查看全部",
+  "distance": "距离",
+  "miles": "英里",
+  "apply": "应用",
+  "buttoncontinue": "继续",
+  "getstarted": "入门",
+  "agerange": "年龄范围",
+  "discover": "发现"
 }

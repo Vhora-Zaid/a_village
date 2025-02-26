@@ -44,6 +44,10 @@ class ImageStrings {
   static const String male = 'assets/images/male.png';
   static const String female = 'assets/images/female.png';
   static const String tick = 'assets/images/tick.png';
+  static const String delete = 'assets/images/deleteicon.png';
+  static const String plus = 'assets/images/plus.png';
+  static const String filter = 'assets/images/filter.png';
+
 
 
 }
