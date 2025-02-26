@@ -75,5 +75,16 @@
   "buttoncontinue": "Continue",
   "getstarted": "Get Started",
   "agerange": "Age Range",
-  "discover": "Discover"
+  "discover": "Discover",
+  "appname": "A Village",
+  "ok": "OK",
+  "cancel": "Cancel",
+  "imagefromlibrary": "Image from Library",
+  "imagefromcamera": "Take a Photo",
+  "permissiondenied": "Permission Denied",
+  "search": "Search",
+  "message": "Message",
+  "onlineusers": "Online Users",
+  "favorites": "Favorites",
+  "village": "A Village"
 }

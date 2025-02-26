@@ -4,12 +4,10 @@ import 'package:a_village/features/discover/discover_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../common/widgets/app_button.dart';
 import '../../common/widgets/app_slider.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/image_strings.dart';
-import '../register/upload_your_photos_screen.dart';
 
 class FiltersScreen extends StatefulWidget {
   const FiltersScreen({super.key});
@@ -29,7 +27,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: MyAppBar(
         leading: GestureDetector(
           onTap: () {
-            Navigator.pop(context);
+           Navigator.pop(context);
           },
           child: Padding(
             padding: const EdgeInsets.only(left: 16),
@@ -225,12 +223,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
               AppButton(
                 title: AppLocalizations.of(context)!.apply,
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => DiscoverScreen(),
-                    ),
-                  );
+                 Navigator.pop(context);
                 },
               ),
             ],

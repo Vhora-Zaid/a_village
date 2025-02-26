@@ -13,7 +13,6 @@ class SecondIntroScreen extends StatefulWidget {
 }
 
 class _SecondIntroScreenState extends State<SecondIntroScreen> {
-
   int activeIndex = 1;
 
   @override
@@ -29,7 +28,7 @@ class _SecondIntroScreenState extends State<SecondIntroScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 3,
-                    (index) {
+                (index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Container(
@@ -48,7 +47,7 @@ class _SecondIntroScreenState extends State<SecondIntroScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => ThirdIntroScreen(),
@@ -72,22 +71,22 @@ class _SecondIntroScreenState extends State<SecondIntroScreen> {
             children: [
               Text(
                 AppLocalizations.of(context)!.intro2,
-                style: TextStyle(fontFamily: AppFonts.interbold, fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontFamily: AppFonts.interbold,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 37,
               ),
-
-
-
-
-
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
-                child: Text(AppLocalizations.of(context)!.lorem, textAlign: TextAlign.center,),
+                child: Text(
+                  AppLocalizations.of(context)!.lorem,
+                  textAlign: TextAlign.center,
+                ),
               ),
-
             ],
           ),
         ),

@@ -1,28 +1,27 @@
-import 'package:a_village/common/widgets/app_appbar.dart';
-import 'package:a_village/common/widgets/app_searchbar.dart';
+import 'package:a_village/common/widgets/app_listview.dart';
 import 'package:a_village/features/filter/filters_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../common/widgets/app_gridview.dart';
+import '../../common/widgets/app_appbar.dart';
+import '../../common/widgets/app_searchbar.dart';
 import '../../utils/constants/image_strings.dart';
 
-class DiscoverScreen extends StatefulWidget {
-  const DiscoverScreen({super.key});
+class FavoritesScreen extends StatefulWidget {
+  const FavoritesScreen({super.key});
 
   @override
-  State<DiscoverScreen> createState() => _DiscoverScreenState();
+  State<FavoritesScreen> createState() => _FavoritesScreenState();
 }
 
-class _DiscoverScreenState extends State<DiscoverScreen> {
-
+class _FavoritesScreenState extends State<FavoritesScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: MyAppBar(
         leading: null,
-        title: AppLocalizations.of(context)!.discover,
+        title: AppLocalizations.of(context)!.favorites,
         color: TColors.black,
         fontSize: 27,
         actions: [
@@ -30,16 +29,9 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             padding: const EdgeInsets.only(right: 16),
             child: GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FiltersScreen(),
-                    fullscreenDialog: true,
-                  ),
-                );
               },
               child: Image.asset(
-                ImageStrings.filter,
+                ImageStrings.notificationlogo,
                 height: 24,
                 width: 24,
               ),
@@ -62,16 +54,8 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
               child: AppSearchBar(),
             ),
           ),
-          SliverPadding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            sliver: SliverList(
-              delegate: SliverChildBuilderDelegate(
-                    (context, index) {
-                  return ProfileGridView();
-                },
-                childCount: 1,
-              ),
-            ),
+          SliverFillRemaining(
+            child: AppListViewFavorites(),
           ),
         ],
       ),

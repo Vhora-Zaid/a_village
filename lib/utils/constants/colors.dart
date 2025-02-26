@@ -14,6 +14,15 @@ class TColors {
   static const Color bordercolor = Color(0xffECEBF3);
   static const Color imageborder = Color(0xffC4C4C4);
   static const Color slidergrey = Color(0xffE9E9E9);
+  static const Color online = Color(0xff1ACE16);
+  static const Color offline = Color(0xff7F7F7F);
+  static const Color cardeven = Color(0xffF8F8FF);
+  static const Color cardodd = Color(0xffFFFDF1);
+  static const Color searchborder = Color(0xffDBDDE2);
+  static const Color divider = Color(0xffECECEC);
+  static const Color favoritecard = Color(0xffFAFAFA);
+
+
   static const Gradient mainGradient = LinearGradient(
     begin: Alignment.topRight,
     end: Alignment.bottomLeft,

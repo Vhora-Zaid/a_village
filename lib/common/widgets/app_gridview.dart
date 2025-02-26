@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -248,5 +247,166 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
     setState(() {
       selectedImages[index] = null;
     });
+  }
+}
+
+class ProfileGridView extends StatelessWidget {
+
+  const ProfileGridView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    final List<Map<String, dynamic>> profiles = [
+      {
+        'imageUrl': ImageStrings.profile1,
+        'name': 'Eleanor Pena',
+        'age': 20,
+        'status': 'Online',
+        'isOnline': true,
+        'location': 'Toledo'
+      },
+      {
+        'imageUrl': ImageStrings.profile2,
+        'name': 'Jenny Wilson',
+        'age': 24,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Austin'
+      },
+      {
+        'imageUrl': ImageStrings.profile3,
+        'name': 'Jacob Jones',
+        'age': 28,
+        'status': 'Online',
+        'isOnline': true,
+        'location': 'Toledo'
+      },
+      {
+        'imageUrl': ImageStrings.profile4,
+        'name': 'Cameron Pena',
+        'age': 30,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Fairfield'
+      },
+      {
+        'imageUrl': ImageStrings.profile5,
+        'name': 'Savannah Nguy',
+        'age': 21,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Naperville'
+      },
+      {
+        'imageUrl': ImageStrings.profile6,
+        'name': 'Annette Black',
+        'age': 31,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Orange'
+      },
+      {
+        'imageUrl': ImageStrings.profile7,
+        'name': 'Cody Fisher',
+        'age': 32,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Pembroke Pines'
+      },
+      {
+        'imageUrl': ImageStrings.profile8,
+        'name': 'Emily Davis',
+        'age': 25,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Fairfield'
+      }
+    ];
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 4,
+      ),
+      itemCount: profiles.length,
+      itemBuilder: (context, index) {
+        final profile = profiles[index];
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            height: 206,
+            width: 164,
+            decoration: BoxDecoration(
+              color: (index ~/ 2).isEven ? TColors.cardeven : TColors.cardodd,
+              borderRadius: BorderRadius.circular(10),
+            ),
+            padding: const EdgeInsets.all(12),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 112,
+                  width: 112,
+                  child: CircleAvatar(
+                    backgroundImage: AssetImage(profile['imageUrl']),
+                  ),
+                ),
+                const SizedBox(height: 18),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            '${profile['name']}, ${profile['age']}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: AppFonts.interbold,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Icon(
+                          Icons.circle,
+                          size: 8,
+                          color: profile['isOnline'] ?? false ? TColors.online : TColors.offline,
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(ImageStrings.location, height: 18, width: 18,),
+                        const SizedBox(width: 4),
+                        Expanded(
+                          child: Text(
+                            profile['location'] ?? 'Unknown Location',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: AppFonts.interregular,
+                              fontWeight: FontWeight.w400,
+                              color: TColors.black,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
   }
 }

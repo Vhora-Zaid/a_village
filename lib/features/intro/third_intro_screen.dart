@@ -48,7 +48,7 @@ class _ThirdIntroScreenState extends State<ThirdIntroScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => LoginScreen(),

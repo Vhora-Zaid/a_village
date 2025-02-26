@@ -1,12 +1,15 @@
+import 'package:a_village/common/widgets/app_bottomnavigation.dart';
 import 'package:a_village/common/widgets/app_textfield.dart';
 import 'package:a_village/features/register/register_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/app_button.dart';
 import '../../utils/app_validators/all_validators.dart';
 import '../../utils/constants/app_fonts.dart';
+import '../discover/discover_screen.dart';
 import '../home/home_screen.dart';
 import 'forgot_password_screen.dart';
 
@@ -19,9 +22,21 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
+  int index = 0;
+
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    if (kDebugMode) {
+      emailController.text = 'abc@example.com';
+      passwordController.text = 'Abc@123';
+    }
+  }
 
   @override
   void dispose() {
@@ -152,7 +167,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => HomeScreen(),
+                        builder: (context) => AppBottomNavBar(
+
+                        ),
                       ),
                     );
                   }

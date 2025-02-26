@@ -52,7 +52,7 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
                 onTap: () {
                   widget.changeLanguage(const Locale('zh'));
                   setState(() {});
-                  Navigator.push(
+                  Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
                       builder: (context) => FirstIntroScreen(),

@@ -47,7 +47,29 @@ class ImageStrings {
   static const String delete = 'assets/images/deleteicon.png';
   static const String plus = 'assets/images/plus.png';
   static const String filter = 'assets/images/filter.png';
-
-
+  static const String profile1 = 'assets/images/profile1.png';
+  static const String profile2 = 'assets/images/profile2.png';
+  static const String profile3 = 'assets/images/profile3.png';
+  static const String profile4 = 'assets/images/profile4.png';
+  static const String profile5 = 'assets/images/profile5.png';
+  static const String profile6 = 'assets/images/profile6.png';
+  static const String profile7 = 'assets/images/profile7.png';
+  static const String profile8 = 'assets/images/profile8.png';
+  static const String location = 'assets/images/location.png';
+  static const String search = 'assets/images/search.png';
+  static const String home = 'assets/images/home.png';
+  static const String village = 'assets/images/avillage.png';
+  static const String homeapplogo = 'assets/images/applogo.png';
+  static const String notificationlogo = 'assets/images/notificationlogo.png';
+  static const String homeactive = 'assets/images/homeactive.png';
+  static const String discoveractive = 'assets/images/discoveractive.png';
+  static const String messageactive = 'assets/images/messageactive.png';
+  static const String favoriteactive = 'assets/images/favoriteactive.png';
+  static const String profileactive = 'assets/images/profileactive.png';
+  static const String homeinactive = 'assets/images/homeinactive.png';
+  static const String discoverinactive = 'assets/images/discoverinactive.png';
+  static const String messageinactive = 'assets/images/messageinactive.png';
+  static const String favoriteinactive = 'assets/images/favoriteinactive.png';
+  static const String profileinactive = 'assets/images/profileinactive.png';
 
 }

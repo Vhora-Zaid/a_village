@@ -75,5 +75,16 @@
   "buttoncontinue": "继续",
   "getstarted": "入门",
   "agerange": "年龄范围",
-  "discover": "发现"
+  "discover": "发现",
+  "appname": "村庄",
+  "ok": "好",
+  "cancel": "取消",
+  "imagefromlibrary": "图书馆图片",
+  "imagefromcamera": "拍照",
+  "permissiondenied": "许可被拒绝",
+  "search": "搜索",
+  "message": "讯息",
+  "onlineusers": "在线用户",
+  "favorites": "最爱",
+  "village": "村庄"
 }

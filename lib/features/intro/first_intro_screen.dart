@@ -28,7 +28,7 @@ class _FirstIntroScreenState extends State<FirstIntroScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: List.generate(
                 3,
-                    (index) {
+                (index) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4.0),
                     child: Container(
@@ -47,7 +47,7 @@ class _FirstIntroScreenState extends State<FirstIntroScreen> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
                     builder: (context) => SecondIntroScreen(),
@@ -71,20 +71,21 @@ class _FirstIntroScreenState extends State<FirstIntroScreen> {
             children: [
               Text(
                 AppLocalizations.of(context)!.intro1,
-                style: TextStyle(fontFamily: AppFonts.interbold, fontSize: 30, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                    fontFamily: AppFonts.interbold,
+                    fontSize: 30,
+                    fontWeight: FontWeight.bold),
                 textAlign: TextAlign.center,
               ),
               SizedBox(
                 height: 37,
               ),
-
-
-
-
-
               Padding(
                 padding: const EdgeInsets.only(left: 40, right: 40),
-                child: Text(AppLocalizations.of(context)!.lorem, textAlign: TextAlign.center,),
+                child: Text(
+                  AppLocalizations.of(context)!.lorem,
+                  textAlign: TextAlign.center,
+                ),
               ),
             ],
           ),
