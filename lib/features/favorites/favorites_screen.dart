@@ -1,5 +1,4 @@
 import 'package:a_village/common/widgets/app_listview.dart';
-import 'package:a_village/features/filter/filters_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -26,7 +25,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         fontSize: 27,
         actions: [
           Padding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: const EdgeInsets.only(right: 26),
             child: GestureDetector(
               onTap: () {
               },

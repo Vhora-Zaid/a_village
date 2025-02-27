@@ -1,10 +1,23 @@
 import 'package:a_village/features/splash/splash_screen.dart';
+import 'package:a_village/providers/chat_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
+
+import 'features/chat/chat_screen.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ChatProvider(),
+        ),
+      ],
+      child: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -15,7 +28,6 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-
   Locale selectedLocale = Locale('en');
 
   void _changeLanguage(Locale locale) {
@@ -45,7 +57,11 @@ class _MyAppState extends State<MyApp> {
         }
         return supportedLocales.first;
       },
-      home: SplashScreen(changeLanguage: _changeLanguage),
+      initialRoute: '/',
+      routes: {
+        '/': (context) => SplashScreen(changeLanguage: _changeLanguage),
+        '/chat': (context) => ChatScreen(),
+      },
     );
   }
 }

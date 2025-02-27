@@ -1,6 +1,5 @@
 import 'package:a_village/utils/constants/app_fonts.dart';
 import 'package:a_village/utils/constants/colors.dart';
-import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {

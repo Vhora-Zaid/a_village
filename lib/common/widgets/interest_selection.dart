@@ -37,7 +37,6 @@ class _InterestSelectionState extends State<InterestSelection> {
       AppLocalizations.of(context)!.travel,
       AppLocalizations.of(context)!.art
     ];
-
     Widget getAvatarForInterest(String interest) {
       switch (interest) {
         case 'Gaming':

@@ -56,6 +56,7 @@ class AppTextField {
             )),
         suffixIcon: GestureDetector(
           onTap: () {
+
           },
           child: Padding(
             padding: EdgeInsets.only(right: 5),

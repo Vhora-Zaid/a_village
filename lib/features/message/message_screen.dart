@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/app_appbar.dart';
 import '../../common/widgets/app_searchbar.dart';
 import '../../utils/constants/app_fonts.dart';
+import '../../utils/constants/image_strings.dart';
 
 class MessageScreen extends StatefulWidget {
   const MessageScreen({super.key});
@@ -68,7 +69,57 @@ class _MessageScreenState extends State<MessageScreen> {
           ),
           SliverList(
             delegate: SliverChildBuilderDelegate(
-              (context, index) => AppListViewVertical(),
+              (context, index) => AppListViewVertical(
+                onTap: (index) {
+                  Navigator.pushNamed(
+                    context,
+                    '/chat',
+                    arguments: index,
+                  );
+                },
+                height: 56,
+                width: 56,
+                profileImages: [
+                  ImageStrings.profile1,
+                  ImageStrings.profile2,
+                  ImageStrings.profile3,
+                  ImageStrings.profile4,
+                  ImageStrings.profile5,
+                  ImageStrings.profile6,
+                  ImageStrings.profile7,
+                  ImageStrings.profile8
+                ],
+                names: [
+                  'Stella Walsh',
+                  'Lottie Glover',
+                  'Mildred Butler',
+                  'Cameron Pena',
+                  'Victoria Norris',
+                  'Maggie Price',
+                  'Esther Kim',
+                  'Augusta Matthews'
+                ],
+                messages: [
+                  'Hey! Hows it going?',
+                  'What kind of music do you like?',
+                  'Sounds good to me!',
+                  'What is your favorite color?',
+                  'Sounds good to me!',
+                  'What is your favorite color?',
+                  'I like red',
+                  'What is your favorite color?'
+                ],
+                timestamps: [
+                  'A week ago',
+                  '07 Apr 2023',
+                  '24 Apr 2023',
+                  '01 Oct 2023',
+                  '08 Apr 2023',
+                  '18 Aug 2023',
+                  '09 Dec 2023',
+                  '08 Apr 2023'
+                ],
+              ),
               childCount: 1,
             ),
           ),

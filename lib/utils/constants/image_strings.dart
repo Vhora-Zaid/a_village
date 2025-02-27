@@ -55,6 +55,7 @@ class ImageStrings {
   static const String profile6 = 'assets/images/profile6.png';
   static const String profile7 = 'assets/images/profile7.png';
   static const String profile8 = 'assets/images/profile8.png';
+  static const String profile9 = 'assets/images/profile9.png';
   static const String location = 'assets/images/location.png';
   static const String search = 'assets/images/search.png';
   static const String home = 'assets/images/home.png';
@@ -71,5 +72,18 @@ class ImageStrings {
   static const String messageinactive = 'assets/images/messageinactive.png';
   static const String favoriteinactive = 'assets/images/favoriteinactive.png';
   static const String profileinactive = 'assets/images/profileinactive.png';
-
+  static const String matches = 'assets/images/matches.png';
+  static const String wholikesyou = 'assets/images/wholikesyou.png';
+  static const String yourlikes = 'assets/images/yourlikes.png';
+  static const String subscription = 'assets/images/subscription.png';
+  static const String settings = 'assets/images/settings.png';
+  static const String support = 'assets/images/support.png';
+  static const String privacy = 'assets/images/privacy.png';
+  static const String logout = 'assets/images/logout.png';
+  static const String send = 'assets/images/send.png';
+  static const String editprofile = 'assets/images/editprofile.png';
+  static const String radioselected = 'assets/images/radioselected.png';
+  static const String radiounselected = 'assets/images/radiounselected.png';
+  static const String rightarrow = 'assets/images/rightarrow.png';
+  static const String changepassword = 'assets/images/changepassword.png';
 }

@@ -55,9 +55,8 @@ class AppListView extends StatelessWidget {
                         bottom: 4,
                         right: 4,
                         child: Icon(
-                          index.isEven ? Icons.circle : Icons.circle,
-                          color:
-                              index.isEven ? TColors.online : TColors.offline,
+                          Icons.circle,
+                          color: TColors.online,
                           size: 14,
                         ),
                       ),
@@ -100,51 +99,24 @@ class AppListView extends StatelessWidget {
 }
 
 class AppListViewVertical extends StatelessWidget {
-  AppListViewVertical({super.key});
+  List<String> profileImages;
+  List<String> names;
+  List<String> messages;
+  List<String> timestamps;
+  Function(int index) onTap;
+  double height;
+  double width;
 
-  final List<String> profileImages = [
-    ImageStrings.profile1,
-    ImageStrings.profile2,
-    ImageStrings.profile3,
-    ImageStrings.profile4,
-    ImageStrings.profile5,
-    ImageStrings.profile6,
-    ImageStrings.profile7,
-    ImageStrings.profile8,
-  ];
-
-  final List<String> names = [
-    'Stella Walsh',
-    'Lottie Glover',
-    'Mildred Butler',
-    'Stella Walsh',
-    'Victoria Norris',
-    'Maggie Price',
-    'Stella Walsh',
-    'Esther Kim',
-  ];
-
-  final List<String> messages = [
-    'Hey! Hows it going?',
-    'What kind of music do you like?',
-    'Sounds good to me!',
-    'Hey! Hows it going?',
-    'Hey! Hows it going?',
-    'Hey! Hows it going?',
-    'Hey! Hows it going?',
-    'Hey! Hows it going?',
-  ];
-
-  final List<String> timestamps = [
-    'A week ago',
-    '07 Apr 2023',
-    '24 Apr 2023',
-    '01 Oct 2023',
-    '08 Apr 2023',
-    '18 Aug 2023',
-    '06 Apr 2023',
-    '14 Mar 2023',
-  ];
+  AppListViewVertical({
+    super.key,
+    required this.profileImages,
+    required this.names,
+    required this.messages,
+    required this.timestamps,
+    required this.onTap,
+    required this.height,
+    required this.width,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -154,46 +126,48 @@ class AppListViewVertical extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 5),
       itemCount: names.length,
       itemBuilder: (BuildContext context, int index) {
-        return ListTile(
-          leading: Container(
-            width: 56,
-            height: 56,
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              image: DecorationImage(
-                image:
-                    AssetImage(profileImages[index % profileImages.length]),
+        return GestureDetector(
+          onTap: () => onTap(index),
+          child: ListTile(
+            leading: Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                image: DecorationImage(
+                  image: AssetImage(profileImages[index % profileImages.length]),
+                ),
               ),
             ),
-          ),
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                names[index],
-                style: const TextStyle(
-                  fontFamily: AppFonts.interregular,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: TColors.black,
+            title: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  names[index],
+                  style: const TextStyle(
+                    fontFamily: AppFonts.interregular,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: TColors.black,
+                  ),
                 ),
-              ),
-              Text(
-                timestamps[index],
-                style: const TextStyle(
-                  fontFamily: AppFonts.interregular,
-                  fontSize: 12,
-                  color: TColors.grey,
+                Text(
+                  timestamps[index],
+                  style: const TextStyle(
+                    fontFamily: AppFonts.interregular,
+                    fontSize: 12,
+                    color: TColors.timestampcolor,
+                  ),
                 ),
+              ],
+            ),
+            subtitle: Text(
+              messages[index],
+              style: const TextStyle(
+                fontFamily: AppFonts.interregular,
+                fontSize: 14,
+                color: TColors.messagecolor,
               ),
-            ],
-          ),
-          subtitle: Text(
-            messages[index],
-            style: const TextStyle(
-              fontFamily: AppFonts.interregular,
-              fontSize: 13,
-              color: TColors.grey,
             ),
           ),
         );
@@ -321,7 +295,9 @@ class AppListViewFavorites extends StatelessWidget {
                             const SizedBox(width: 8),
                             Icon(
                               profile['isOnline'] ? Icons.circle : Icons.circle,
-                              color: profile['isOnline'] ? TColors.online : TColors.offline,
+                              color: profile['isOnline']
+                                  ? TColors.online
+                                  : TColors.offline,
                               size: 8,
                             ),
                           ],

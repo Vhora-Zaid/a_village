@@ -21,6 +21,18 @@ class TColors {
   static const Color searchborder = Color(0xffDBDDE2);
   static const Color divider = Color(0xffECECEC);
   static const Color favoritecard = Color(0xffFAFAFA);
+  static const Color messagecolor = Color(0xff6F6F6F);
+  static const Color timestampcolor = Color(0xff8E8E8E);
+  static const Color chatscreen = Color(0xffDBDDE2);
+  static const Color chattime = Color(0xff647275);
+  static const Color lastname = Color(0xffC1C1C1);
+  static const Color stroke = Color(0xffEEEEEE);
+  static const Color inactivesubscription = Color(0xffCECECE);
+  static const Color trialbox = Color(0xffEDFBF5);
+  static const Color trialtext = Color(0xff28B870);
+  static const Color settingsdivider = Color(0xffE5E5E5);
+  static const Color togglebackground = Color(0xffE2E2E2);
+
 
 
   static const Gradient mainGradient = LinearGradient(
@@ -37,6 +49,14 @@ class TColors {
     colors: [
       Color(0xFFFFE36F),
       Color(0xFFEBC600),
+    ],
+  );
+  static const Gradient chatGradient = LinearGradient(
+    begin: Alignment.topCenter,
+    end: Alignment.bottomCenter,
+    colors: [
+      Color(0xFFF3F5FF),
+      Color(0xFFFFFFFF),
     ],
   );
 
