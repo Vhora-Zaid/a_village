@@ -33,12 +33,19 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: MyAppBar(
-        title: null,
-        leading: null,
-        actions: null,
-        onTap: () {
-          Navigator.pop(context);
-        },
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Image.asset(
+              ImageStrings.backarrow,
+              height: 44,
+              width: 44,
+            ),
+          ),
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(

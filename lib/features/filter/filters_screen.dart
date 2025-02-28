@@ -217,17 +217,17 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 inactiveColor: TColors.slidergrey,
                 textColor: TColors.blue,
               ),
-              SizedBox(
-                height: 121,
-              ),
-              AppButton(
-                title: AppLocalizations.of(context)!.apply,
-                onTap: () {
-                 Navigator.pop(context);
-                },
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+        child: AppButton(
+          title: AppLocalizations.of(context)!.apply,
+          onTap: () {
+            Navigator.pop(context);
+          },
         ),
       ),
     );

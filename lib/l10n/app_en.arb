@@ -125,5 +125,8 @@
   "currentpass": "Current Password",
   "newpass": "New Password",
   "confirmnewpass": "Confirm New Password",
-  "resetpass": "Reset Password"
+  "resetpass": "Reset Password",
+  "california": "California",
+  "personalinfo": "Personal Information",
+  "myinterest": "My Interests"
 }

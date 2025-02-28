@@ -9,8 +9,6 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/app_button.dart';
 import '../../utils/app_validators/all_validators.dart';
 import '../../utils/constants/app_fonts.dart';
-import '../discover/discover_screen.dart';
-import '../home/home_screen.dart';
 import 'forgot_password_screen.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -168,7 +166,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => AppBottomNavBar(
-
                         ),
                       ),
                     );

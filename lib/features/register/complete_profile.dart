@@ -29,10 +29,13 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
           onTap: () {
             Navigator.pop(context);
           },
-          child: Image.asset(
-            ImageStrings.backarrow,
-            height: 44,
-            width: 44,
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Image.asset(
+              ImageStrings.backarrow,
+              height: 44,
+              width: 44,
+            ),
           ),
         ),
       ),

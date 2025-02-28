@@ -100,7 +100,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
         child: AppButton(
           title: AppLocalizations.of(context)!.resetpass,
           onTap: () {

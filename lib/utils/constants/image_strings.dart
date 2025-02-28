@@ -86,4 +86,11 @@ class ImageStrings {
   static const String radiounselected = 'assets/images/radiounselected.png';
   static const String rightarrow = 'assets/images/rightarrow.png';
   static const String changepassword = 'assets/images/changepassword.png';
+  static const String avillage = 'assets/images/village.png';
+  static const String homecard = 'assets/images/homecard.png';
+  static const String homefavorite = 'assets/images/homefavorite.png';
+  static const String homeclose = 'assets/images/homeclose.png';
+  static const String homecheck = 'assets/images/homecheck.png';
+  static const String editicon = 'assets/images/editicon.png';
+
 }

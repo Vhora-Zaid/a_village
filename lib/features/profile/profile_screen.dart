@@ -1,3 +1,4 @@
+import 'package:a_village/features/edit%20profile/edit_profile_screen.dart';
 import 'package:a_village/features/settings/settings_screen.dart';
 import 'package:a_village/features/subscription/subscription_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
@@ -173,7 +174,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return GestureDetector(
                   onTap: () {
                     if (index == 0) {
-                      Navigator.pushNamed(context, '/editprofile');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => EditProfileScreen(),
+                        ),
+                      );
                     }
                     if (index == 1) {
                       Navigator.pushNamed(context, '/matches');

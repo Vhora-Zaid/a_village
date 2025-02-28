@@ -125,5 +125,8 @@
   "currentpass": "当前密码",
   "newpass": "新密码",
   "confirmnewpass": "确认新密码",
-  "resetpass": "重置密码"
+  "resetpass": "重置密码",
+  "california": "加利福尼亚",
+  "personalinfo": "个人信息",
+  "myinterest": "我的兴趣"
 }

@@ -1,13 +1,9 @@
-import 'dart:io';
-
 import 'package:a_village/common/widgets/app_appbar.dart';
+import 'package:a_village/common/widgets/app_bottomnavigation.dart';
 import 'package:a_village/common/widgets/app_gridview.dart';
-import 'package:a_village/features/discover/discover_screen.dart';
-import 'package:a_village/features/filter/filters_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
 import '../../common/widgets/app_button.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/image_strings.dart';
@@ -82,7 +78,7 @@ class _UploadYourPhotosScreenState extends State<UploadYourPhotosScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => DiscoverScreen(),
+                      builder: (context) => AppBottomNavBar(),
                     ),
                   );
                 },

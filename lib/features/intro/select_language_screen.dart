@@ -6,6 +6,8 @@ import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
+import 'intro_screen.dart';
+
 class SelectLanguageScreen extends StatefulWidget {
   final Function(Locale) changeLanguage;
   const SelectLanguageScreen({super.key, required this.changeLanguage});
@@ -36,14 +38,13 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FirstIntroScreen(),
+                      builder: (context) => IntroScreen(),
                     ),
                   );
                 },
                 imagePath: ImageStrings.englishLanguageLogo,
                 text: 'English',
                 textColor: Colors.white,
-                width: 325,
                 height: 145,
                 color: TColors.primary,
               ),
@@ -55,14 +56,13 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => FirstIntroScreen(),
+                      builder: (context) => IntroScreen(),
                     ),
                   );
                 },
                 imagePath: ImageStrings.chineseLanguageLogo,
                 text: 'Chinese',
                 textColor: Colors.black,
-                width: 325,
                 height: 145,
                 color: TColors.secondary,
               ),
