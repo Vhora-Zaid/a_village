@@ -35,6 +35,7 @@ class TColors {
   static const Color hintcolor = Color(0xff979797);
   static const Color aboutuser = Color(0xff6A6A6A);
   static const Color functionbutton = Color(0xffF6F1D3);
+  static const Color imagegrid = Color(0xffF8F8F8);
 
 
 

@@ -8,19 +8,29 @@ import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
 
 class AppBottomNavBar extends StatefulWidget {
-  const AppBottomNavBar({super.key});
+  final int currentIndex;
+
+  const AppBottomNavBar({super.key, required this.currentIndex});
 
   @override
   _AppBottomNavBarState createState() => _AppBottomNavBarState();
 }
 
 class _AppBottomNavBarState extends State<AppBottomNavBar> {
-  int _selectedIndex = 0;
+  late int _selectedIndex;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.currentIndex;
+  }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(
+      () {
+        _selectedIndex = index;
+      },
+    );
   }
 
   final List<Widget> _screens = [

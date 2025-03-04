@@ -2,25 +2,53 @@ import 'package:flutter/material.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
+import '../../utils/constants/image_strings.dart';
 
+class AppTextField extends StatefulWidget {
+  final TextEditingController? controller;
+  final String? hintText;
+  final String? errorText;
+  final String imagePath;
+  final String? suffixImage;
+  final bool obscureText;
+  final VoidCallback? onTap;
+  final VoidCallback? onEditingComplete;
+  final String? Function(String?)? validator;
 
-class AppTextField {
+  const AppTextField({
+    super.key,
+    this.controller,
+    this.hintText,
+    this.errorText,
+    this.imagePath = '',
+    this.suffixImage,
+    this.obscureText = false,
+    this.onTap,
+    this.onEditingComplete,
+    this.validator,
+  });
 
-  static Widget simpleTextField({
-    TextEditingController? controller,
-    String? hintText,
-    String? errorText,
-    String imagePath = '',
-    String? suffixImage,
-    VoidCallback? onTap,
-    VoidCallback? onEditingComplete,
-    String? Function(String?)? validator,
-  }) {
+  @override
+  _AppTextFieldState createState() => _AppTextFieldState();
+}
+
+class _AppTextFieldState extends State<AppTextField> {
+  bool _obscureText = false;
+
+  @override
+  void initState() {
+    _obscureText = widget.obscureText;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return TextFormField(
-      controller: controller,
+      controller: widget.controller,
+      obscureText: _obscureText,
       autovalidateMode:
-          validator != null ? AutovalidateMode.onUserInteraction : null,
-      validator: validator,
+          widget.validator != null ? AutovalidateMode.onUserInteraction : null,
+      validator: widget.validator,
       textAlignVertical: TextAlignVertical.center,
       cursorColor: Color(0xff3E1D0D),
       keyboardType: TextInputType.emailAddress,
@@ -51,16 +79,24 @@ class AppTextField {
         prefixIcon: Padding(
             padding: const EdgeInsets.only(left: 5),
             child: Image.asset(
-              imagePath,
+              widget.imagePath,
               scale: 4,
             )),
         suffixIcon: GestureDetector(
           onTap: () {
-
+            setState(() {
+              _obscureText = !_obscureText;
+            });
+            widget.onTap?.call();
           },
           child: Padding(
             padding: EdgeInsets.only(right: 5),
-            child: suffixImage == null ? null : Image.asset(suffixImage, scale: 4),
+            child: widget.suffixImage == null
+                ? null
+                : Image.asset(
+                    _obscureText ? widget.suffixImage! : ImageStrings.eye,
+                    scale: 4,
+                  ),
           ),
         ),
         border: const OutlineInputBorder(
@@ -68,7 +104,7 @@ class AppTextField {
             Radius.circular(50),
           ),
         ),
-        hintText: hintText,
+        hintText: widget.hintText,
         hintStyle: const TextStyle(
           fontSize: 15,
           color: Color(0xff989898),
@@ -77,19 +113,37 @@ class AppTextField {
       ),
     );
   }
+}
 
-  static Widget phoneTextField({
-    required TextEditingController phoneController,
-    String? selectedCountryCode,
-    required List countryData,
-    VoidCallback? onTap,
-    VoidCallback? onEditingComplete,
-    String? Function(String?)? validator,
-  }) {
+class PhoneTextField extends StatefulWidget {
+  final TextEditingController phoneController;
+  final String? selectedCountryCode;
+  final List countryData;
+  final VoidCallback? onTap;
+  final VoidCallback? onEditingComplete;
+  final String? Function(String?)? validator;
+
+  const PhoneTextField({
+    Key? key,
+    required this.phoneController,
+    this.selectedCountryCode,
+    required this.countryData,
+    this.onTap,
+    this.onEditingComplete,
+    this.validator,
+  }) : super(key: key);
+
+  @override
+  _PhoneTextFieldState createState() => _PhoneTextFieldState();
+}
+
+class _PhoneTextFieldState extends State<PhoneTextField> {
+  @override
+  Widget build(BuildContext context) {
     return TextFormField(
-      validator: validator,
+      validator: widget.validator,
       keyboardType: TextInputType.phone,
-      controller: phoneController,
+      controller: widget.phoneController,
       cursorColor: const Color(0xff3E1D0D),
       decoration: InputDecoration(
         contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
@@ -137,8 +191,8 @@ class AppTextField {
           child: Padding(
             padding: const EdgeInsets.only(left: 25),
             child: DropdownButton<String>(
-              value: selectedCountryCode,
-              items: countryData.map((country) {
+              value: widget.selectedCountryCode,
+              items: widget.countryData.map((country) {
                 final uniqueValue =
                     '${country['code']}|${country['name']}';
                 return DropdownMenuItem<String>(
@@ -166,9 +220,9 @@ class AppTextField {
                 );
               }).toList(),
               onChanged: (value) {
-                // setState(() {
-                //   selectedCountryCode = value!;
-                // });
+                setState(() {
+                  // widget.selectedCountryCode = value!;
+                });
               },
             ),
           ),
@@ -176,11 +230,20 @@ class AppTextField {
       ),
     );
   }
+}
 
-  static PinCodeTextField pinCodeTextField({
-    required BuildContext appContext,
-    required Function(String verificationCode) onCompleted,
-  }) {
+class PinCodeTextFieldWidget extends StatelessWidget {
+  final BuildContext appContext;
+  final Function(String verificationCode) onCompleted;
+
+  const PinCodeTextFieldWidget({
+    Key? key,
+    required this.appContext,
+    required this.onCompleted,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return PinCodeTextField(
       keyboardType: TextInputType.number,
       appContext: appContext,
@@ -188,7 +251,7 @@ class AppTextField {
         color: TColors.black,
         fontWeight: FontWeight.bold,
         fontFamily: AppFonts.interbold,
-        fontSize: 17
+        fontSize: 17,
       ),
       length: 6,
       animationType: AnimationType.fade,
@@ -211,6 +274,4 @@ class AppTextField {
       },
     );
   }
-
 }
-

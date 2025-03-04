@@ -16,6 +16,19 @@ class AllValidators {
     return null;
   }
 
+  static String? validateLoginPassword(String? value, BuildContext context) {
+    var nonNullValue = value ?? '';
+    if (nonNullValue.isEmpty) {
+      return AppLocalizations.of(context)!.passwordrequired;
+    }
+    String pattern = r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~])';
+    RegExp regex = RegExp(pattern);
+    if (!regex.hasMatch(nonNullValue)) {
+      return AppLocalizations.of(context)!.passwordrequired;
+    }
+    return null;
+  }
+
   static String? validatePassword(String? value, BuildContext context) {
     var nonNullValue = value ?? '';
     if (nonNullValue.isEmpty) {

@@ -36,15 +36,11 @@ class _FirstIntroScreenState extends State<FirstIntroScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 430,
-                child: Stack(
-                  children: [
-                    BubbleAnimationScreen(),
-                  ],
-                ),
+                height: 350,
+                  child: BubbleAnimationScreen(),
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 79, bottom: 49),
                 child: Text(
                   AppLocalizations.of(context)!.lorem,
                   textAlign: TextAlign.center,

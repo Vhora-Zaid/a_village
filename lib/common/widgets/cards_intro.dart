@@ -31,7 +31,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
 
     _leftCardAnimation = Tween<Offset>(
       begin: Offset(-2, 0), // Start from the left offscreen
-      end: Offset(-0.3, 0), // Move to the center
+      end: Offset(-1, 0), // Move to the center
     ).animate(
       CurvedAnimation(
         parent: _controller,
@@ -41,7 +41,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
 
     _rightCardAnimation = Tween<Offset>(
       begin: Offset(2, 0), // Start from the right offscreen
-      end: Offset(0.3, 0.25), // Move to the center
+      end: Offset(0.55, 0.25), // Move to the center
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _leftRotationAnimation = Tween<double>(
@@ -94,7 +94,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
                 return Transform.translate(
                   offset: _rightCardAnimation.value *
                       MediaQuery.of(context).size.width /
-                      1.7,
+                      3.2,
                   child: Transform.rotate(
                     angle: _rightRotationAnimation.value,
                     child: cardWidget2(Colors.white, "Jenny Wilson"),
@@ -108,7 +108,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
                 return Transform.translate(
                   offset: _leftCardAnimation.value *
                       MediaQuery.of(context).size.width /
-                      1.7,
+                      6.2,
                   child: Transform.rotate(
                     angle: _leftRotationAnimation.value,
                     child: cardWidget1(Colors.white, "Robert Fox"),

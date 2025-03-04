@@ -10,6 +10,7 @@ class ImageStrings {
   static const String email = 'assets/images/email.png';
   static const String password = 'assets/images/password.png';
   static const String eye = 'assets/images/eye.png';
+  static const String eyeclose = 'assets/images/eyeclose.png';
   static const String google = 'assets/images/googlelogo.png';
   static const String apple = 'assets/images/applelogo.png';
   static const String user = 'assets/images/user.png';

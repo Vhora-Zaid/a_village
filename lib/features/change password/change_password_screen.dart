@@ -66,10 +66,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               SizedBox(
                 height: 27.97,
               ),
-              AppTextField.simpleTextField(
+              AppTextField(
                 controller: currentPassController,
                 imagePath: ImageStrings.password,
-                suffixImage: ImageStrings.eye,
+                suffixImage: ImageStrings.eyeclose,
+                obscureText: true,
                 hintText: AppLocalizations.of(context)!.currentpass,
                 validator: (value) =>
                     AllValidators.validatePassword(value, context),
@@ -77,10 +78,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               SizedBox(
                 height: 20,
               ),
-              AppTextField.simpleTextField(
+              AppTextField(
                 controller: newPassController,
                 imagePath: ImageStrings.password,
-                suffixImage: ImageStrings.eye,
+                suffixImage: ImageStrings.eyeclose,
+                obscureText: false,
                 hintText: AppLocalizations.of(context)!.newpass,
                 validator: (value) =>
                     AllValidators.validatePassword(value, context),
@@ -88,9 +90,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               SizedBox(
                 height: 20,
               ),
-              AppTextField.simpleTextField(
+              AppTextField(
                 controller: newPassController,
                 imagePath: ImageStrings.password,
+                suffixImage: ImageStrings.eyeclose,
+                obscureText: false,
                 hintText: AppLocalizations.of(context)!.confirmnewpass,
                 validator: (value) =>
                     AllValidators.validatePassword(value, context),

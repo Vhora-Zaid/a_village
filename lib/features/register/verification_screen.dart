@@ -151,7 +151,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ),
               Form(
                 key: _formKey,
-                child: AppTextField.pinCodeTextField(
+                child: PinCodeTextFieldWidget(
                     appContext: context, onCompleted: (value) {}),
               ),
               SizedBox(

@@ -103,7 +103,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    AppTextField.simpleTextField(
+                    AppTextField(
                       controller: nameController,
                       imagePath: ImageStrings.userlogo,
                       suffixImage: null,
@@ -114,7 +114,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    AppTextField.simpleTextField(
+                    AppTextField(
                       controller: numberController,
                       imagePath: ImageStrings.mobile,
                       suffixImage: null,
@@ -125,7 +125,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    AppTextField.simpleTextField(
+                    AppTextField(
                       controller: emailController,
                       imagePath: ImageStrings.email,
                       suffixImage: null,
@@ -136,10 +136,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    AppTextField.simpleTextField(
+                    AppTextField(
                       controller: passwordController,
                       imagePath: ImageStrings.password,
-                      suffixImage: ImageStrings.eye,
+                      suffixImage: ImageStrings.eyeclose,
+                      obscureText: false,
                       hintText: AppLocalizations.of(context)!.password,
                       validator: (value) =>
                           AllValidators.validatePassword(value, context),
@@ -147,10 +148,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    AppTextField.simpleTextField(
+                    AppTextField(
                       controller: confirmPasswordController,
                       imagePath: ImageStrings.password,
-                      suffixImage: ImageStrings.eye,
+                      suffixImage: ImageStrings.eyeclose,
+                      obscureText: false,
                       hintText: AppLocalizations.of(context)!.confirmpassword,
                       validator: (value) =>
                           AllValidators.validatePassword(value, context),

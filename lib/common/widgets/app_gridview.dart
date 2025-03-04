@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:a_village/features/user%20profile/user_profile_screen.dart';
+import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -33,6 +34,8 @@ class _SelectableGridState extends State<SelectableGrid> {
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
+        crossAxisSpacing: 15,
+        mainAxisSpacing: 3
       ),
       itemCount: 6,
       itemBuilder: (context, index) {
@@ -42,90 +45,84 @@ class _SelectableGridState extends State<SelectableGrid> {
               selectedItems[index] = !selectedItems[index];
             });
           },
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Stack(
-              children: [
-                Container(
-                  height: 144,
-                  width: 164,
-                  decoration: BoxDecoration(
-                    border: selectedItems[index]
-                        ? null
-                        : Border.all(
-                            color: TColors.bordercolor,
-                            width: 1,
-                          ),
-                    gradient:
-                        selectedItems[index] ? TColors.iconGradient : null,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Container(
-                          height: 67,
-                          width: 67,
+          child: Stack(
+            children: [
+              Container(
+                height: 144,
+                width: 164,
+                decoration: BoxDecoration(
+                  border: selectedItems[index]
+                      ? null
+                      : Border.all(
+                          color: TColors.bordercolor,
+                          width: 1,
+                        ),
+                  gradient:
+                      selectedItems[index] ? TColors.iconGradient : null,
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Container(
+                      height: 67,
+                      width: 67,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(50),
+                        color: selectedItems[index]
+                            ? TColors.white
+                            : Color(0xffFFFAE8),
+                      ),
+                      child: Image.asset(
+                        [
+                          ImageStrings.love,
+                          ImageStrings.friends,
+                          ImageStrings.business,
+                          ImageStrings.fling,
+                          ImageStrings.male,
+                          ImageStrings.female,
+                        ][index],
+                        scale: 4,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 12,
+                    ),
+                    Text(
+                      categoryNames[index],
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontFamily: AppFonts.interregular,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500,
+                        color: TColors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Positioned(
+                right: 0,
+                top: 0,
+                child: selectedItems[index]
+                    ? Padding(
+                        padding: const EdgeInsets.all(8),
+                        child: Container(
+                          height: 24,
+                          width: 24,
                           decoration: BoxDecoration(
+                            color: Colors.transparent,
                             borderRadius: BorderRadius.circular(50),
-                            color: selectedItems[index]
-                                ? TColors.white
-                                : Color(0xffFFFAE8),
                           ),
                           child: Image.asset(
-                            [
-                              ImageStrings.love,
-                              ImageStrings.friends,
-                              ImageStrings.business,
-                              ImageStrings.fling,
-                              ImageStrings.male,
-                              ImageStrings.female,
-                            ][index],
+                            ImageStrings.tick,
                             scale: 4,
                           ),
                         ),
-                        const SizedBox(
-                          height: 12,
-                        ),
-                        Text(
-                          categoryNames[index],
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontFamily: AppFonts.interregular,
-                            fontSize: 18,
-                            fontWeight: FontWeight.w500,
-                            color: TColors.black,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                Positioned(
-                  right: 0,
-                  top: 0,
-                  child: selectedItems[index]
-                      ? Padding(
-                          padding: const EdgeInsets.all(8),
-                          child: Container(
-                            height: 24,
-                            width: 24,
-                            decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(50),
-                            ),
-                            child: Image.asset(
-                              ImageStrings.tick,
-                              scale: 4,
-                            ),
-                          ),
-                        )
-                      : Container(),
-                ),
-              ],
-            ),
+                      )
+                    : Container(),
+              ),
+            ],
           ),
         );
       },
@@ -166,6 +163,8 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        mainAxisSpacing: 20,
+        crossAxisSpacing: 15,
         crossAxisCount: widget.crossAxisCount,
         childAspectRatio: widget.width / widget.height,
       ),
@@ -173,61 +172,65 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
       itemBuilder: (context, index) {
         return GestureDetector(
           onTap: () => _selectImage(index),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Stack(
-              children: [
-                Container(
+          child: Stack(
+            children: [
+              SizedBox(
                   height: widget.height,
                   width: widget.width,
-                  decoration: BoxDecoration(
-                    border: selectedImages[index] == null
-                        ? Border.all(
-                            color: widget.borderColor,
-                            width: 1,
-                          )
-                        : null,
-                    color: selectedImages[index] != null
-                        ? widget.selectedColor
-                        : widget.unselectedColor,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
                   child: selectedImages[index] != null
-                      ? ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.file(
-                            selectedImages[index]!,
-                            fit: BoxFit.cover,
-                            width: double.infinity,
-                            height: double.infinity,
+                      ? Container(
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(8),
+                            color: widget.selectedColor,
+                          ),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: Image.file(
+                              selectedImages[index]!,
+                              fit: BoxFit.cover,
+                              width: double.infinity,
+                              height: double.infinity,
+                            ),
                           ),
                         )
-                      : Center(
-                          child: Image.asset(
-                            ImageStrings.plus,
-                            height: 24,
-                            width: 24,
+                      : DottedBorder(
+                          borderType: BorderType.RRect, // Rounded rectangle border
+                          radius: const Radius.circular(8),
+                          color: widget.borderColor,
+                          strokeWidth: 1,
+                          dashPattern: [6, 5],
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                              color: widget.unselectedColor,
+                            ),
+                            child: Center(
+                              child: Image.asset(
+                                ImageStrings.plus,
+                                height: 24,
+                                width: 24,
+                              ),
+                            ),
                           ),
                         ),
                 ),
-                if (selectedImages[index] != null)
-                  Positioned(
-                    top: 6,
-                    right: 6,
-                    child: GestureDetector(
-                      onTap: () => _removeImage(index),
-                      child: Padding(
-                        padding: const EdgeInsets.all(7.0),
-                        child: Image.asset(
-                          ImageStrings.delete,
-                          height: 36,
-                          width: 36,
-                        ),
+              if (selectedImages[index] != null)
+                Positioned(
+                  top: 6,
+                  right: 6,
+                  child: GestureDetector(
+                    onTap: () => _removeImage(index),
+                    child: Padding(
+                      padding: const EdgeInsets.all(7.0),
+                      child: Image.asset(
+                        ImageStrings.delete,
+                        height: 36,
+                        width: 36,
                       ),
                     ),
                   ),
-              ],
-            ),
+                ),
+            ],
           ),
         );
       },

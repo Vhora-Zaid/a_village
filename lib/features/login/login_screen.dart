@@ -111,7 +111,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 key: _formKey,
                 child: Column(
                   children: [
-                    AppTextField.simpleTextField(
+                    AppTextField(
                       controller: emailController,
                       imagePath: ImageStrings.email,
                       suffixImage: null,
@@ -122,13 +122,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    AppTextField.simpleTextField(
+                    AppTextField(
                       controller: passwordController,
                       imagePath: ImageStrings.password,
-                      suffixImage: ImageStrings.eye,
+                      suffixImage: ImageStrings.eyeclose,
                       hintText: AppLocalizations.of(context)!.password,
+                      obscureText: false,
                       validator: (value) =>
-                          AllValidators.validatePassword(value, context),
+                          AllValidators.validateLoginPassword(value, context),
                     ),
                   ],
                 ),
@@ -166,6 +167,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       context,
                       MaterialPageRoute(
                         builder: (context) => AppBottomNavBar(
+                          currentIndex: 0,
                         ),
                       ),
                     );

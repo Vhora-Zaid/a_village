@@ -86,7 +86,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
               ),
               Form(
                 key: _formKey,
-                child: AppTextField.simpleTextField(
+                child: AppTextField(
                   controller: emailController,
                   imagePath: ImageStrings.email,
                   suffixImage: null,

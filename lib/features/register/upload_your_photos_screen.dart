@@ -37,8 +37,7 @@ class _UploadYourPhotosScreenState extends State<UploadYourPhotosScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 7, bottom: 10),
+          padding: const EdgeInsets.only(left: 16, right: 16, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -67,17 +66,27 @@ class _UploadYourPhotosScreenState extends State<UploadYourPhotosScreen> {
               ),
               SelectableImageGrid(
                 crossAxisCount: 2,
+                unselectedColor: TColors.imagegrid,
+                selectedColor: Colors.transparent,
               ),
             ],
           ),
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 10),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 20),
         child: AppButton(
           title: AppLocalizations.of(context)!.save,
           onTap: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context) => AppBottomNavBar()));
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppBottomNavBar(
+                  currentIndex: 0,
+                ),
+              ),
+            );
           },
         ),
       ),

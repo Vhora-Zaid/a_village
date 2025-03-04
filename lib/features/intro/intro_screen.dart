@@ -66,7 +66,7 @@ class _IntroScreenState extends State<IntroScreen> {
       bottomNavigationBar: Container(
         color: TColors.white,
         child: Padding(
-          padding: const EdgeInsets.only(left: 20, right: 30, bottom: 30),
+          padding: const EdgeInsets.only(left: 20, right: 30, bottom: 40),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [

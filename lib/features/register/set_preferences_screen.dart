@@ -49,7 +49,7 @@ class _SetPreferencesScreenState extends State<SetPreferencesScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding:
-          const EdgeInsets.only(left: 16, right: 16, top: 7, bottom: 10),
+          const EdgeInsets.only(left: 16, right: 16, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -82,7 +82,7 @@ class _SetPreferencesScreenState extends State<SetPreferencesScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 10),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 20),
         child: AppButton(
           title: AppLocalizations.of(context)!.save,
           onTap: () {

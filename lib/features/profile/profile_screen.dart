@@ -25,7 +25,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ImageStrings.settings,
     ImageStrings.support,
     ImageStrings.privacy,
-    ImageStrings.logout,
+    ImageStrings.logout
+  ];
+
+  final List<dynamic> routes = [
+    EditProfileScreen(),
+    "/matches",
+    "/wholikesyou",
+    "/yourlikes",
+    SubscriptionScreen(),
+    SettingsScreen(),
+    "/support",
+    "/privacy",
+    "/logout"
   ];
 
   @override
@@ -166,85 +178,55 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ),
             ),
             ListView.builder(
-              physics: NeverScrollableScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               padding: const EdgeInsets.symmetric(vertical: 35),
-              itemCount: 9,
+              itemCount: names.length,
               itemBuilder: (BuildContext context, int index) {
-                return GestureDetector(
-                  onTap: () {
-                    if (index == 0) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => EditProfileScreen(),
-                        ),
-                      );
-                    }
-                    if (index == 1) {
-                      Navigator.pushNamed(context, '/matches');
-                    }
-                    if (index == 2) {
-                      Navigator.pushNamed(context, '/wholikesyou');
-                    }
-                    if (index == 3) {
-                      Navigator.pushNamed(context, '/yourlikes');
-                    }
-                    if (index == 4) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SubscriptionScreen(),
-                        ),
-                      );
-                    }
-                    if (index == 5) {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SettingsScreen(),
-                        ),
-                      );
-                    }
-                    if (index == 6) {
-                      Navigator.pushNamed(context, '/support');
-                    }
-                    if (index == 7) {
-                      Navigator.pushNamed(context, '/privacy');
-                    }
-                    if (index == 8) {
-                      Navigator.pushNamed(context, '/logout');
-                    }
-                  },
-                  child: ListTile(
-                    leading: Container(
-                      width: 42,
-                      height: 42,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage(
-                            profileIcons[index % profileIcons.length],
+                return Column(
+                  children: [
+                    ListTile(
+                      onTap: () {
+                        final route = routes[index];
+                        if (route is String) {
+                          Navigator.pushNamed(context, route);
+                        } else {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => route),
+                          );
+                        }
+                      },
+                      leading: Container(
+                        width: 42,
+                        height: 42,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                            image: AssetImage(
+                              profileIcons[index % profileIcons.length],
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                    title: Text(
-                      names[index],
-                      style: const TextStyle(
-                        fontFamily: AppFonts.interregular,
-                        fontSize: 15,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black,
+                      title: Text(
+                        names[index],
+                        style: const TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.black,
+                          fontFamily: AppFonts.interregular,
+                        ),
                       ),
                     ),
-                    shape: Border(
-                      bottom: BorderSide(
+                    Padding(
+                      padding: const EdgeInsets.only(left: 75),
+                      child: Divider(
                         color: TColors.stroke,
-                        width: 1.0,
+                        thickness: 1,
                       ),
                     ),
-                  ),
+                  ],
                 );
               },
             ),

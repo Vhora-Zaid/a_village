@@ -40,7 +40,7 @@ class _YourInterestsScreenState extends State<YourInterestsScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding:
-          const EdgeInsets.only(left: 16, right: 16, top: 7, bottom: 10),
+          const EdgeInsets.only(left: 16, right: 16, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

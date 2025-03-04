@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:a_village/common/widgets/app_appbar.dart';
 import 'package:a_village/common/widgets/app_button.dart';
+import 'package:a_village/common/widgets/image_picker_bottomsheet.dart';
 import 'package:a_village/features/register/your_interests_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -41,7 +42,8 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 7, bottom: 10),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, bottom: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -60,8 +62,11 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
               Center(
                 child: GestureDetector(
                   onTap: () async {
-                    // File? pickedImage = await pickImage();
-                    // setState(() => _pickedImage = pickedImage);
+                    showImagePickerOptions(
+                      context: context,
+                      onTapGallery: () {},
+                      onTapCamera: () {},
+                    );
                   },
                   child: Container(
                     width: 160,
@@ -113,8 +118,10 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 height: 10,
               ),
               TextFormField(
+                onTapOutside: (_) =>
+                    FocusManager.instance.primaryFocus?.unfocus(),
                 cursorColor: TColors.placeholder,
-                maxLines: 13,
+                maxLines: 12,
                 decoration: InputDecoration(
                   hintText: AppLocalizations.of(context)!.writehere,
                   hintStyle: TextStyle(
@@ -140,17 +147,22 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                   ),
                 ),
               ),
-              SizedBox(
-                height: 19,
-              ),
-              AppButton(
-                title: AppLocalizations.of(context)!.buttoncontinue,
-                onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => YourInterestsScreen()));
-                },
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 20),
+        child: AppButton(
+          title: AppLocalizations.of(context)!.buttoncontinue,
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => YourInterestsScreen(),
+              ),
+            );
+          },
         ),
       ),
     );

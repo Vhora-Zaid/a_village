@@ -38,11 +38,8 @@ class _SecondIntroScreenState extends State<SecondIntroScreen> {
                 height: 350,
                 child: AnimatedIntroScreen(),
               ),
-              SizedBox(
-                height: 80,
-              ),
               Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24),
+                padding: const EdgeInsets.only(left: 24, right: 24, top: 85, bottom: 49),
                 child: Text(
                   AppLocalizations.of(context)!.lorem,
                   textAlign: TextAlign.center,
