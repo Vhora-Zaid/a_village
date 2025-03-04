@@ -77,22 +77,17 @@ class _SetPreferencesScreenState extends State<SetPreferencesScreen> {
                 height: 19,
               ),
               SelectableGrid(),
-              SizedBox(
-                height: 81,
-              ),
-              AppButton(
-                title: AppLocalizations.of(context)!.buttoncontinue,
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UploadYourPhotosScreen(),
-                    ),
-                  );
-                },
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 10),
+        child: AppButton(
+          title: AppLocalizations.of(context)!.save,
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => UploadYourPhotosScreen()));
+          },
         ),
       ),
     );

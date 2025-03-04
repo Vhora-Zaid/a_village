@@ -68,23 +68,17 @@ class _UploadYourPhotosScreenState extends State<UploadYourPhotosScreen> {
               SelectableImageGrid(
                 crossAxisCount: 2,
               ),
-              SizedBox(
-                height: 20,
-              ),
-              AppButton(
-                title: AppLocalizations.of(context)!.getstarted,
-
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => AppBottomNavBar(),
-                    ),
-                  );
-                },
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 10),
+        child: AppButton(
+          title: AppLocalizations.of(context)!.save,
+          onTap: () {
+            Navigator.push(context, MaterialPageRoute(builder: (context) => AppBottomNavBar()));
+          },
         ),
       ),
     );

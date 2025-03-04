@@ -54,53 +54,51 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               Column(
                 children: [
                   Container(
-                    height: 192,
-                    decoration: BoxDecoration(
-                      color: TColors.placeholder,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
+                    
                   ),
-                  SizedBox(
-                    height: 16,
-                  ),
-                  Container(
-                    height: 91,
-                    decoration: BoxDecoration(
-                      color: TColors.placeholder,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                  ),
+                  // Container(
+                  //   height: 192,
+                  //   decoration: BoxDecoration(
+                  //     color: TColors.placeholder,
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  // ),
+                  // SizedBox(
+                  //   height: 16,
+                  // ),
+                  // Container(
+                  //   height: 91,
+                  //   decoration: BoxDecoration(
+                  //     color: TColors.placeholder,
+                  //     borderRadius: BorderRadius.circular(10),
+                  //   ),
+                  // ),
                   SizedBox(
                     height: 21,
                   ),
-                  GestureDetector(
-                    onTap: () {
-                      // Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          AppLocalizations.of(context)!.personalinfo,
-                          style: TextStyle(
-                            color: TColors.black,
-                            fontFamily: AppFonts.interregular,
-                            fontSize: 15,
-                            fontWeight: FontWeight.w400,
-                          ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        AppLocalizations.of(context)!.personalinfo,
+                        style: TextStyle(
+                          color: TColors.black,
+                          fontFamily: AppFonts.interregular,
+                          fontSize: 15,
+                          fontWeight: FontWeight.w400,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoScreen()));
-                          },
-                          child: Image.asset(
-                            ImageStrings.editicon,
-                            height: 24,
-                            width: 24,
-                          ),
+                      ),
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoScreen()));
+                        },
+                        child: Image.asset(
+                          ImageStrings.editicon,
+                          height: 24,
+                          width: 24,
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                   SizedBox(
                     height: 21,

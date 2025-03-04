@@ -1,3 +1,4 @@
+import 'package:a_village/common/widgets/cards_intro.dart';
 import 'package:a_village/features/intro/third_intro_screen.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _SecondIntroScreenState extends State<SecondIntroScreen> {
       backgroundColor: TColors.white,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 80, left: 25, right: 25),
+          padding: const EdgeInsets.only(top: 80, left: 16, right: 16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -34,10 +35,14 @@ class _SecondIntroScreenState extends State<SecondIntroScreen> {
                 textAlign: TextAlign.center,
               ),
               SizedBox(
-                height: 37,
+                height: 350,
+                child: AnimatedIntroScreen(),
+              ),
+              SizedBox(
+                height: 80,
               ),
               Padding(
-                padding: const EdgeInsets.only(left: 40, right: 40),
+                padding: const EdgeInsets.only(left: 24, right: 24),
                 child: Text(
                   AppLocalizations.of(context)!.lorem,
                   textAlign: TextAlign.center,

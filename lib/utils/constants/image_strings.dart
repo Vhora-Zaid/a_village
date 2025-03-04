@@ -92,5 +92,7 @@ class ImageStrings {
   static const String homeclose = 'assets/images/homeclose.png';
   static const String homecheck = 'assets/images/homecheck.png';
   static const String editicon = 'assets/images/editicon.png';
+  static const String card1image = 'assets/images/card1image.png';
+  static const String card2image = 'assets/images/card2image.png';
 
 }

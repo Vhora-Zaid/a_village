@@ -128,5 +128,13 @@
   "resetpass": "Reset Password",
   "california": "California",
   "personalinfo": "Personal Information",
-  "myinterest": "My Interests"
+  "myinterest": "My Interests",
+  "emailaddress": "Email Address",
+  "dob": "Date of Birth",
+  "gender": "Gender",
+  "everyone": "Everyone",
+  "writesomething": "Write Something About Yourself",
+  "save": "Save",
+  "eleanor": "Eleanor Pena,",
+  "aboutele": "About Eleanor"
 }

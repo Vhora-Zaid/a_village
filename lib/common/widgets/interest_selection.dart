@@ -4,7 +4,6 @@ import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
 
-
 class InterestSelection extends StatefulWidget {
   const InterestSelection({super.key});
 
@@ -88,6 +87,7 @@ class _InterestSelectionState extends State<InterestSelection> {
           children: interests.map((interest) {
             bool isSelected = selectedInterests.contains(interest);
             return ChoiceChip(
+              showCheckmark: false,
               avatar: getAvatarForInterest(interest),
               label: Text(interest),
               backgroundColor: TColors.white,
@@ -146,6 +146,7 @@ class _PreferenceSelectionState extends State<PreferenceSelection> {
           children: preferences.map((preference) {
             bool isSelected = selectedPreference.contains(preference);
             return ChoiceChip(
+              showCheckmark: false,
               label: Text(preference),
               backgroundColor: TColors.white,
               selectedColor: TColors.yellow,
@@ -178,12 +179,131 @@ class _PreferenceSelectionState extends State<PreferenceSelection> {
   }
 }
 
+class InterestsSelection extends StatefulWidget {
+  const InterestsSelection({super.key});
+
+  @override
+  _InterestsSelectionState createState() => _InterestsSelectionState();
+}
+
+class _InterestsSelectionState extends State<InterestsSelection> {
+  List<String> selectedPreference = ['Women'];
+
+  @override
+  Widget build(BuildContext context) {
+    final preferences = [
+      AppLocalizations.of(context)!.men,
+      AppLocalizations.of(context)!.women,
+      AppLocalizations.of(context)!.everyone,
+    ];
+
+    return Column(
+      children: [
+        Wrap(
+          spacing: 16,
+          children: preferences.map((preference) {
+            bool isSelected = selectedPreference.contains(preference);
+            return ChoiceChip(
+              showCheckmark: false,
+              label: Text(preference),
+              backgroundColor: TColors.white,
+              selectedColor: TColors.yellow,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: isSelected ? Colors.transparent : Color(0xffE3E3E3),
+                ),
+                borderRadius: BorderRadius.circular(40),
+              ),
+              labelStyle: TextStyle(
+                fontSize: 14,
+                color: TColors.black,
+                fontFamily: AppFonts.interregular,
+              ),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(
+                  () {
+                    selectedPreference.clear();
+                    if (selected) {
+                      selectedPreference.add(preference);
+                    }
+                  },
+                );
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
+
+class GenderSelection extends StatefulWidget {
+  const GenderSelection({super.key});
+
+  @override
+  _GenderSelectionState createState() => _GenderSelectionState();
+}
+
+class _GenderSelectionState extends State<GenderSelection> {
+  List<String> selectedPreference = ['Male'];
+
+  @override
+  Widget build(BuildContext context) {
+    final preferences = [
+      AppLocalizations.of(context)!.male,
+      AppLocalizations.of(context)!.female,
+    ];
+
+    return Row(
+      children: [
+        Wrap(
+          spacing: 15,
+          children: preferences.map((preference) {
+            bool isSelected = selectedPreference.contains(preference);
+            return ChoiceChip(
+              showCheckmark: false,
+              label: Text(preference),
+              backgroundColor: TColors.white,
+              selectedColor: TColors.yellow,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: isSelected ? Colors.transparent : Color(0xffE3E3E3),
+                ),
+                borderRadius: isSelected
+                    ? BorderRadius.circular(50)
+                    : BorderRadius.circular(20),
+              ),
+              labelStyle: TextStyle(
+                fontSize: 14,
+                color: TColors.black,
+                fontFamily: AppFonts.interregular,
+              ),
+              selected: isSelected,
+              onSelected: (selected) {
+                setState(
+                      () {
+                    selectedPreference.clear();
+                    if (selected) {
+                      selectedPreference.add(preference);
+                    }
+                  },
+                );
+              },
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}
 
 class InterestFilterSelection extends StatefulWidget {
   const InterestFilterSelection({super.key});
 
   @override
-  _InterestFilterSelectionState createState() => _InterestFilterSelectionState();
+  _InterestFilterSelectionState createState() =>
+      _InterestFilterSelectionState();
 }
 
 class _InterestFilterSelectionState extends State<InterestFilterSelection> {
@@ -211,6 +331,7 @@ class _InterestFilterSelectionState extends State<InterestFilterSelection> {
           children: interests.map((interest) {
             bool isSelected = selectedInterests.contains(interest);
             return ChoiceChip(
+              showCheckmark: false,
               label: Text(interest),
               backgroundColor: TColors.white,
               selectedColor: TColors.yellow,
@@ -243,3 +364,65 @@ class _InterestFilterSelectionState extends State<InterestFilterSelection> {
   }
 }
 
+class UserInterestSelection extends StatefulWidget {
+  const UserInterestSelection({super.key});
+
+  @override
+  _UserInterestSelectionState createState() => _UserInterestSelectionState();
+}
+
+class _UserInterestSelectionState extends State<UserInterestSelection> {
+  List<String> selectedInterests = [];
+
+  @override
+  Widget build(BuildContext context) {
+    final interests = [
+      AppLocalizations.of(context)!.photography,
+      AppLocalizations.of(context)!.fashion,
+      AppLocalizations.of(context)!.writing,
+      AppLocalizations.of(context)!.nature,
+    ];
+    Widget getAvatarForInterest(String interest) {
+      switch (interest) {
+        case 'Photography':
+          return Image.asset(ImageStrings.photography);
+        case 'Fashion':
+          return Image.asset(ImageStrings.fashion);
+        case 'Writing':
+          return Image.asset(ImageStrings.writing);
+        case 'Nature':
+          return Image.asset(ImageStrings.nature);
+        default:
+          return Container();
+      }
+    }
+
+    return Column(
+      children: [
+        Wrap(
+          spacing: 13,
+          runSpacing: 4,
+          children: interests.map((interest) {
+            bool isSelected = selectedInterests.contains(interest);
+            return Chip(
+              avatar: getAvatarForInterest(interest),
+              label: Text(interest),
+              backgroundColor: TColors.white,
+              shape: RoundedRectangleBorder(
+                side: BorderSide(
+                  color: isSelected ? Colors.transparent : Color(0xffE3E3E3),
+                ),
+                borderRadius: BorderRadius.circular(40),
+              ),
+              labelStyle: TextStyle(
+                fontSize: 14,
+                color: TColors.black,
+                fontFamily: AppFonts.interregular,
+              ),
+            );
+          }).toList(),
+        ),
+      ],
+    );
+  }
+}

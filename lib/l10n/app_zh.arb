@@ -128,5 +128,13 @@
   "resetpass": "重置密码",
   "california": "加利福尼亚",
   "personalinfo": "个人信息",
-  "myinterest": "我的兴趣"
+  "myinterest": "我的兴趣",
+  "emailaddress": "电子邮件地址",
+  "dob": "出生日期",
+  "gender": "性别",
+  "everyone": "大家",
+  "writesomething": "写一些关于自己的东西",
+  "save": "保存",
+  "eleanor": "埃莉诺·佩纳",
+  "aboutele": "关于埃莉诺"
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:a_village/features/user%20profile/user_profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:image_picker/image_picker.dart';
@@ -55,8 +56,8 @@ class _SelectableGridState extends State<SelectableGrid> {
                             color: TColors.bordercolor,
                             width: 1,
                           ),
-                    color:
-                        selectedItems[index] ? TColors.yellow : TColors.white,
+                    gradient:
+                        selectedItems[index] ? TColors.iconGradient : null,
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Padding(
@@ -112,7 +113,7 @@ class _SelectableGridState extends State<SelectableGrid> {
                             height: 24,
                             width: 24,
                             decoration: BoxDecoration(
-                              color: TColors.yellow,
+                              color: Colors.transparent,
                               borderRadius: BorderRadius.circular(50),
                             ),
                             child: Image.asset(
@@ -251,12 +252,10 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
 }
 
 class ProfileGridView extends StatelessWidget {
-
   const ProfileGridView({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     final List<Map<String, dynamic>> profiles = [
       {
         'imageUrl': ImageStrings.profile1,
@@ -336,73 +335,89 @@ class ProfileGridView extends StatelessWidget {
         final profile = profiles[index];
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            height: 206,
-            width: 164,
-            decoration: BoxDecoration(
-              color: (index ~/ 2).isEven ? TColors.cardeven : TColors.cardodd,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            padding: const EdgeInsets.all(12),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 112,
-                  width: 112,
-                  child: CircleAvatar(
-                    backgroundImage: AssetImage(profile['imageUrl']),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfileScreen(),
+                ),
+              );
+            },
+            child: Container(
+              height: 206,
+              width: 164,
+              decoration: BoxDecoration(
+                color: (index ~/ 2).isEven ? TColors.cardeven : TColors.cardodd,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 112,
+                    width: 112,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(profile['imageUrl']),
+                    ),
                   ),
-                ),
-                const SizedBox(height: 18),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Expanded(
-                          child: Text(
-                            '${profile['name']}, ${profile['age']}',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: AppFonts.interbold,
-                              fontWeight: FontWeight.bold,
+                  const SizedBox(height: 18),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              '${profile['name']}, ${profile['age']}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFonts.interbold,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                              textAlign: TextAlign.center,
                             ),
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
                           ),
-                        ),
-                        Icon(
-                          Icons.circle,
-                          size: 8,
-                          color: profile['isOnline'] ?? false ? TColors.online : TColors.offline,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(height: 8),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(ImageStrings.location, height: 18, width: 18,),
-                        const SizedBox(width: 4),
-                        Expanded(
-                          child: Text(
-                            profile['location'] ?? 'Unknown Location',
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: AppFonts.interregular,
-                              fontWeight: FontWeight.w400,
-                              color: TColors.black,
+                          Icon(
+                            Icons.circle,
+                            size: 8,
+                            color: profile['isOnline'] ?? false
+                                ? TColors.online
+                                : TColors.offline,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Image.asset(
+                            ImageStrings.location,
+                            height: 18,
+                            width: 18,
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: Text(
+                              profile['location'] ?? 'Unknown Location',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFonts.interregular,
+                                fontWeight: FontWeight.w400,
+                                color: TColors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
                             ),
-                            overflow: TextOverflow.ellipsis,
                           ),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ],
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );

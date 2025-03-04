@@ -50,26 +50,38 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: TColors.white,
       body: IndexedStack(
         index: _selectedIndex,
         children: _screens,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _selectedIndex,
-        onTap: _onItemTapped,
-        backgroundColor: TColors.white,
-        type: BottomNavigationBarType.fixed,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: List.generate(5, (index) {
-          return BottomNavigationBarItem(
-            icon: Image.asset(
-              _selectedIndex == index ? _activeIcons[index] : _inactiveIcons[index],
-              height: 24,
-            ),
-            label: '',
-          );
-        }),
+      bottomNavigationBar: ClipRRect(
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(28),
+          topRight: Radius.circular(28),
+        ),
+        child: BottomNavigationBar(
+          currentIndex: _selectedIndex,
+          onTap: _onItemTapped,
+          backgroundColor: TColors.white,
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: List.generate(
+            5,
+            (index) {
+              return BottomNavigationBarItem(
+                icon: Image.asset(
+                  _selectedIndex == index
+                      ? _activeIcons[index]
+                      : _inactiveIcons[index],
+                  height: 24,
+                ),
+                label: '',
+              );
+            },
+          ),
+        ),
       ),
     );
   }

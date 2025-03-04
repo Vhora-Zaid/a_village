@@ -32,6 +32,9 @@ class TColors {
   static const Color trialtext = Color(0xff28B870);
   static const Color settingsdivider = Color(0xffE5E5E5);
   static const Color togglebackground = Color(0xffE2E2E2);
+  static const Color hintcolor = Color(0xff979797);
+  static const Color aboutuser = Color(0xff6A6A6A);
+  static const Color functionbutton = Color(0xffF6F1D3);
 
 
 
