@@ -56,23 +56,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   Container(
                     
                   ),
-                  // Container(
-                  //   height: 192,
-                  //   decoration: BoxDecoration(
-                  //     color: TColors.placeholder,
-                  //     borderRadius: BorderRadius.circular(10),
-                  //   ),
-                  // ),
-                  // SizedBox(
-                  //   height: 16,
-                  // ),
-                  // Container(
-                  //   height: 91,
-                  //   decoration: BoxDecoration(
-                  //     color: TColors.placeholder,
-                  //     borderRadius: BorderRadius.circular(10),
-                  //   ),
-                  // ),
                   SizedBox(
                     height: 21,
                   ),

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:a_village/common/widgets/app_bottomnavigation.dart';
 import 'package:a_village/common/widgets/app_textfield.dart';
 import 'package:a_village/features/register/register_screen.dart';
@@ -48,8 +50,9 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 20),
+        padding: const EdgeInsets.only(bottom: 30, top: 20),
         child: Row(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
@@ -194,13 +197,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     width: 10,
                   ),
-                  GestureDetector(
-                    child: Image.asset(
-                      ImageStrings.apple,
-                      height: 50,
-                      width: 50,
+                  if (Platform.isIOS)
+                    GestureDetector(
+                      child: Image.asset(
+                        ImageStrings.apple,
+                        height: 50,
+                        width: 50,
+                      ),
                     ),
-                  ),
                 ],
               ),
             ],

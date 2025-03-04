@@ -20,34 +20,32 @@ class _FirstIntroScreenState extends State<FirstIntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColors.white,
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.only(top: 80, left: 16, right: 16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                AppLocalizations.of(context)!.intro1,
-                style: TextStyle(
-                  fontFamily: AppFonts.interbold,
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                ),
+      body: Padding(
+        padding: const EdgeInsets.only(top: 80, left: 16, right: 16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              AppLocalizations.of(context)!.intro1,
+              style: TextStyle(
+                fontFamily: AppFonts.interbold,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 350,
+                child: BubbleAnimationScreen(),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 24, right: 24, top: 79),
+              child: Text(
+                AppLocalizations.of(context)!.lorem,
                 textAlign: TextAlign.center,
               ),
-              SizedBox(
-                height: 350,
-                  child: BubbleAnimationScreen(),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 24, right: 24, top: 79, bottom: 49),
-                child: Text(
-                  AppLocalizations.of(context)!.lorem,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

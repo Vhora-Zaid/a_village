@@ -11,7 +11,6 @@ class HomeCards extends StatefulWidget {
 }
 
 class _HomeCardsState extends State<HomeCards> {
-
   final CardSwiperController _controller = CardSwiperController();
 
   List<Profile> cards = [
@@ -195,9 +194,9 @@ class _HomeCardsState extends State<HomeCards> {
               right: true,
             ),
             threshold: 100,
-            numberOfCardsDisplayed: 2,
+            numberOfCardsDisplayed: 3,
             cardsCount: cards.length,
-            backCardOffset: Offset(0, 25),
+            backCardOffset: Offset(0, 37),
             cardBuilder:
                 (context, index, percentThresholdX, percentThresholdY) =>
                     ProfileCard(
@@ -209,9 +208,9 @@ class _HomeCardsState extends State<HomeCards> {
           height: 5,
         ),
         Padding(
-          padding: const EdgeInsets.only(bottom: 20, left: 16, right: 16),
+          padding:
+              const EdgeInsets.only(bottom: 20, left: 16, right: 16, top: 5),
           child: Container(
-            height: 70,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
               color: Color(0xffF6F1D3),
@@ -221,7 +220,7 @@ class _HomeCardsState extends State<HomeCards> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 AnimatedActionButton(
-                  onPressed: () =>  _triggerSwipe(CardSwiperDirection.left),
+                  onPressed: () => _triggerSwipe(CardSwiperDirection.left),
                   image: ImageStrings.homeclose,
                   gradient: LinearGradient(
                     colors: [Colors.white, Colors.white],
@@ -231,7 +230,7 @@ class _HomeCardsState extends State<HomeCards> {
                 ),
                 const SizedBox(width: 5),
                 AnimatedActionButton(
-                  onPressed: () =>  _triggerSwipe(CardSwiperDirection.top),
+                  onPressed: () => _triggerSwipe(CardSwiperDirection.top),
                   image: ImageStrings.homefavorite,
                   gradient: LinearGradient(
                     colors: [
@@ -244,7 +243,7 @@ class _HomeCardsState extends State<HomeCards> {
                 ),
                 const SizedBox(width: 5),
                 AnimatedActionButton(
-                  onPressed: () =>  _triggerSwipe(CardSwiperDirection.right),
+                  onPressed: () => _triggerSwipe(CardSwiperDirection.right),
                   image: ImageStrings.homecheck,
                   gradient: LinearGradient(
                     colors: [Colors.white, Colors.white],
@@ -259,6 +258,7 @@ class _HomeCardsState extends State<HomeCards> {
       ],
     );
   }
+
   void _triggerSwipe(CardSwiperDirection direction) {
     Future.delayed(const Duration(milliseconds: 200), () {
       _controller.swipe(direction);
@@ -289,147 +289,151 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: MediaQuery.sizeOf(context).width,
-      decoration: BoxDecoration(
-        image: DecorationImage(
-          image: NetworkImage(profile.networkImage),
-          fit: BoxFit.cover,
-        ),
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Color(0xffEEEEEE),
-            spreadRadius: -22,
-            blurRadius: 0,
-            offset: Offset(0, 44),
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        return Container(
+          width: screenWidth * 0.9,
+          height: screenHeight * 0.6,
+          decoration: BoxDecoration(
+            image: DecorationImage(
+              image: NetworkImage(profile.networkImage),
+              fit: BoxFit.cover,
+            ),
+            borderRadius: BorderRadius.circular(20),
+            // boxShadow: [
+            //   BoxShadow(
+            //     color: Color(0xffEEEEEE),
+            //     spreadRadius: -22,
+            //     blurRadius: 0,
+            //     offset: Offset(0, 44),
+            //   ),
+            //   BoxShadow(
+            //     color: Color(0xffD8D8D8),
+            //     spreadRadius: -12,
+            //     blurRadius: 0,
+            //     offset: Offset(0, 25),
+            //   ),
+            // ],
           ),
-          BoxShadow(
-            color: Color(0xffD8D8D8),
-            spreadRadius: -12,
-            blurRadius: 0,
-            offset: Offset(0, 25),
-          ),
-        ],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(top: 305, left: 15, right: 15),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.grey.shade300,
-                borderRadius: BorderRadius.circular(50),
-              ),
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: 6,
-                  horizontal: 9,
+          child: Padding(
+            padding: EdgeInsets.only(left: screenWidth * 0.03, right: screenWidth * 0.03, bottom: screenHeight * 0.03),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Spacer(),
+                Container(
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade300,
+                    borderRadius: BorderRadius.circular(50),
+                  ),
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 6,
+                      horizontal: 9,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Image.asset(
+                          ImageStrings.location,
+                          scale: 4,
+                        ),
+                        SizedBox(
+                          width: 4,
+                        ),
+                        Text(
+                          profile.location,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                            fontFamily: AppFonts.interbold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.start,
+                SizedBox(height: screenHeight * 0.005),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Image.asset(
-                      ImageStrings.location,
-                      scale: 4,
+                    Text(
+                      profile.name,
+                      style: TextStyle(
+                        fontSize: 37,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: AppFonts.interbold,
+                      ),
                     ),
                     SizedBox(
-                      width: 4,
+                      width: 9,
                     ),
                     Text(
-                      profile.location,
+                      profile.age,
                       style: TextStyle(
-                        color: Colors.black,
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
+                        fontSize: 22,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                         fontFamily: AppFonts.interbold,
                       ),
                     ),
                   ],
                 ),
-              ),
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
+                SizedBox(height: screenHeight * 0.005),
                 Text(
-                  profile.name,
+                  profile.description,
                   style: TextStyle(
-                      fontSize: 37,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: AppFonts.interbold,),
-                ),
-                SizedBox(
-                  width: 9,
-                ),
-                Text(
-                  profile.age,
-                  style: TextStyle(
-                    fontSize: 22,
+                    fontSize: 14,
                     color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontFamily: AppFonts.interbold,
+                    fontFamily: AppFonts.interregular,
                   ),
                 ),
-              ],
-            ),
-            SizedBox(
-              height: 5,
-            ),
-            Text(
-              profile.description,
-              style: TextStyle(
-                fontSize: 14,
-                color: Colors.white,
-                fontFamily: AppFonts.interregular,
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Row(
-              children: [
-                Wrap(
-                  spacing: 5,
-                  children: profile.interests.map((interest) {
-                    return Container(
-                      height: 30,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade500,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 6, horizontal: 13),
-                          child: Text(
-                            interest,
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w400,
-                              fontFamily: AppFonts.interregular,
+                SizedBox(height: screenHeight * 0.015),
+                Row(
+                  children: [
+                    Wrap(
+                      spacing: 5,
+                      children: profile.interests.map((interest) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: Colors.grey.shade500,
+                            borderRadius: BorderRadius.circular(50),
+                          ),
+                          child: Center(
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 6, horizontal: 13),
+                              child: Text(
+                                interest,
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  fontFamily: AppFonts.interregular,
+                                ),
+                              ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  }).toList(),
+                        );
+                      }).toList(),
+                    ),
+                  ],
                 ),
               ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
+
 
 class AnimatedActionButton extends StatefulWidget {
   final VoidCallback onPressed;
@@ -461,6 +465,9 @@ class _AnimatedActionButtonState extends State<AnimatedActionButton> {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width;
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return GestureDetector(
       onTapDown: _onTapDown,
       onTapUp: _onTapUp,
@@ -468,16 +475,25 @@ class _AnimatedActionButtonState extends State<AnimatedActionButton> {
       child: AnimatedScale(
         scale: _scale,
         duration: const Duration(milliseconds: 100),
-        child: Container(
-          height: 60,
-          width: 102,
-          decoration: BoxDecoration(
-            gradient: widget.gradient,
-            borderRadius: BorderRadius.circular(50),
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            vertical: screenHeight * 0.005,
           ),
-          child: Image.asset(
-            widget.image,
-            scale: 4,
+          child: Container(
+            height: screenHeight * 0.08,
+            width: screenWidth * 0.285,
+            decoration: BoxDecoration(
+              gradient: widget.gradient,
+              borderRadius: BorderRadius.circular(screenWidth * 0.1),
+            ),
+            child: Center(
+              child: Image.asset(
+                widget.image,
+                height: 24,
+                width: screenWidth * 0.1,
+                fit: BoxFit.contain,
+              ),
+            ),
           ),
         ),
       ),

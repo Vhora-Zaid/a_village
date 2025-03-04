@@ -348,14 +348,13 @@ class ProfileGridView extends StatelessWidget {
               );
             },
             child: Container(
-              height: 206,
-              width: 164,
               decoration: BoxDecoration(
                 color: (index ~/ 2).isEven ? TColors.cardeven : TColors.cardodd,
                 borderRadius: BorderRadius.circular(10),
               ),
               padding: const EdgeInsets.all(12),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   SizedBox(
@@ -367,23 +366,23 @@ class ProfileGridView extends StatelessWidget {
                   ),
                   const SizedBox(height: 18),
                   Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Expanded(
-                            child: Text(
-                              '${profile['name']}, ${profile['age']}',
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: AppFonts.interbold,
-                                fontWeight: FontWeight.bold,
-                              ),
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.center,
+                          Text(
+                            '${profile['name']}, ${profile['age']}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: AppFonts.interbold,
+                              fontWeight: FontWeight.bold,
                             ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
                           ),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
                           Icon(
                             Icons.circle,
                             size: 8,
@@ -395,7 +394,6 @@ class ProfileGridView extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
                             ImageStrings.location,

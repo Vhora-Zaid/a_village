@@ -111,8 +111,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     ),
                   ),
                   Container(
-                    height: 10,
-                    margin: const EdgeInsets.only(top: 48),
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(top: 50),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
@@ -132,58 +132,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
 
                 ],
               ),
-              // bottomNavigationBar: Container(
-              //   color: TColors.white,
-              //   child: Padding(
-              //     padding: const EdgeInsets.only(left: 20, right: 30, bottom: 30),
-              //     child: Row(
-              //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              //       children: [
-              //         Row(
-              //           mainAxisAlignment: MainAxisAlignment.center,
-              //           children: List.generate(
-              //             3,
-              //             (index) {
-              //               return Padding(
-              //                 padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              //                 child: Container(
-              //                   width: 20,
-              //                   height: 4,
-              //                   color: _currentPage == index
-              //                       ? const Color(0xff2353FF)
-              //                       : const Color(0xffD9D9D9),
-              //                 ),
-              //               );
-              //             },
-              //           ),
-              //         ),
-              //         // Next Button
-              //         GestureDetector(
-              //           onTap: () {
-              //             if (_currentPage < 2) {
-              //               _pageController.nextPage(
-              //                 duration: const Duration(milliseconds: 500),
-              //                 curve: Curves.ease,
-              //               );
-              //             } else {
-              //               Navigator.pushReplacement(
-              //                 context,
-              //                 MaterialPageRoute(
-              //                   builder: (context) => const LoginScreen(),
-              //                 ),
-              //               );
-              //             }
-              //           },
-              //           child: Image.asset(
-              //             ImageStrings.nextbutton,
-              //             height: 58,
-              //             width: 58,
-              //           ),
-              //         ),
-              //       ],
-              //     ),
-              //   ),
-              // ),
               Padding(
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 29, bottom: 30),
@@ -278,7 +226,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       height: 25,
                     ),
                     Container(
-                      height: 70,
                       width: MediaQuery.sizeOf(context).width,
                       decoration: BoxDecoration(
                         color: TColors.functionbutton,
