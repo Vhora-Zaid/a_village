@@ -33,10 +33,7 @@ class _SelectableGridState extends State<SelectableGrid> {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 15,
-        mainAxisSpacing: 3
-      ),
+          crossAxisCount: 2, crossAxisSpacing: 15, mainAxisSpacing: 3),
       itemCount: 6,
       itemBuilder: (context, index) {
         return GestureDetector(
@@ -57,8 +54,16 @@ class _SelectableGridState extends State<SelectableGrid> {
                           color: TColors.bordercolor,
                           width: 1,
                         ),
-                  gradient:
-                      selectedItems[index] ? TColors.iconGradient : null,
+                  gradient: selectedItems[index]
+                      ? LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            Color(0xffFFEEA6),
+                            Color(0xffFFD216),
+                          ],
+                        )
+                      : null,
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: Column(
@@ -102,24 +107,21 @@ class _SelectableGridState extends State<SelectableGrid> {
                 ),
               ),
               Positioned(
-                right: 0,
-                top: 0,
+                right: 10,
+                top: 10,
                 child: selectedItems[index]
-                    ? Padding(
-                        padding: const EdgeInsets.all(8),
-                        child: Container(
-                          height: 24,
-                          width: 24,
-                          decoration: BoxDecoration(
-                            color: Colors.transparent,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Image.asset(
-                            ImageStrings.tick,
-                            scale: 4,
-                          ),
-                        ),
-                      )
+                    ? Container(
+                      height: 24,
+                      width: 24,
+                      decoration: BoxDecoration(
+                        color: Colors.transparent,
+                        borderRadius: BorderRadius.circular(50),
+                      ),
+                      child: Image.asset(
+                        ImageStrings.tick,
+                        scale: 4,
+                      ),
+                    )
                     : Container(),
               ),
             ],
@@ -175,45 +177,46 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
           child: Stack(
             children: [
               SizedBox(
-                  height: widget.height,
-                  width: widget.width,
-                  child: selectedImages[index] != null
-                      ? Container(
+                height: widget.height,
+                width: widget.width,
+                child: selectedImages[index] != null
+                    ? Container(
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(8),
+                          color: widget.selectedColor,
+                        ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(8),
+                          child: Image.file(
+                            selectedImages[index]!,
+                            fit: BoxFit.cover,
+                            width: double.infinity,
+                            height: double.infinity,
+                          ),
+                        ),
+                      )
+                    : DottedBorder(
+                        borderType:
+                            BorderType.RRect, // Rounded rectangle border
+                        radius: const Radius.circular(8),
+                        color: widget.borderColor,
+                        strokeWidth: 1,
+                        dashPattern: [6, 5],
+                        child: Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8),
-                            color: widget.selectedColor,
+                            color: widget.unselectedColor,
                           ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: Image.file(
-                              selectedImages[index]!,
-                              fit: BoxFit.cover,
-                              width: double.infinity,
-                              height: double.infinity,
-                            ),
-                          ),
-                        )
-                      : DottedBorder(
-                          borderType: BorderType.RRect, // Rounded rectangle border
-                          radius: const Radius.circular(8),
-                          color: widget.borderColor,
-                          strokeWidth: 1,
-                          dashPattern: [6, 5],
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(8),
-                              color: widget.unselectedColor,
-                            ),
-                            child: Center(
-                              child: Image.asset(
-                                ImageStrings.plus,
-                                height: 24,
-                                width: 24,
-                              ),
+                          child: Center(
+                            child: Image.asset(
+                              ImageStrings.plus,
+                              height: 24,
+                              width: 24,
                             ),
                           ),
                         ),
-                ),
+                      ),
+              ),
               if (selectedImages[index] != null)
                 Positioned(
                   top: 6,
@@ -426,3 +429,177 @@ class ProfileGridView extends StatelessWidget {
     );
   }
 }
+
+class LikesView extends StatelessWidget {
+  const LikesView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> profiles = [
+      {
+        'imageUrl': ImageStrings.profile1,
+        'name': 'Eleanor Pena',
+        'age': 20,
+        'status': 'Online',
+        'isOnline': true,
+        'location': 'Toledo'
+      },
+      {
+        'imageUrl': ImageStrings.profile2,
+        'name': 'Jenny Wilson',
+        'age': 24,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Austin'
+      },
+      {
+        'imageUrl': ImageStrings.profile3,
+        'name': 'Jacob Jones',
+        'age': 28,
+        'status': 'Online',
+        'isOnline': true,
+        'location': 'Toledo'
+      },
+      {
+        'imageUrl': ImageStrings.profile4,
+        'name': 'Cameron Pena',
+        'age': 30,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Fairfield'
+      },
+      {
+        'imageUrl': ImageStrings.profile5,
+        'name': 'Savannah Nguy',
+        'age': 21,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Naperville'
+      },
+      {
+        'imageUrl': ImageStrings.profile6,
+        'name': 'Annette Black',
+        'age': 31,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Orange'
+      },
+      {
+        'imageUrl': ImageStrings.profile7,
+        'name': 'Cody Fisher',
+        'age': 32,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Pembroke Pines'
+      },
+      {
+        'imageUrl': ImageStrings.profile8,
+        'name': 'Emily Davis',
+        'age': 25,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Fairfield'
+      }
+    ];
+
+    return GridView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 3 / 4,
+      ),
+      itemCount: profiles.length,
+      itemBuilder: (context, index) {
+        final profile = profiles[index];
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => UserProfileScreen(),
+                ),
+              );
+            },
+            child: Container(
+              decoration: BoxDecoration(
+                color: (index ~/ 2).isEven ? TColors.cardodd : TColors.cardeven,
+                borderRadius: BorderRadius.circular(10),
+              ),
+              padding: const EdgeInsets.all(12),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 112,
+                    width: 112,
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(profile['imageUrl']),
+                    ),
+                  ),
+                  const SizedBox(height: 18),
+                  Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${profile['name']}, ${profile['age']}',
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: AppFonts.interbold,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                          ),
+                          // SizedBox(
+                          //   width: 5,
+                          // ),
+                          Icon(
+                            Icons.circle,
+                            size: 8,
+                            color: profile['isOnline'] ?? false
+                                ? TColors.online
+                                : TColors.offline,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 8),
+                      Row(
+                        children: [
+                          Image.asset(
+                            ImageStrings.location,
+                            height: 18,
+                            width: 18,
+                          ),
+                          const SizedBox(width: 4),
+                          Expanded(
+                            child: Text(
+                              profile['location'] ?? 'Unknown Location',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFonts.interregular,
+                                fontWeight: FontWeight.w400,
+                                color: TColors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
+

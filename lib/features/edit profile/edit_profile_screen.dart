@@ -1,3 +1,4 @@
+import 'package:a_village/common/widgets/profile_grid.dart';
 import 'package:a_village/features/personal%20info/personal_info_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -53,9 +54,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               ),
               Column(
                 children: [
-                  Container(
-                    
-                  ),
+                  ProfileGrid(),
                   SizedBox(
                     height: 21,
                   ),
@@ -73,7 +72,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       ),
                       GestureDetector(
                         onTap: () {
-                          Navigator.push(context, MaterialPageRoute(builder: (context) => PersonalInfoScreen()));
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => PersonalInfoScreen(),
+                            ),
+                          );
                         },
                         child: Image.asset(
                           ImageStrings.editicon,

@@ -50,7 +50,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(bottom: 30, top: 20),
+        padding: const EdgeInsets.only(bottom: 30),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -87,7 +87,7 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(left: 32, right: 32, top: 100),
+          padding: const EdgeInsets.only(left: 32, right: 32, top: 100, bottom: 75),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [

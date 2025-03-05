@@ -35,6 +35,7 @@ class _SecondIntroScreenState extends State<SecondIntroScreen> {
             ),
             SizedBox(
               height: 350,
+              width: 250,
               child: AnimatedIntroScreen(),
             ),
             Padding(

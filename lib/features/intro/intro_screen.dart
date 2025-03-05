@@ -21,6 +21,7 @@ class _IntroScreenState extends State<IntroScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: PageView.builder(
+        physics: NeverScrollableScrollPhysics(),
         controller: _pageController,
         itemCount: 3,
         onPageChanged: (index) {

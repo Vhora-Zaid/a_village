@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 
 import '../../utils/constants/app_fonts.dart';
 
-class AnimatedIntroScreen extends StatefulWidget {
-  const AnimatedIntroScreen({super.key});
+class MatchedAnimation extends StatefulWidget {
+  const MatchedAnimation({super.key});
 
   @override
-  _AnimatedIntroScreenState createState() => _AnimatedIntroScreenState();
+  _MatchedAnimationState createState() => _MatchedAnimationState();
 }
 
-class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
+class _MatchedAnimationState extends State<MatchedAnimation>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<Offset> _leftCardAnimation;
@@ -30,8 +30,8 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
     );
 
     _leftCardAnimation = Tween<Offset>(
-      begin: Offset(3, -5), // Start from the left offscreen
-      end: Offset(-1, 0), // Move to the center
+      begin: Offset(-2, 0), // Start from the left offscreen
+      end: Offset(-0.67, 0), // Move to the center
     ).animate(
       CurvedAnimation(
         parent: _controller,
@@ -40,29 +40,25 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
     );
 
     _rightCardAnimation = Tween<Offset>(
-      begin: Offset(-3, -5), // Start from the right offscreen
-      end: Offset(0.55, 0.25), // Move to the center
+      begin: Offset(2, 0), // Start from the right offscreen
+      end: Offset(0.67, 0), // Move to the center
     ).animate(
       CurvedAnimation(parent: _controller, curve: Curves.easeOut),
     );
 
     _leftRotationAnimation = Tween<double>(
       begin: -0.2, // Initial rotation in radians (slightly tilted left)
-      end: -0.3, // Final rotation
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+      end: -0.15, // Final rotation
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _rightRotationAnimation = Tween<double>(
       begin: 0.2, // Initial rotation in radians (slightly tilted right)
-      end: 0.3, // Final rotation
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+      end: 0.15, // Final rotation
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     _centerCardAnimation = Tween<Offset>(
-      begin: Offset(0, 3), // Start from the top offscreen
-      end: Offset(0, -0.25), // Move to the center
+      begin: Offset(0, 0.25), // Start from the top offscreen
+      end: Offset(0, -0.46), // Move to the center
     ).animate(
       CurvedAnimation(
         parent: _controller,
@@ -73,9 +69,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
     _centerRotationAnimation = Tween<double>(
       begin: 0,
       end: 0, // Final rotation
-    ).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeOut),
-    );
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOut));
 
     Future.delayed(Duration(milliseconds: 300), () {
       _controller.forward();
@@ -100,12 +94,12 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
               animation: _controller,
               builder: (context, child) {
                 return Transform.translate(
-                  offset: _rightCardAnimation.value *
+                  offset: _leftCardAnimation.value *
                       MediaQuery.of(context).size.width /
                       3.2,
                   child: Transform.rotate(
-                    angle: _rightRotationAnimation.value,
-                    child: cardWidget2(Colors.white, "Jenny Wilson"),
+                    angle: _leftRotationAnimation.value,
+                    child: cardWidget1(Colors.white, "Leslie Alexander"),
                   ),
                 );
               },
@@ -114,12 +108,12 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
               animation: _controller,
               builder: (context, child) {
                 return Transform.translate(
-                  offset: _leftCardAnimation.value *
+                  offset: _rightCardAnimation.value *
                       MediaQuery.of(context).size.width /
-                      6.2,
+                      3.2,
                   child: Transform.rotate(
-                    angle: _leftRotationAnimation.value,
-                    child: cardWidget1(Colors.white, "Robert Fox"),
+                    angle: _rightRotationAnimation.value,
+                    child: cardWidget2(Colors.white, "Wade Warren"),
                   ),
                 );
               },
@@ -133,7 +127,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
                       1.7,
                   child: Transform.rotate(
                     angle: _centerRotationAnimation.value,
-                    child: cardWidget(Colors.white, 'Hey!'),
+                    child: cardWidget(),
                   ),
                 );
               },
@@ -144,36 +138,10 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
     );
   }
 
-  Widget cardWidget(Color color, String text) {
-    return Container(
-      width: 100,
-      height: 48,
-      decoration: BoxDecoration(
-        color: color,
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(color: Colors.black26, blurRadius: 10, spreadRadius: 2)
-        ],
-      ),
-      alignment: Alignment.center,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            '👋',
-            style: TextStyle(fontSize: 30),
-          ),
-          SizedBox(width: 4),
-          Text(
-            text,
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
-      ),
+  Widget cardWidget() {
+    return Image.asset(
+      ImageStrings.matchedheart,
+      scale: 4,
     );
   }
 
@@ -192,33 +160,16 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 18),
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  height: 135,
-                  width: 125.24,
-                  decoration: BoxDecoration(
-                    color: Color(0xff2654FF),
-                    borderRadius: BorderRadius.circular(16.92),
-                  ),
+            padding: const EdgeInsets.only(top: 12),
+            child: Container(
+              height: 135,
+              width: 125.24,
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage(ImageStrings.matchedleft),
                 ),
-                Positioned(
-                  top: -12,
-                  left: 0,
-                  right: 0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16.92),
-                    child: Image.asset(
-                      ImageStrings.card1image,
-                      width: 125.24,
-                      height: 150,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
+                borderRadius: BorderRadius.circular(15)
+              ),
             ),
           ),
           SizedBox(
@@ -234,7 +185,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
             ),
           ),
           Text(
-            'Social Speaker',
+            'Falk Dancer',
             style: TextStyle(
               color: Color(0xff676767),
               fontSize: 11,
@@ -261,32 +212,16 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 18),
-            child: Stack(
-              clipBehavior: Clip.none,
-              children: [
-                Container(
-                  height: 135,
-                  width: 125.24,
-                  decoration: BoxDecoration(
-                    color: Color(0xffFFD62E),
-                    borderRadius: BorderRadius.circular(16.92),
+            padding: const EdgeInsets.only(top: 12),
+            child: Container(
+              height: 135,
+              width: 125.24,
+              decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: AssetImage(ImageStrings.matchedright),
                   ),
-                ),
-                Positioned(
-                  top: -16,
-                  left: 0,
-                  right: 0,
-                  child: ClipRRect(
-                    borderRadius: BorderRadius.circular(16.92),
-                    child: Image.asset(
-                      ImageStrings.card2image,
-                      width: 125.24,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
-                ),
-              ],
+                  borderRadius: BorderRadius.circular(15)
+              ),
             ),
           ),
           SizedBox(
@@ -302,7 +237,7 @@ class _AnimatedIntroScreenState extends State<AnimatedIntroScreen>
             ),
           ),
           Text(
-            'Social Speaker',
+            'Motivational',
             style: TextStyle(
               color: Color(0xff676767),
               fontSize: 11,

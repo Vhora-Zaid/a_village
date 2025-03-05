@@ -18,6 +18,7 @@ class ChangePasswordScreen extends StatefulWidget {
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   TextEditingController currentPassController = TextEditingController();
   TextEditingController newPassController = TextEditingController();
+  TextEditingController confirmNewPassController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -91,7 +92,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 height: 20,
               ),
               AppTextField(
-                controller: newPassController,
+                controller: confirmNewPassController,
                 imagePath: ImageStrings.password,
                 suffixImage: ImageStrings.eyeclose,
                 obscureText: false,

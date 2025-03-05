@@ -136,5 +136,9 @@
   "writesomething": "写一些关于自己的东西",
   "save": "保存",
   "eleanor": "埃莉诺·佩纳",
-  "aboutele": "关于埃莉诺"
+  "aboutele": "关于埃莉诺",
+  "areyousure": "您确定要注销吗？",
+  "yes": "是",
+  "sendmssg": "发送消息",
+  "keepplay": "继续玩"
 }

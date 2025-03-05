@@ -123,53 +123,71 @@ class AppListViewVertical extends StatelessWidget {
     return ListView.builder(
       physics: NeverScrollableScrollPhysics(),
       shrinkWrap: true,
-      padding: const EdgeInsets.symmetric(vertical: 5),
       itemCount: names.length,
       itemBuilder: (BuildContext context, int index) {
-        return GestureDetector(
-          onTap: () => onTap(index),
-          child: ListTile(
-            leading: Container(
-              width: width,
-              height: height,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                  image: AssetImage(profileImages[index % profileImages.length]),
+        return Column(
+          children: [
+            GestureDetector(
+              onTap: () => onTap(index),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10, bottom: 10),
+                child: ListTile(
+                  leading: Container(
+                    width: width,
+                    height: height,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(
+                          profileImages[index % profileImages.length],
+                        ),
+                      ),
+                    ),
+                  ),
+                  title: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        names[index],
+                        style: const TextStyle(
+                          fontFamily: AppFonts.interregular,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: TColors.black,
+                        ),
+                      ),
+                      Text(
+                        timestamps[index],
+                        style: const TextStyle(
+                          fontFamily: AppFonts.interregular,
+                          fontSize: 12,
+                          color: TColors.timestampcolor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.only(top: 2),
+                    child: Text(
+                      messages[index],
+                      style: const TextStyle(
+                        fontFamily: AppFonts.interregular,
+                        fontSize: 14,
+                        color: TColors.messagecolor,
+                      ),
+                    ),
+                  ),
                 ),
               ),
             ),
-            title: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  names[index],
-                  style: const TextStyle(
-                    fontFamily: AppFonts.interregular,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: TColors.black,
-                  ),
-                ),
-                Text(
-                  timestamps[index],
-                  style: const TextStyle(
-                    fontFamily: AppFonts.interregular,
-                    fontSize: 12,
-                    color: TColors.timestampcolor,
-                  ),
-                ),
-              ],
-            ),
-            subtitle: Text(
-              messages[index],
-              style: const TextStyle(
-                fontFamily: AppFonts.interregular,
-                fontSize: 14,
-                color: TColors.messagecolor,
+            Padding(
+              padding: const EdgeInsets.only(left: 90),
+              child: Divider(
+                height: 1,
+                color: TColors.stroke,
               ),
-            ),
-          ),
+            )
+          ],
         );
       },
     );
@@ -343,3 +361,165 @@ class AppListViewFavorites extends StatelessWidget {
     );
   }
 }
+
+class MatchesView extends StatelessWidget {
+  const MatchesView({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final List<Map<String, dynamic>> profiles = [
+      {
+        'imageUrl': ImageStrings.profile1,
+        'name': 'Eleanor Pena',
+        'age': 20,
+        'status': 'Online',
+        'isOnline': true,
+        'location': 'Toledo'
+      },
+      {
+        'imageUrl': ImageStrings.profile2,
+        'name': 'Jenny Wilson',
+        'age': 24,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Austin'
+      },
+      {
+        'imageUrl': ImageStrings.profile3,
+        'name': 'Jacob Jones',
+        'age': 28,
+        'status': 'Online',
+        'isOnline': true,
+        'location': 'Toledo'
+      },
+      {
+        'imageUrl': ImageStrings.profile4,
+        'name': 'Cameron Pena',
+        'age': 30,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Fairfield'
+      },
+      {
+        'imageUrl': ImageStrings.profile5,
+        'name': 'Savannah Nguy',
+        'age': 21,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Naperville'
+      },
+      {
+        'imageUrl': ImageStrings.profile6,
+        'name': 'Annette Black',
+        'age': 31,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Orange'
+      },
+      {
+        'imageUrl': ImageStrings.profile7,
+        'name': 'Cody Fisher',
+        'age': 32,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Pembroke Pines'
+      },
+      {
+        'imageUrl': ImageStrings.profile8,
+        'name': 'Emily Davis',
+        'age': 25,
+        'status': 'Offline',
+        'isOnline': false,
+        'location': 'Fairfield'
+      }
+    ];
+
+    return SizedBox(
+      height: MediaQuery.sizeOf(context).height,
+      width: MediaQuery.sizeOf(context).width,
+      child: ListView.builder(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        itemCount: profiles.length,
+        itemBuilder: (BuildContext context, int index) {
+          final profile = profiles[index % profiles.length];
+          return Card(
+            elevation: 0,
+            color: TColors.favoritecard,
+            margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 16),
+            child: Container(
+              height: 110,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  Container(
+                    width: 80,
+                    height: 80,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                        image: AssetImage(profile['imageUrl']),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 15),
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Text(
+                              '${profile['name']}, ${profile['age']}',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFonts.interbold,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(
+                              profile['isOnline'] ? Icons.circle : Icons.circle,
+                              color: profile['isOnline']
+                                  ? TColors.online
+                                  : TColors.offline,
+                              size: 8,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Image.asset(
+                              ImageStrings.location,
+                              height: 18,
+                              width: 18,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              profile['location'] ?? 'Unknown Location',
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: AppFonts.interregular,
+                                fontWeight: FontWeight.w400,
+                                color: TColors.black,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+}
+

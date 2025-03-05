@@ -1,6 +1,7 @@
 import 'package:a_village/common/widgets/app_button.dart';
 import 'package:a_village/common/widgets/interest_selection.dart';
 import 'package:a_village/utils/constants/colors.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/app_appbar.dart';
@@ -15,6 +16,30 @@ class PersonalInfoScreen extends StatefulWidget {
 }
 
 class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
+
+  TextEditingController emailController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController dobController = TextEditingController();
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    super.dispose();
+  }
+
+  // @override
+  // void initState() {
+  //   // TODO: implement initState
+  //   super.initState();
+  //   if (kDebugMode) {
+  //     emailController.text = 'georgia.young@example.com';
+  //     numberController.text = '+1 98980 98980';
+  //     nameController.text = 'Wade Warren';
+  //     dobController.text = '15/08/1995';
+  //   }
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -67,6 +92,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               TextFormField(
                 textAlignVertical: TextAlignVertical.center,
                 cursorColor: Color(0xff3E1D0D),
+                controller: nameController,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
                   errorBorder: OutlineInputBorder(
@@ -123,6 +149,8 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               TextFormField(
                 readOnly: true,
                 textAlignVertical: TextAlignVertical.center,
+                keyboardType: TextInputType.number,
+                controller: numberController,
                 cursorColor: Color(0xff3E1D0D),
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
@@ -181,6 +209,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
                 readOnly: true,
                 textAlignVertical: TextAlignVertical.center,
                 cursorColor: Color(0xff3E1D0D),
+                controller: emailController,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
                   errorBorder: OutlineInputBorder(
@@ -237,6 +266,8 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               TextFormField(
                 textAlignVertical: TextAlignVertical.center,
                 cursorColor: Color(0xff3E1D0D),
+                controller: dobController,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
                   errorBorder: OutlineInputBorder(
@@ -358,7 +389,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 10),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30, top: 20),
         child: AppButton(
           title: AppLocalizations.of(context)!.save,
           onTap: () {

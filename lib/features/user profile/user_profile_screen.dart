@@ -1,4 +1,3 @@
-import 'package:a_village/common/widgets/app_appbar.dart';
 import 'package:a_village/common/widgets/interest_selection.dart';
 import 'package:a_village/utils/constants/app_fonts.dart';
 import 'package:a_village/utils/constants/colors.dart';
@@ -102,7 +101,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       Navigator.pop(context);
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 70),
+                      padding: const EdgeInsets.only(left: 16, top: 40),
                       child: Image.asset(
                         ImageStrings.backarrow,
                         height: 44,
@@ -112,7 +111,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(top: 50),
+                    margin: const EdgeInsets.only(top: 20),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(

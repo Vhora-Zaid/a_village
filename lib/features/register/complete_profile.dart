@@ -6,6 +6,7 @@ import 'package:a_village/common/widgets/image_picker_bottomsheet.dart';
 import 'package:a_village/features/register/your_interests_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:image_picker/image_picker.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
@@ -18,7 +19,8 @@ class CompleteProfileScreen extends StatefulWidget {
 }
 
 class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
-  final _formKey = GlobalKey<FormState>();
+
+  final _picker = ImagePicker();
   File? _pickedImage;
 
   @override
@@ -60,47 +62,63 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 height: 23,
               ),
               Center(
-                child: GestureDetector(
-                  onTap: () async {
-                    showImagePickerOptions(
-                      context: context,
-                      onTapGallery: () {},
-                      onTapCamera: () {},
-                    );
-                  },
-                  child: Container(
-                    width: 160,
-                    height: 160,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.rectangle,
-                      color: Color(0xffF9F9F9),
-                      borderRadius: BorderRadius.circular(30),
-                      image: _pickedImage != null
-                          ? DecorationImage(
-                              image: FileImage(_pickedImage!),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
-                    ),
-                    child: Stack(
-                      children: [
-                        if (_pickedImage == null)
-                          Center(
-                            child: Image.asset(
-                              ImageStrings.defaultperson,
-                              height: 62.1,
-                              width: 55.58,
-                            ),
+                child: Container(
+                  width: 160,
+                  height: 160,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Color(0xffF9F9F9),
+                    borderRadius: BorderRadius.circular(30),
+                    image: _pickedImage != null
+                        ? DecorationImage(
+                            image: FileImage(_pickedImage!),
+                            fit: BoxFit.cover,
+                          )
+                        : null,
+                  ),
+                  child: Stack(
+                    children: [
+                      if (_pickedImage == null)
+                        Center(
+                          child: Image.asset(
+                            ImageStrings.defaultperson,
+                            height: 62.1,
+                            width: 55.58,
                           ),
-                        Align(
-                          alignment: Alignment.bottomRight,
+                        ),
+                      Align(
+                        alignment: Alignment.bottomRight,
+                        child: GestureDetector(
+                          onTap: () async {
+                            showImagePickerOptions(
+                              context: context,
+                              onTapGallery: () async {
+                                final XFile? image =
+                                await _picker.pickImage(source: ImageSource.gallery);
+                                if (image != null) {
+                                  setState(() {
+                                    _pickedImage = File(image.path);
+                                  });
+                                }
+                              },
+                              onTapCamera: () async {
+                                final XFile? image =
+                                await _picker.pickImage(source: ImageSource.camera);
+                                if (image != null) {
+                                  setState(() {
+                                    _pickedImage = File(image.path);
+                                  });
+                                }
+                              },
+                            );
+                          },
                           child: Image.asset(
                             ImageStrings.camera,
                             scale: 4,
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
@@ -112,7 +130,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                 style: TextStyle(
                     fontFamily: AppFonts.interregular,
                     fontSize: 15,
-                    color: TColors.black),
+                    color: TColors.black,),
               ),
               SizedBox(
                 height: 10,

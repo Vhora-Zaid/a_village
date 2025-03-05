@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import "package:fluttertoast/fluttertoast.dart";
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'constants/app_fonts.dart';
 import 'constants/colors.dart';
 
 void showOkCancelAlertDialog({
@@ -75,12 +76,16 @@ AlertDialog _showMaterialAlertDialog(BuildContext context, String message) {
     title: Text(
       AppLocalizations.of(context)!.appname,
       style: const TextStyle(
-          fontSize: 15, fontWeight: FontWeight.w500),
+        fontSize: 15,
+        fontWeight: FontWeight.w500,
+      ),
     ),
     content: Text(
       message,
       style: const TextStyle(
-          fontSize: 16, fontWeight: FontWeight.w300),
+        fontSize: 16,
+        fontWeight: FontWeight.w300,
+      ),
       //  Theme.of(context).textTheme.displayMedium,
     ),
     actions: _actions(context),
@@ -97,15 +102,20 @@ AlertDialog _showOkCancelMaterialAlertDialog(
   Function cancelButtonAction,
 ) {
   return AlertDialog(
+    backgroundColor: TColors.white,
     title: Text(
       AppLocalizations.of(context)!.appname,
       style: const TextStyle(
-          fontSize: 18, fontWeight: FontWeight.w500),
+        fontSize: 18,
+        fontWeight: FontWeight.w500,
+      ),
     ),
     content: Text(
       message,
       style: const TextStyle(
-          fontSize: 16, fontWeight: FontWeight.w300),
+        fontSize: 16,
+        fontWeight: FontWeight.w300,
+      ),
     ),
     actions: _okCancelActions(
       context: context,
@@ -185,33 +195,57 @@ List<Widget> _okCancelActions({
               Navigator.of(context).pop();
               cancelButtonAction();
             },
-            child: Text(cancelButtonTitle,
-                style: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.w300)),
+            child: Text(
+              cancelButtonTitle,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.interregular,
+                color: TColors.blue,
+              ),
+            ),
           )
         : TextButton(
             onPressed: () {
               Navigator.of(context).pop();
               cancelButtonAction();
             },
-            child: Text(cancelButtonTitle,
-                style: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.w300)),
+            child: Text(
+              cancelButtonTitle,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.interregular,
+                color: TColors.blue,
+              ),
+            ),
           ),
     Platform.isIOS
         ? CupertinoDialogAction(
-            child: Text(okButtonTitle,
-                style: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.w300)),
+            child: Text(
+              okButtonTitle,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.interregular,
+                color: TColors.blue,
+              ),
+            ),
             onPressed: () {
               Navigator.of(context).pop();
               okButtonAction();
             },
           )
         : TextButton(
-            child: Text(okButtonTitle,
-                style: const TextStyle(
-                    fontSize: 14, fontWeight: FontWeight.w300)),
+            child: Text(
+              okButtonTitle,
+              style: const TextStyle(
+                fontSize: 14,
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.interregular,
+                color: TColors.blue,
+              ),
+            ),
             onPressed: () {
               Navigator.of(context).pop();
               okButtonAction();

@@ -1,12 +1,18 @@
 import 'package:a_village/features/edit%20profile/edit_profile_screen.dart';
+import 'package:a_village/features/login/login_screen.dart';
 import 'package:a_village/features/settings/settings_screen.dart';
 import 'package:a_village/features/subscription/subscription_screen.dart';
+import 'package:a_village/features/Matched/you_matched_screen.dart';
+import 'package:a_village/features/who%20likes%20you/who_likes.dart';
+import 'package:a_village/features/your%20likes/your_likes_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
+import 'package:a_village/utils/dialog_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/app_appbar.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/image_strings.dart';
+import '../matches/matches_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
@@ -26,18 +32,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ImageStrings.support,
     ImageStrings.privacy,
     ImageStrings.logout
-  ];
-
-  final List<dynamic> routes = [
-    EditProfileScreen(),
-    "/matches",
-    "/wholikesyou",
-    "/yourlikes",
-    SubscriptionScreen(),
-    SettingsScreen(),
-    "/support",
-    "/privacy",
-    "/logout"
   ];
 
   @override
@@ -187,14 +181,80 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   children: [
                     ListTile(
                       onTap: () {
-                        final route = routes[index];
-                        if (route is String) {
-                          Navigator.pushNamed(context, route);
-                        } else {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => route),
-                          );
+                        switch (index) {
+                          case 0:
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfileScreen(),
+                              ),
+                            );
+                            break;
+                          case 1:
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => MatchesScreen(),
+                              ),
+                            );
+                            break;
+                          case 2:
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => WhoLikesYou(),
+                              ),
+                            );
+                            break;
+                          case 3:
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => YourLikesScreen(),
+                              ),
+                            );
+                            break;
+                          case 4:
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SubscriptionScreen(),
+                              ),
+                            );
+                            break;
+                          case 5:
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SettingsScreen(),
+                              ),
+                            );
+                            break;
+                          case 6:
+                            Navigator.pushNamed(context, '/support');
+                            break;
+                          case 7:
+                            Navigator.pushNamed(context, '/privacy');
+                            break;
+                          case 8:
+                            showOkCancelAlertDialog(
+                              context: context,
+                              message: AppLocalizations.of(context)!.areyousure,
+                              okButtonTitle: AppLocalizations.of(context)!.ok,
+                              cancelButtonTitle:
+                                  AppLocalizations.of(context)!.cancel,
+                              cancelButtonAction: () {},
+                              okButtonAction: () {
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => LoginScreen(),
+                                  ),
+                                );
+                              },
+                            );
+                            break;
+                          default:
                         }
                       },
                       leading: Container(

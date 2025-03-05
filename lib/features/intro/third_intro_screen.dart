@@ -1,3 +1,4 @@
+import 'package:a_village/common/widgets/hearts_Intro.dart';
 import 'package:a_village/features/login/login_screen.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +32,11 @@ class _ThirdIntroScreenState extends State<ThirdIntroScreen> {
                   fontSize: 30,
                   fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 350,
+              width: 250,
+              child: HeartsIntro(),
             ),
             SizedBox(
               height: 37,

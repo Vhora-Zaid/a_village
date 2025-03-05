@@ -95,5 +95,16 @@ class ImageStrings {
   static const String editicon = 'assets/images/editicon.png';
   static const String card1image = 'assets/images/card1image.png';
   static const String card2image = 'assets/images/card2image.png';
-
+  static const String card3image = 'assets/images/card3image.png';
+  static const String card4image = 'assets/images/card4image.png';
+  static const String closeprofile = 'assets/images/closeprofile.png';
+  static const String heartsgroup = 'assets/images/heartsgroup.png';
+  static const String matchedheart = 'assets/images/matchedheart.png';
+  static const String matchedleft = 'assets/images/matchedleft.png';
+  static const String matchedright = 'assets/images/matchedright.png';
+  static const String cardwidget3 = 'assets/images/cardwidget3.png';
+  static const String cardwidget4 = 'assets/images/cardwidget4.png';
+  static const String cardwidget5 = 'assets/images/cardwidget5.png';
+  static const String cardwidget6 = 'assets/images/cardwidget6.png';
+  static const String cardwidget7 = 'assets/images/cardwidget7.png';
 }

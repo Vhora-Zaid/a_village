@@ -136,5 +136,9 @@
   "writesomething": "Write Something About Yourself",
   "save": "Save",
   "eleanor": "Eleanor Pena,",
-  "aboutele": "About Eleanor"
+  "aboutele": "About Eleanor",
+  "areyousure": "Are you sure you want to logout?",
+  "yes": "Yes",
+  "sendmssg": "Send a Message",
+  "keepplay": "Keep Playing"
 }

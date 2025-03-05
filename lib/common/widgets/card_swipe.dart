@@ -3,6 +3,8 @@ import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter/material.dart';
 
+import '../../features/user profile/user_profile_screen.dart';
+
 class HomeCards extends StatefulWidget {
   const HomeCards({super.key});
 
@@ -294,138 +296,151 @@ class ProfileCard extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        return Container(
-          width: screenWidth * 0.9,
-          height: screenHeight * 0.6,
-          decoration: BoxDecoration(
-            image: DecorationImage(
-              image: NetworkImage(profile.networkImage),
-              fit: BoxFit.cover,
+        return GestureDetector(
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => UserProfileScreen(),
+              ),
+            );
+          },
+          child: Container(
+            width: screenWidth * 0.9,
+            height: screenHeight * 0.6,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: NetworkImage(profile.networkImage),
+                fit: BoxFit.cover,
+              ),
+              borderRadius: BorderRadius.circular(20),
+              // boxShadow: [
+              //   BoxShadow(
+              //     color: Color(0xffEEEEEE),
+              //     spreadRadius: -22,
+              //     blurRadius: 0,
+              //     offset: Offset(0, 44),
+              //   ),
+              //   BoxShadow(
+              //     color: Color(0xffD8D8D8),
+              //     spreadRadius: -12,
+              //     blurRadius: 0,
+              //     offset: Offset(0, 25),
+              //   ),
+              // ],
             ),
-            borderRadius: BorderRadius.circular(20),
-            // boxShadow: [
-            //   BoxShadow(
-            //     color: Color(0xffEEEEEE),
-            //     spreadRadius: -22,
-            //     blurRadius: 0,
-            //     offset: Offset(0, 44),
-            //   ),
-            //   BoxShadow(
-            //     color: Color(0xffD8D8D8),
-            //     spreadRadius: -12,
-            //     blurRadius: 0,
-            //     offset: Offset(0, 25),
-            //   ),
-            // ],
-          ),
-          child: Padding(
-            padding: EdgeInsets.only(left: screenWidth * 0.03, right: screenWidth * 0.03, bottom: screenHeight * 0.03),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Spacer(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.grey.shade300,
-                    borderRadius: BorderRadius.circular(50),
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 6,
-                      horizontal: 9,
+            child: Padding(
+              padding: EdgeInsets.only(
+                  left: screenWidth * 0.03,
+                  right: screenWidth * 0.03,
+                  bottom: screenHeight * 0.03),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Spacer(),
+                  Container(
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade300,
+                      borderRadius: BorderRadius.circular(50),
                     ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          ImageStrings.location,
-                          scale: 4,
-                        ),
-                        SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          profile.location,
-                          style: TextStyle(
-                            color: Colors.black,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: AppFonts.interbold,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: 6,
+                        horizontal: 9,
+                      ),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Image.asset(
+                            ImageStrings.location,
+                            scale: 4,
                           ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-                SizedBox(height: screenHeight * 0.005),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      profile.name,
-                      style: TextStyle(
-                        fontSize: 37,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.interbold,
+                          SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            profile.location,
+                            style: TextStyle(
+                              color: Colors.black,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: AppFonts.interbold,
+                            ),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: 9,
-                    ),
-                    Text(
-                      profile.age,
-                      style: TextStyle(
-                        fontSize: 22,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: AppFonts.interbold,
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: screenHeight * 0.005),
-                Text(
-                  profile.description,
-                  style: TextStyle(
-                    fontSize: 14,
-                    color: Colors.white,
-                    fontFamily: AppFonts.interregular,
                   ),
-                ),
-                SizedBox(height: screenHeight * 0.015),
-                Row(
-                  children: [
-                    Wrap(
-                      spacing: 5,
-                      children: profile.interests.map((interest) {
-                        return Container(
-                          decoration: BoxDecoration(
-                            color: Colors.grey.shade500,
-                            borderRadius: BorderRadius.circular(50),
-                          ),
-                          child: Center(
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 6, horizontal: 13),
-                              child: Text(
-                                interest,
-                                style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: AppFonts.interregular,
+                  SizedBox(height: screenHeight * 0.005),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        profile.name,
+                        style: TextStyle(
+                          fontSize: 37,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: AppFonts.interbold,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 9,
+                      ),
+                      Text(
+                        profile.age,
+                        style: TextStyle(
+                          fontSize: 22,
+                          color: Colors.white,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: AppFonts.interbold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: screenHeight * 0.005),
+                  Text(
+                    profile.description,
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: Colors.white,
+                      fontFamily: AppFonts.interregular,
+                    ),
+                  ),
+                  SizedBox(height: screenHeight * 0.015),
+                  Row(
+                    children: [
+                      Wrap(
+                        spacing: 5,
+                        children: profile.interests.map((interest) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: Colors.grey.shade500,
+                              borderRadius: BorderRadius.circular(50),
+                            ),
+                            child: Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 6, horizontal: 13),
+                                child: Text(
+                                  interest,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w400,
+                                    fontFamily: AppFonts.interregular,
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        );
-                      }).toList(),
-                    ),
-                  ],
-                ),
-              ],
+                          );
+                        }).toList(),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         );
@@ -433,7 +448,6 @@ class ProfileCard extends StatelessWidget {
     );
   }
 }
-
 
 class AnimatedActionButton extends StatefulWidget {
   final VoidCallback onPressed;
