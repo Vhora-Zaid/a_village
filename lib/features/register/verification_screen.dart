@@ -18,7 +18,6 @@ class VerificationScreen extends StatefulWidget {
 }
 
 class _VerificationScreenState extends State<VerificationScreen> {
-
   final _formKey = GlobalKey<FormState>();
 
   bool passwordVisible = false;
@@ -67,7 +66,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
 
   void _resendCode() {
     setState(() {
-      _secondsRemaining = 30;
+      _secondsRemaining = 60;
       _isTimerActive = true;
     });
     _startTimer();
@@ -77,141 +76,131 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColors.white,
-      appBar: MyAppBar(
-        onTap: () {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(
-              builder: (context) => RegisterScreen(),
+      body: Padding(
+        padding: const EdgeInsets.only(left: 32, right: 32),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Image.asset(
+              ImageStrings.verify,
+              height: 93.16,
+              width: 93.16,
             ),
-          );
-        },
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding:
-              const EdgeInsets.only(left: 32, right: 32, top: 100, bottom: 188),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image.asset(
-                ImageStrings.verify,
-                height: 93.16,
-                width: 93.16,
+            SizedBox(
+              height: 39.67,
+            ),
+            Text(
+              AppLocalizations.of(context)!.verify,
+              style: TextStyle(
+                color: TColors.black,
+                fontFamily: AppFonts.interbold,
+                fontSize: 27,
+                fontWeight: FontWeight.bold,
               ),
-              SizedBox(
-                height: 39.67,
+            ),
+            SizedBox(
+              height: 11,
+            ),
+            Text(
+              AppLocalizations.of(context)!.otpsent,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: AppFonts.interregular,
+                fontSize: 14,
+                color: TColors.grey,
               ),
-              Text(
-                AppLocalizations.of(context)!.verify,
-                style: TextStyle(
-                  color: TColors.black,
-                  fontFamily: AppFonts.interbold,
-                  fontSize: 27,
-                  fontWeight: FontWeight.bold,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  '+1 98980 98980',
+                  style: TextStyle(
+                    fontFamily: AppFonts.interbold,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                    color: TColors.black,
+                  ),
                 ),
+                SizedBox(
+                  width: 5,
+                ),
+                GestureDetector(
+                  child: Image.asset(
+                    ImageStrings.edit,
+                    scale: 4,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 37,
+            ),
+            Form(
+              key: _formKey,
+              child: PinCodeTextFieldWidget(
+                appContext: context,
+                onCompleted: (value) {},
               ),
-              SizedBox(
-                height: 11,
-              ),
-              Text(
-                AppLocalizations.of(context)!.otpsent,
-                textAlign: TextAlign.center,
+            ),
+            SizedBox(
+              height: 18,
+            ),
+            GestureDetector(
+              onTap: _isTimerActive
+                  ? null
+                  : () {
+                      _resendCode();
+                    },
+              child: Text(
+                _isTimerActive
+                    ? "00:${_secondsRemaining.toString().padLeft(2, '0')}"
+                    : "",
                 style: TextStyle(
                   fontFamily: AppFonts.interregular,
+                  color: _isTimerActive ? TColors.grey : TColors.black,
                   fontSize: 14,
-                  color: TColors.grey,
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    '+1 98980 98980',
-                    style: TextStyle(
-                      fontFamily: AppFonts.interbold,
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold,
-                      color: TColors.black,
+            ),
+            SizedBox(
+              height: 34,
+            ),
+            AppButton(
+              title: AppLocalizations.of(context)!.verify,
+              onTap: () {
+                if (_formKey.currentState!.validate()) {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CompleteProfileScreen(),
                     ),
-                  ),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  GestureDetector(
-                    child: Image.asset(
-                      ImageStrings.edit,
-                      scale: 4,
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 37,
-              ),
-              Form(
-                key: _formKey,
-                child: PinCodeTextFieldWidget(
-                    appContext: context, onCompleted: (value) {}),
-              ),
-              SizedBox(
-                height: 18,
-              ),
+                  );
+                }
+              },
+            ),
+            SizedBox(
+              height: 28,
+            ),
+            if (!_isTimerActive)
               GestureDetector(
                 onTap: _isTimerActive
                     ? null
                     : () {
                         _resendCode();
                       },
-                child: Text(
-                  _isTimerActive
-                      ? "00:${_secondsRemaining.toString().padLeft(2, '0')}"
-                      : "",
+                child: const Text(
+                  "Resend OTP",
                   style: TextStyle(
-                    fontFamily: AppFonts.interregular,
-                    color: _isTimerActive ? TColors.grey : TColors.black,
-                    fontSize: 14,
+                    fontFamily: AppFonts.interbold,
+                    fontSize: 15,
+                    fontWeight: FontWeight.bold,
+                    color: TColors.blue,
                   ),
                 ),
               ),
-              SizedBox(
-                height: 34,
-              ),
-              AppButton(
-                title: AppLocalizations.of(context)!.verify,
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => CompleteProfileScreen(),
-                      ),
-                    );
-                  }
-                },
-              ),
-              SizedBox(
-                height: 28,
-              ),
-              if (!_isTimerActive)
-                GestureDetector(
-                  onTap: _isTimerActive
-                      ? null
-                      : () {
-                          _resendCode();
-                        },
-                  child: const Text(
-                    "Resend OTP",
-                    style: TextStyle(
-                      fontFamily: AppFonts.interbold,
-                      fontSize: 15,
-                      fontWeight: FontWeight.bold,
-                      color: TColors.blue,
-                    ),
-                  ),
-                ),
-            ],
-          ),
+          ],
         ),
       ),
     );

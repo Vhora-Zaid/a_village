@@ -1,4 +1,5 @@
 import 'package:a_village/common/widgets/toggle_button.dart';
+import 'package:a_village/features/blocked%20users/blocked_users_screen.dart';
 import 'package:a_village/features/change%20password/change_password_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -345,13 +346,55 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               GestureDetector(
                 onTap: () {
-                  Navigator.push(context, MaterialPageRoute(builder: (context) => ChangePasswordScreen()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ChangePasswordScreen()));
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       AppLocalizations.of(context)!.changepass,
+                      style: TextStyle(
+                        color: TColors.black,
+                        fontFamily: AppFonts.interregular,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w400,
+                      ),
+                    ),
+                    Image.asset(
+                      ImageStrings.rightarrow,
+                      height: 9.98,
+                      width: 5.98,
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 21,
+              ),
+              Divider(
+                height: 1,
+                color: TColors.settingsdivider,
+              ),
+              SizedBox(
+                height: 23,
+              ),
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => BlockedUsersScreen(),
+                    ),
+                  );
+                },
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      AppLocalizations.of(context)!.blockedusers,
                       style: TextStyle(
                         color: TColors.black,
                         fontFamily: AppFonts.interregular,
@@ -433,8 +476,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   AnimatedToggle(
                     onToggleCallback: (value) {
                       setState(
-                        () {
-                        },
+                        () {},
                       );
                     },
                   ),
@@ -458,8 +500,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   AnimatedToggle(
                     onToggleCallback: (value) {
                       setState(
-                            () {
-                        },
+                        () {},
                       );
                     },
                   ),

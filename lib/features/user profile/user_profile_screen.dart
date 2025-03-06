@@ -4,6 +4,7 @@ import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -15,7 +16,6 @@ class UserProfileScreen extends StatefulWidget {
 class _UserProfileScreenState extends State<UserProfileScreen> {
   final PageController _pageController = PageController();
   int _currentPage = 0;
-
 
   @override
   Widget build(BuildContext context) {
@@ -116,19 +116,20 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         6,
-                            (index) => Container(
+                        (index) => Container(
                           width: 47.17,
                           height: 2,
                           margin: const EdgeInsets.symmetric(horizontal: 5),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: _currentPage == index ? TColors.white : TColors.grey,
+                            color: _currentPage == index
+                                ? TColors.white
+                                : TColors.grey,
                           ),
                         ),
                       ),
                     ),
                   ),
-
                 ],
               ),
               Padding(
@@ -174,11 +175,240 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ),
                           ],
                         ),
-                        Image.asset(
-                          ImageStrings.homefavorite,
-                          color: TColors.black,
-                          height: 24,
-                          width: 24,
+                        Row(
+                          children: [
+                            Image.asset(
+                              ImageStrings.homefavorite,
+                              color: TColors.black,
+                              height: 24,
+                              width: 24,
+                            ),
+                            PopupMenuButton<String>(
+                              position: PopupMenuPosition.under,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              color: TColors.white,
+                              elevation: 6,
+                              icon: Icon(
+                                Icons.more_vert,
+                                color: TColors.black,
+                              ),
+                              onSelected: (value) {
+                                if (value == 'Report') {
+                                  showDialog(
+                                    context: context,
+                                    builder: (context) {
+                                      TextEditingController reportController =
+                                          TextEditingController();
+                                      return AlertDialog(
+                                        scrollable: true,
+                                        backgroundColor: TColors.white,
+                                        insetPadding: EdgeInsets.zero,
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                        ),
+                                        title: Text(
+                                          AppLocalizations.of(context)!
+                                              .report,
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            fontFamily: AppFonts.interbold,
+                                            color: TColors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .whyreport,
+                                              style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamily:
+                                                    AppFonts.interregular,
+                                                color: TColors.black,
+                                              ),
+                                              textAlign: TextAlign.center,
+                                            ),
+                                            SizedBox(height: 12),
+                                            TextField(
+                                              controller: reportController,
+                                              cursorColor: TColors.placeholder,
+                                              maxLines: 15,
+                                              decoration: InputDecoration(
+                                                hintText: AppLocalizations.of(
+                                                        context)!
+                                                    .enterreason,
+                                                hintStyle: TextStyle(
+                                                  color: TColors.placeholder,
+                                                  fontSize: 14,
+                                                ),
+                                                border: OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  borderSide: BorderSide(
+                                                      color: TColors.stroke),
+                                                ),
+                                                focusedBorder:
+                                                    OutlineInputBorder(
+                                                  borderRadius:
+                                                      BorderRadius.circular(12),
+                                                  borderSide: BorderSide(
+                                                      color: TColors.placeholder),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .cancel,
+                                              style: TextStyle(
+                                                  color: TColors.placeholder),
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: TColors.blue,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Fluttertoast.showToast(
+                                                msg: AppLocalizations.of(
+                                                        context)!
+                                                    .reportsent,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                backgroundColor: TColors.blue,
+                                                textColor: TColors.white,
+                                                fontSize: 14,
+                                              );
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .report,
+                                              style: TextStyle(
+                                                  color: TColors.white),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                } else if (value == 'Block') {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        backgroundColor: TColors.white,
+                                        title: Text(
+                                          AppLocalizations.of(context)!
+                                              .blockuser,
+                                          style: TextStyle(
+                                            fontSize: 22,
+                                            fontWeight: FontWeight.bold,
+                                            color: TColors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        content: Text(
+                                          AppLocalizations.of(context)!
+                                              .sureblock,
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: TColors.black,
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context),
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .cancel,
+                                              style: TextStyle(
+                                                  color: TColors.placeholder),
+                                            ),
+                                          ),
+                                          ElevatedButton(
+                                            style: ElevatedButton.styleFrom(
+                                              backgroundColor: TColors.blue,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(8),
+                                              ),
+                                            ),
+                                            onPressed: () {
+                                              Fluttertoast.showToast(
+                                                msg: AppLocalizations.of(
+                                                        context)!
+                                                    .userblocked,
+                                                toastLength: Toast.LENGTH_SHORT,
+                                                gravity: ToastGravity.BOTTOM,
+                                                backgroundColor:
+                                                    Colors.redAccent,
+                                                textColor: TColors.white,
+                                                fontSize: 14,
+                                              );
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              AppLocalizations.of(context)!
+                                                  .block,
+                                              style: TextStyle(
+                                                  color: TColors.white),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                              },
+                              itemBuilder: (BuildContext context) =>
+                                  <PopupMenuEntry<String>>[
+                                PopupMenuItem<String>(
+                                  value: 'Report',
+                                  child: ListTile(
+                                    leading: Icon(Icons.report,
+                                        color: Colors.redAccent),
+                                    title: Text(
+                                      AppLocalizations.of(context)!.report,
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                                PopupMenuItem<String>(
+                                  value: 'Block',
+                                  child: ListTile(
+                                    leading:
+                                        Icon(Icons.block, color: TColors.black),
+                                    title: Text(
+                                      AppLocalizations.of(context)!.block,
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       ],
                     ),

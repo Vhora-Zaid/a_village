@@ -2,6 +2,7 @@ import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AppListView extends StatelessWidget {
   const AppListView({super.key});
@@ -194,6 +195,131 @@ class AppListViewVertical extends StatelessWidget {
   }
 }
 
+class AppListViewBlocked extends StatefulWidget {
+  final List<String> profileImages;
+  final List<String> names;
+  final Function(int index) onTap;
+
+  const AppListViewBlocked({
+    Key? key,
+    required this.profileImages,
+    required this.names,
+    required this.onTap,
+  }) : super(key: key);
+
+  @override
+  State<AppListViewBlocked> createState() => _AppListViewBlockedState();
+}
+
+class _AppListViewBlockedState extends State<AppListViewBlocked> {
+  @override
+  Widget build(BuildContext context) {
+    return ListView.separated(
+      physics: const NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
+      itemCount: widget.names.length,
+      separatorBuilder: (context, index) => Divider(
+        height: 1,
+        color: TColors.stroke,
+      ),
+      itemBuilder: (context, index) {
+        return GestureDetector(
+          onTap: () => widget.onTap(index),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 10),
+            child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(horizontal: 16),
+              leading: Container(
+                width: 56,
+                height: 56,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage(widget.profileImages[index % widget.profileImages.length]),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    widget.names[index],
+                    style: const TextStyle(
+                      fontFamily: AppFonts.interregular,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: TColors.black,
+                    ),
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        builder: (context) {
+                          return AlertDialog(
+                            backgroundColor: TColors.white,
+                            title: Text(AppLocalizations.of(context)!.unblock, style: TextStyle(fontWeight: FontWeight.w500),),
+                            content: Text(AppLocalizations.of(context)!.sureunblock),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.of(context).pop(),
+                                child: Text(
+                                  AppLocalizations.of(context)!.cancel,
+                                  style: const TextStyle(
+                                    color: TColors.placeholder,
+                                    fontFamily: AppFonts.interregular,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              TextButton(
+                                onPressed: () {
+                                  setState(() {
+                                    widget.names.removeAt(index);
+                                  });
+                                  Navigator.of(context).pop();
+                                },
+                                child: Text(
+                                  AppLocalizations.of(context)!.yes,
+                                  style: const TextStyle(
+                                      color: TColors.black,
+                                      fontWeight: FontWeight.bold,
+                                      fontFamily: AppFonts.interbold,
+                                      fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: TColors.black,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                    ),
+                    child: Text(
+                      AppLocalizations.of(context)!.unblock,
+                      style: const TextStyle(
+                        fontFamily: AppFonts.interregular,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: TColors.white,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
+}
 class AppListViewFavorites extends StatelessWidget {
   const AppListViewFavorites({super.key});
 

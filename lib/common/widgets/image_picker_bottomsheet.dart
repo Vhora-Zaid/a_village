@@ -1,5 +1,7 @@
+import 'package:a_village/utils/constants/app_fonts.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import '../../utils/constants/colors.dart';
 
 showImagePickerOptions(
     {required BuildContext context,
@@ -19,7 +21,11 @@ showImagePickerOptions(
               title: Text(
                 // localization.
                 AppLocalizations.of(context)!.imagefromlibrary,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: TextStyle(
+                  fontFamily: AppFonts.interbold,
+                  color: TColors.black,
+                  fontWeight: FontWeight.w600
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);
@@ -33,7 +39,11 @@ showImagePickerOptions(
               ),
               title: Text(
                 AppLocalizations.of(context)!.imagefromcamera,
-                style: Theme.of(context).textTheme.titleMedium,
+                style: TextStyle(
+                    fontFamily: AppFonts.interbold,
+                    color: TColors.black,
+                    fontWeight: FontWeight.w600
+                ),
               ),
               onTap: () {
                 Navigator.pop(context);

@@ -21,7 +21,7 @@ class _ThirdIntroScreenState extends State<ThirdIntroScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       body: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 80),
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 50),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -38,11 +38,8 @@ class _ThirdIntroScreenState extends State<ThirdIntroScreen> {
               width: 250,
               child: HeartsIntro(),
             ),
-            SizedBox(
-              height: 37,
-            ),
             Padding(
-              padding: const EdgeInsets.only(left: 24, right: 24),
+              padding: const EdgeInsets.only(left: 24, right: 24, top: 30),
               child: Text(
                 AppLocalizations.of(context)!.lorem,
                 textAlign: TextAlign.center,

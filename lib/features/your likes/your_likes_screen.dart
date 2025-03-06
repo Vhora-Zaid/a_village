@@ -63,7 +63,7 @@ class _YourLikesScreenState extends State<YourLikesScreen> {
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
             elevation: 0,
-            floating: true,
+            floating: false,
             pinned: true,
             centerTitle: false,
             title: const Padding(

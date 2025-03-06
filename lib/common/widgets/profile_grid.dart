@@ -1,7 +1,11 @@
 import 'dart:io';
 import 'package:a_village/common/widgets/image_picker_bottomsheet.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
 
@@ -14,37 +18,187 @@ class ProfileGrid extends StatefulWidget {
 
 class _ProfileGridState extends State<ProfileGrid> {
   final ImagePicker _picker = ImagePicker();
-  List<XFile?> _images = List<XFile?>.filled(6, null);
+  List<File?> selectedImages = List.filled(6, null);
 
-  Future<void> _pickImage(int index) async {
-    if (_images[index] == null) {
-      showImagePickerOptions(
-        context: context,
-        onTapGallery: () async {
-          final XFile? image =
-              await _picker.pickImage(source: ImageSource.gallery);
-          if (image != null) {
-            setState(() {
-              _images[index] = image;
-            });
-          }
-        },
-        onTapCamera: () async {
-          final XFile? image =
-              await _picker.pickImage(source: ImageSource.camera);
-          if (image != null) {
-            setState(() {
-              _images[index] = image;
-            });
-          }
-        },
-      );
-    }
+  Future<void> _selectImage(int index) async {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              child: Text(
+                'Take a Photo',
+                style: TextStyle(
+                  color: TColors.black,
+                  fontFamily: AppFonts.interbold,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: () async {
+                PermissionStatus permissionStatus =
+                await Permission.camera.status;
+                if (permissionStatus.isGranted) {
+                  final pickedFile =
+                  await ImagePicker().pickImage(source: ImageSource.camera);
+                  if (pickedFile != null) {
+                    setState(() {
+                      selectedImages[index] = File(pickedFile.path);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                } else if (permissionStatus.isDenied) {
+                  PermissionStatus status = await Permission.camera.request();
+                  if (status.isGranted) {
+                    final pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.camera);
+                    if (pickedFile != null) {
+                      setState(() {
+                        selectedImages[index] = File(pickedFile.path);
+                      });
+                    }
+                    Navigator.of(context).pop();
+                  } else if (status.isPermanentlyDenied) {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: Text("Permission is required"),
+                          content: Text(
+                            "This app needs access to camera. Would you like to go to the app settings to turn it on?",
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Settings",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                openAppSettings();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }
+              },
+            ),
+            CupertinoActionSheetAction(
+              child: Text(
+                'Choose from Gallery',
+                style: TextStyle(
+                  color: TColors.black,
+                  fontFamily: AppFonts.interbold,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: () async {
+                PermissionStatus permissionStatus =
+                await Permission.photos.status;
+                if (permissionStatus.isGranted) {
+                  final pickedFile = await ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
+                  if (pickedFile != null) {
+                    setState(() {
+                      selectedImages[index] = File(pickedFile.path);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                } else if (permissionStatus.isDenied) {
+                  PermissionStatus status = await Permission.photos.request();
+                  if (status.isGranted) {
+                    final pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    if (pickedFile != null) {
+                      setState(() {
+                        selectedImages[index] = File(pickedFile.path);
+                      });
+                    }
+                    Navigator.of(context).pop();
+                  } else if (status.isPermanentlyDenied) {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: Text(
+                            "Permission is required",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: TColors.black,
+                            ),
+                          ),
+                          content: Text(
+                            "This app needs access to photos and videos. Would you like to go to the app settings to turn it on?",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Settings",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                openAppSettings();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _removeImage(int index) {
     setState(() {
-      _images[index] = null;
+      selectedImages[index] = null;
     });
   }
 
@@ -62,21 +216,22 @@ class _ProfileGridState extends State<ProfileGrid> {
                   clipBehavior: Clip.none,
                   children: [
                     GestureDetector(
-                      onTap: () => _pickImage(0),
+                      onTap: () => _selectImage(0),
                       child: Container(
                         height: 192,
                         width: containerWidth,
                         decoration: BoxDecoration(
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
-                          image: _images[0] != null
+                          image: selectedImages[0] != null
                               ? DecorationImage(
-                                  image: FileImage(File(_images[0]!.path)),
+                                  image:
+                                      FileImage(File(selectedImages[0]!.path)),
                                   fit: BoxFit.cover,
                                 )
                               : null,
                         ),
-                        child: _images[0] == null
+                        child: selectedImages[0] == null
                             ? Center(
                                 child: Image.asset(
                                   ImageStrings.plus,
@@ -87,7 +242,7 @@ class _ProfileGridState extends State<ProfileGrid> {
                             : null,
                       ),
                     ),
-                    if (_images[0] != null)
+                    if (selectedImages[0] != null)
                       Positioned(
                         top: -5,
                         right: -5,
@@ -109,32 +264,33 @@ class _ProfileGridState extends State<ProfileGrid> {
                       clipBehavior: Clip.none,
                       children: [
                         GestureDetector(
-                          onTap: () => _pickImage(1),
+                          onTap: () => _selectImage(1),
                           child: Container(
                             height: 91,
                             width: imageWidth,
                             decoration: BoxDecoration(
                               color: TColors.stroke,
                               borderRadius: BorderRadius.circular(10),
-                              image: _images[1] != null
+                              image: selectedImages[1] != null
                                   ? DecorationImage(
-                                      image: FileImage(File(_images[1]!.path)),
+                                      image: FileImage(
+                                          File(selectedImages[1]!.path)),
                                       fit: BoxFit.cover,
                                     )
                                   : null,
                             ),
-                            child: _images[1] == null
+                            child: selectedImages[1] == null
                                 ? Center(
-                              child: Image.asset(
-                                ImageStrings.plus,
-                                height: 24,
-                                width: 24,
-                              ),
-                            )
+                                    child: Image.asset(
+                                      ImageStrings.plus,
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                  )
                                 : null,
                           ),
                         ),
-                        if (_images[1] != null)
+                        if (selectedImages[1] != null)
                           Positioned(
                             top: -5,
                             right: -5,
@@ -154,32 +310,33 @@ class _ProfileGridState extends State<ProfileGrid> {
                       clipBehavior: Clip.none,
                       children: [
                         GestureDetector(
-                          onTap: () => _pickImage(2),
+                          onTap: () => _selectImage(2),
                           child: Container(
                             height: 91,
                             width: imageWidth,
                             decoration: BoxDecoration(
                               color: TColors.stroke,
                               borderRadius: BorderRadius.circular(10),
-                              image: _images[2] != null
+                              image: selectedImages[2] != null
                                   ? DecorationImage(
-                                      image: FileImage(File(_images[2]!.path)),
+                                      image: FileImage(
+                                          File(selectedImages[2]!.path)),
                                       fit: BoxFit.cover,
                                     )
                                   : null,
                             ),
-                            child: _images[2] == null
+                            child: selectedImages[2] == null
                                 ? Center(
-                              child: Image.asset(
-                                ImageStrings.plus,
-                                height: 24,
-                                width: 24,
-                              ),
-                            )
+                                    child: Image.asset(
+                                      ImageStrings.plus,
+                                      height: 24,
+                                      width: 24,
+                                    ),
+                                  )
                                 : null,
                           ),
                         ),
-                        if (_images[2] != null)
+                        if (selectedImages[2] != null)
                           Positioned(
                             top: -5,
                             right: -5,
@@ -205,32 +362,33 @@ class _ProfileGridState extends State<ProfileGrid> {
                   clipBehavior: Clip.none,
                   children: [
                     GestureDetector(
-                      onTap: () => _pickImage(3),
+                      onTap: () => _selectImage(3),
                       child: Container(
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
-                          image: _images[3] != null
+                          image: selectedImages[3] != null
                               ? DecorationImage(
-                                  image: FileImage(File(_images[3]!.path)),
+                                  image:
+                                      FileImage(File(selectedImages[3]!.path)),
                                   fit: BoxFit.cover,
                                 )
                               : null,
                         ),
-                        child: _images[3] == null
+                        child: selectedImages[3] == null
                             ? Center(
-                          child: Image.asset(
-                            ImageStrings.plus,
-                            height: 24,
-                            width: 24,
-                          ),
-                        )
+                                child: Image.asset(
+                                  ImageStrings.plus,
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              )
                             : null,
                       ),
                     ),
-                    if (_images[3] != null)
+                    if (selectedImages[3] != null)
                       Positioned(
                         top: -5,
                         right: -5,
@@ -250,32 +408,33 @@ class _ProfileGridState extends State<ProfileGrid> {
                   clipBehavior: Clip.none,
                   children: [
                     GestureDetector(
-                      onTap: () => _pickImage(4),
+                      onTap: () => _selectImage(4),
                       child: Container(
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
-                          image: _images[4] != null
+                          image: selectedImages[4] != null
                               ? DecorationImage(
-                                  image: FileImage(File(_images[4]!.path)),
+                                  image:
+                                      FileImage(File(selectedImages[4]!.path)),
                                   fit: BoxFit.cover,
                                 )
                               : null,
                         ),
-                        child: _images[4] == null
+                        child: selectedImages[4] == null
                             ? Center(
-                          child: Image.asset(
-                            ImageStrings.plus,
-                            height: 24,
-                            width: 24,
-                          ),
-                        )
+                                child: Image.asset(
+                                  ImageStrings.plus,
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              )
                             : null,
                       ),
                     ),
-                    if (_images[4] != null)
+                    if (selectedImages[4] != null)
                       Positioned(
                         top: -5,
                         right: -5,
@@ -295,32 +454,33 @@ class _ProfileGridState extends State<ProfileGrid> {
                   clipBehavior: Clip.none,
                   children: [
                     GestureDetector(
-                      onTap: () => _pickImage(5),
+                      onTap: () => _selectImage(5),
                       child: Container(
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
-                          image: _images[5] != null
+                          image: selectedImages[5] != null
                               ? DecorationImage(
-                                  image: FileImage(File(_images[5]!.path)),
+                                  image:
+                                      FileImage(File(selectedImages[5]!.path)),
                                   fit: BoxFit.cover,
                                 )
                               : null,
                         ),
-                        child: _images[5] == null
+                        child: selectedImages[5] == null
                             ? Center(
-                          child: Image.asset(
-                            ImageStrings.plus,
-                            height: 24,
-                            width: 24,
-                          ),
-                        )
+                                child: Image.asset(
+                                  ImageStrings.plus,
+                                  height: 24,
+                                  width: 24,
+                                ),
+                              )
                             : null,
                       ),
                     ),
-                    if (_images[5] != null)
+                    if (selectedImages[5] != null)
                       Positioned(
                         top: -5,
                         right: -5,

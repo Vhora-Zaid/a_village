@@ -76,7 +76,7 @@ AlertDialog _showMaterialAlertDialog(BuildContext context, String message) {
     title: Text(
       AppLocalizations.of(context)!.appname,
       style: const TextStyle(
-        fontSize: 15,
+        fontSize: 18,
         fontWeight: FontWeight.w500,
       ),
     ),
@@ -201,7 +201,7 @@ List<Widget> _okCancelActions({
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.interregular,
-                color: TColors.blue,
+                color: TColors.placeholder,
               ),
             ),
           )
@@ -216,7 +216,7 @@ List<Widget> _okCancelActions({
                 fontSize: 14,
                 fontWeight: FontWeight.bold,
                 fontFamily: AppFonts.interregular,
-                color: TColors.blue,
+                color: TColors.placeholder,
               ),
             ),
           ),
@@ -304,3 +304,4 @@ Future displayToast({required String message}) {
     fontSize: 14,
   );
 }
+

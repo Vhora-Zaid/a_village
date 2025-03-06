@@ -1,8 +1,10 @@
 import 'package:a_village/features/edit%20profile/edit_profile_screen.dart';
 import 'package:a_village/features/login/login_screen.dart';
+import 'package:a_village/features/privacy%20policy/privacy_policy_screen.dart';
 import 'package:a_village/features/settings/settings_screen.dart';
 import 'package:a_village/features/subscription/subscription_screen.dart';
 import 'package:a_village/features/Matched/you_matched_screen.dart';
+import 'package:a_village/features/support/support_screen.dart';
 import 'package:a_village/features/who%20likes%20you/who_likes.dart';
 import 'package:a_village/features/your%20likes/your_likes_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
@@ -31,6 +33,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     ImageStrings.settings,
     ImageStrings.support,
     ImageStrings.privacy,
+    ImageStrings.deleteaccount,
     ImageStrings.logout
   ];
 
@@ -45,7 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       AppLocalizations.of(context)!.settings,
       AppLocalizations.of(context)!.support,
       AppLocalizations.of(context)!.privacy,
+      AppLocalizations.of(context)!.deleteaccount,
       AppLocalizations.of(context)!.logout
+
     ];
 
     return Scaffold(
@@ -231,12 +236,40 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             );
                             break;
                           case 6:
-                            Navigator.pushNamed(context, '/support');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SupportScreen(),
+                              ),
+                            );
                             break;
                           case 7:
-                            Navigator.pushNamed(context, '/privacy');
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PrivacyPolicyScreen(),
+                              ),
+                            );
                             break;
                           case 8:
+                            showOkCancelAlertDialog(
+                              context: context,
+                              message: AppLocalizations.of(context)!.suredelete,
+                              okButtonTitle: AppLocalizations.of(context)!.delete,
+                              cancelButtonTitle:
+                              AppLocalizations.of(context)!.cancel,
+                              cancelButtonAction: () {},
+                              okButtonAction: () {
+                                // Navigator.pushReplacement(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) => LoginScreen(),
+                                //   ),
+                                // );
+                              },
+                            );
+                            break;
+                          case 9:
                             showOkCancelAlertDialog(
                               context: context,
                               message: AppLocalizations.of(context)!.areyousure,

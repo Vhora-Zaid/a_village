@@ -1,9 +1,12 @@
 import 'dart:io';
 import 'package:a_village/features/user%20profile/user_profile_screen.dart';
 import 'package:dotted_border/dotted_border.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
@@ -111,17 +114,17 @@ class _SelectableGridState extends State<SelectableGrid> {
                 top: 10,
                 child: selectedItems[index]
                     ? Container(
-                      height: 24,
-                      width: 24,
-                      decoration: BoxDecoration(
-                        color: Colors.transparent,
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Image.asset(
-                        ImageStrings.tick,
-                        scale: 4,
-                      ),
-                    )
+                        height: 24,
+                        width: 24,
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Image.asset(
+                          ImageStrings.tick,
+                          scale: 4,
+                        ),
+                      )
                     : Container(),
               ),
             ],
@@ -241,13 +244,179 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
   }
 
   Future<void> _selectImage(int index) async {
-    final pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      setState(() {
-        selectedImages[index] = File(pickedFile.path);
-      });
-    }
+    showCupertinoModalPopup(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoActionSheet(
+          actions: <Widget>[
+            CupertinoActionSheetAction(
+              child: Text(
+                'Take a Photo',
+                style: TextStyle(
+                  color: TColors.black,
+                  fontFamily: AppFonts.interbold,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: () async {
+                PermissionStatus permissionStatus =
+                    await Permission.camera.status;
+                if (permissionStatus.isGranted) {
+                  final pickedFile =
+                      await ImagePicker().pickImage(source: ImageSource.camera);
+                  if (pickedFile != null) {
+                    setState(() {
+                      selectedImages[index] = File(pickedFile.path);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                } else if (permissionStatus.isDenied) {
+                  PermissionStatus status = await Permission.camera.request();
+                  if (status.isGranted) {
+                    final pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.camera);
+                    if (pickedFile != null) {
+                      setState(() {
+                        selectedImages[index] = File(pickedFile.path);
+                      });
+                    }
+                    Navigator.of(context).pop();
+                  } else if (status.isPermanentlyDenied) {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: Text("Permission is required"),
+                          content: Text(
+                            "This app needs access to camera. Would you like to go to the app settings to turn it on?",
+                            style: TextStyle(
+                              fontSize: 14,
+                            ),
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Settings",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                openAppSettings();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }
+              },
+            ),
+            CupertinoActionSheetAction(
+              child: Text(
+                'Choose from Gallery',
+                style: TextStyle(
+                  color: TColors.black,
+                  fontFamily: AppFonts.interbold,
+                  fontSize: 16,
+                ),
+              ),
+              onPressed: () async {
+                PermissionStatus permissionStatus =
+                    await Permission.photos.status;
+                if (permissionStatus.isGranted) {
+                  final pickedFile = await ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
+                  if (pickedFile != null) {
+                    setState(() {
+                      selectedImages[index] = File(pickedFile.path);
+                    });
+                  }
+                  Navigator.of(context).pop();
+                } else if (permissionStatus.isDenied) {
+                  PermissionStatus status = await Permission.photos.request();
+                  if (status.isGranted) {
+                    final pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    if (pickedFile != null) {
+                      setState(() {
+                        selectedImages[index] = File(pickedFile.path);
+                      });
+                    }
+                    Navigator.of(context).pop();
+                  } else if (status.isPermanentlyDenied) {
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: Text(
+                            "Permission is required",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: TColors.black,
+                            ),
+                          ),
+                          content: Text(
+                            "This app needs access to photos and videos. Would you like to go to the app settings to turn it on?",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Settings",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                openAppSettings();
+                                Navigator.of(context).pop();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                }
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _removeImage(int index) {
@@ -602,4 +771,3 @@ class LikesView extends StatelessWidget {
     );
   }
 }
-

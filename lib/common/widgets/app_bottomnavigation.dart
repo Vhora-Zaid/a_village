@@ -71,6 +71,7 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
           topRight: Radius.circular(28),
         ),
         child: BottomNavigationBar(
+          elevation: 0,
           currentIndex: _selectedIndex,
           onTap: _onItemTapped,
           backgroundColor: TColors.white,

@@ -34,9 +34,6 @@ class _WhoLikesYouState extends State<WhoLikesYou> {
             ),
           ),
         ),
-        // title: AppLocalizations.of(context)!.wholikesyou,
-        // color: TColors.black,
-        // fontSize: 27,
       ),
       body: CustomScrollView(
         slivers: [
@@ -45,7 +42,7 @@ class _WhoLikesYouState extends State<WhoLikesYou> {
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
             elevation: 0,
-            floating: true,
+            floating: false,
             pinned: true,
             centerTitle: false,
             title: Text(
@@ -63,7 +60,7 @@ class _WhoLikesYouState extends State<WhoLikesYou> {
             backgroundColor: Colors.white,
             surfaceTintColor: Colors.white,
             elevation: 0,
-            floating: true,
+            floating: false,
             pinned: true,
             centerTitle: false,
             title: const Padding(

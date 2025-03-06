@@ -140,5 +140,21 @@
   "areyousure": "您确定要注销吗？",
   "yes": "是",
   "sendmssg": "发送消息",
-  "keepplay": "继续玩"
+  "keepplay": "继续玩",
+  "whyreport": "为什么要报告此用户？",
+  "enterreason" : "请输入您的理由",
+  "report": "报告",
+  "blockuser": "阻止用户",
+  "sureblock": "您确定要阻止此用户吗？",
+  "block": "块",
+  "unblock": "取消封锁",
+  "deleteaccount": "删除帐户",
+  "suredelete": "您确定要删除此帐户吗？",
+  "delete": "删除",
+  "blockedusers": "被阻止的用户",
+  "sureunblock": "您确定要取消阻止此用户吗？",
+  "no": "不",
+  "faq": "常见问题",
+  "reportsent": "成功发送报告!",
+  "userblocked": "您阻止了用户"
 }

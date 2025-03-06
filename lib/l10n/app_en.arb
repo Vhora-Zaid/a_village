@@ -140,5 +140,21 @@
   "areyousure": "Are you sure you want to logout?",
   "yes": "Yes",
   "sendmssg": "Send a Message",
-  "keepplay": "Keep Playing"
+  "keepplay": "Keep Playing",
+  "whyreport": "Why do you want to report this user?",
+  "enterreason" : "Please enter your reason",
+  "report": "Report",
+  "blockuser": "Block User",
+  "sureblock": "Are you sure you want to block this user?",
+  "block": "Block",
+  "unblock": "Unblock",
+  "deleteaccount": "Delete Account",
+  "suredelete": "Are you sure you want to delete this account?",
+  "delete": "Delete",
+  "blockedusers": "Blocked Users",
+  "sureunblock": "Are you sure you want to unblock this user?",
+  "no": "No",
+  "faq": "Frequently Asked Questions",
+  "reportsent": "Report Sent Successfully!",
+  "userblocked": "You blocked the user"
 }

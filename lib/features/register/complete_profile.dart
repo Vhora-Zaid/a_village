@@ -1,12 +1,14 @@
 import 'dart:io';
-
 import 'package:a_village/common/widgets/app_appbar.dart';
 import 'package:a_village/common/widgets/app_button.dart';
-import 'package:a_village/common/widgets/image_picker_bottomsheet.dart';
 import 'package:a_village/features/register/your_interests_screen.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/colors.dart';
 import '../../utils/constants/image_strings.dart';
@@ -22,6 +24,169 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
 
   final _picker = ImagePicker();
   File? _pickedImage;
+
+  Future<Object> getCameraPermission({required BuildContext context}) async {
+    PermissionStatus permissionStatus = await Permission.camera.status;
+    if (permissionStatus.isGranted) {
+      return true;
+    } else if (permissionStatus.isDenied) {
+      PermissionStatus status = await Permission.camera.request();
+      if (status.isGranted) {
+        return true;
+      } else {
+        Fluttertoast.showToast(
+            msg:
+            'Camera permission is required to take a new profile picture.');
+        return false;
+      }
+    } else {
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("Permission is required"),
+            content: Text("This app needs access to camera. Would you like to go to the app settings to turn it on?"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text("Cancel", style: TextStyle(color: Colors.black),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text("Settings", style: TextStyle(color: Colors.black),),
+                onPressed: () {
+                  openAppSettings();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    return true;
+  }
+  Future<Object> getPermission({required BuildContext context}) async {
+    PermissionStatus permissionStatus = await Permission.photos.status;
+    if (permissionStatus.isGranted) {
+      return getImageFromGallery();
+    } else if (permissionStatus.isDenied) {
+      PermissionStatus status = await Permission.photos.request();
+      if (status.isGranted) {
+        return true;
+      } else {
+        Fluttertoast.showToast(
+            msg:
+            'Permission is required to access photos and videos');
+        return false;
+      }
+    } else if (permissionStatus.isPermanentlyDenied){
+      showCupertinoDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return CupertinoAlertDialog(
+            title: Text("Permission is required"),
+            content: Text("This app needs access to photos and videos. Would you like to go to the app settings to turn it on?"),
+            actions: <Widget>[
+              CupertinoDialogAction(
+                child: Text("Cancel", style: TextStyle(color: Colors.black),),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+              CupertinoDialogAction(
+                child: Text("Settings", style: TextStyle(color: Colors.black),),
+                onPressed: () {
+                  openAppSettings();
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+    return true;
+  }
+  Future getImageFromGallery() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.gallery);
+    if (pickedFile != null) {
+      setState(() {
+        _pickedImage = File(pickedFile.path);
+      });
+      await _saveImage(pickedFile.path);
+    }
+  }
+  Future getImageFromCamera() async {
+    final pickedFile = await _picker.pickImage(source: ImageSource.camera);
+    setState(
+          () {
+        if (pickedFile != null) {
+          _pickedImage = File(pickedFile.path);
+        }
+      },
+    );
+    await _saveImage(pickedFile!.path);
+  }
+  Future<void> _saveImage(String imagePath) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('profile_image', imagePath);
+  }
+  Future<void> _loadImage() async {
+    final prefs = await SharedPreferences.getInstance();
+    final savedImagePath = prefs.getString('profile_image');
+    if (savedImagePath != null) {
+      setState(() {
+        _pickedImage = File(savedImagePath);
+      });
+    }
+  }
+  Future showOptions() async {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        actions: [
+          CupertinoActionSheetAction(
+            child: Text(
+              'Take photo',
+                style: TextStyle(
+                  color: TColors.black,
+                  fontFamily: AppFonts.interbold,
+                  fontSize: 16,
+                ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              getCameraPermission(context: context);
+              getImageFromCamera();
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: Text(
+              'Choose from Gallery',
+              style: TextStyle(
+                color: TColors.black,
+                fontFamily: AppFonts.interbold,
+                fontSize: 16,
+              ),
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+              getPermission(context: context);
+              // getImageFromGallery();
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadImage();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +210,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
       body: SingleChildScrollView(
         child: Padding(
           padding:
-              const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+              const EdgeInsets.only(left: 16, right: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -90,27 +255,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
                         alignment: Alignment.bottomRight,
                         child: GestureDetector(
                           onTap: () async {
-                            showImagePickerOptions(
-                              context: context,
-                              onTapGallery: () async {
-                                final XFile? image =
-                                await _picker.pickImage(source: ImageSource.gallery);
-                                if (image != null) {
-                                  setState(() {
-                                    _pickedImage = File(image.path);
-                                  });
-                                }
-                              },
-                              onTapCamera: () async {
-                                final XFile? image =
-                                await _picker.pickImage(source: ImageSource.camera);
-                                if (image != null) {
-                                  setState(() {
-                                    _pickedImage = File(image.path);
-                                  });
-                                }
-                              },
-                            );
+                            showOptions();
                           },
                           child: Image.asset(
                             ImageStrings.camera,

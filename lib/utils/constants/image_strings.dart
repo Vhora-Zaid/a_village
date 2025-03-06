@@ -107,4 +107,5 @@ class ImageStrings {
   static const String cardwidget5 = 'assets/images/cardwidget5.png';
   static const String cardwidget6 = 'assets/images/cardwidget6.png';
   static const String cardwidget7 = 'assets/images/cardwidget7.png';
+  static const String deleteaccount = 'assets/images/deleteaccount.png';
 }

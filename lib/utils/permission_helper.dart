@@ -11,3 +11,5 @@ Future<bool> handleLocationPermission() async {
   serviceEnabled = await Geolocator.isLocationServiceEnabled();
   return serviceEnabled;
 }
+
+
