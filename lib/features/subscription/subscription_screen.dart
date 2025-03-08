@@ -60,7 +60,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                   fontFamily: AppFonts.interregular,
                   fontSize: 14,
                   color: TColors.black,
-                  fontWeight: FontWeight.w500,
+                  fontWeight: FontWeight.w600,
                 ),
               ),
               SizedBox(
@@ -98,7 +98,8 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 30),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 30),
         child: AppButton(
             title: AppLocalizations.of(context)!.subscribenow,
             onTap: () {

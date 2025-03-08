@@ -5,9 +5,8 @@ import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
 import '../../common/widgets/report_dialog.dart';
+import '../matched/you_matched_screen.dart';
 
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
@@ -25,6 +24,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
     return Scaffold(
       backgroundColor: TColors.white,
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Padding(
           padding: const EdgeInsets.only(bottom: 10),
           child: Column(
@@ -35,6 +35,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   SizedBox(
                     height: MediaQuery.of(context).size.height - 130,
                     child: PageView.builder(
+                      physics: ClampingScrollPhysics(),
                       controller: _pageController,
                       itemCount: 6,
                       onPageChanged: (index) {
@@ -105,7 +106,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     },
                     child: Padding(
                       padding: EdgeInsets.only(
-                        left: MediaQuery.of(context).size.width * 0.045,
+                        left: MediaQuery.of(context).size.width * 0.04,
                         top: MediaQuery.of(context).size.height * 0.08,
                       ),
                       child: Image.asset(
@@ -118,15 +119,17 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.06),
+                        top: MediaQuery.of(context).size.height * 0.05),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
                         6,
                         (index) => Container(
-                          width: 47.17,
+                          width: MediaQuery.sizeOf(context).width * 0.135,
                           height: 2,
-                          margin: const EdgeInsets.symmetric(horizontal: 5),
+                          margin: EdgeInsets.symmetric(
+                            horizontal: MediaQuery.sizeOf(context).width * 0.01,
+                          ),
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
                             color: _currentPage == index
@@ -186,7 +189,12 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           children: [
                             GestureDetector(
                               onTap: () {
-                                Navigator.push(context, MaterialPageRoute(builder: (context) => MatchedAnimation()));
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) => YouMatchedScreen(),
+                                  ),
+                                );
                               },
                               child: Image.asset(
                                 ImageStrings.homefavorite,
@@ -251,47 +259,53 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       height: 25,
                     ),
                     Container(
-                      width: MediaQuery.sizeOf(context).width,
+                      width: double.infinity,
                       decoration: BoxDecoration(
                         color: TColors.functionbutton,
                         borderRadius: BorderRadius.circular(50),
                       ),
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 5),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.sizeOf(context).width * 0.02,
+                        vertical: MediaQuery.sizeOf(context).height * 0.01,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: Container(
                               decoration: BoxDecoration(
                                 color: TColors.white,
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 18, horizontal: 65),
-                                child: Image.asset(
-                                  ImageStrings.homeclose,
-                                  scale: 4,
-                                ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.sizeOf(context).width * 0.13,
+                              ),
+                              child: Image.asset(
+                                ImageStrings.homeclose,
+                                scale: 4,
                               ),
                             ),
-                            Container(
+                          ),
+                          SizedBox(
+                              width: MediaQuery.sizeOf(context).width * 0.045),
+                          Expanded(
+                            child: Container(
                               decoration: BoxDecoration(
                                 color: TColors.white,
                                 borderRadius: BorderRadius.circular(50),
                               ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 18, horizontal: 65),
-                                child: Image.asset(
-                                  ImageStrings.homecheck,
-                                  scale: 4,
-                                ),
+                              padding: EdgeInsets.symmetric(
+                                horizontal:
+                                    MediaQuery.sizeOf(context).width * 0.13,
+                              ),
+                              child: Image.asset(
+                                ImageStrings.homecheck,
+                                scale: 4,
                               ),
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
                     ),
                   ],

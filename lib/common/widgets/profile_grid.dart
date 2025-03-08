@@ -17,7 +17,6 @@ class ProfileGrid extends StatefulWidget {
 }
 
 class _ProfileGridState extends State<ProfileGrid> {
-  final ImagePicker _picker = ImagePicker();
   List<File?> selectedImages = List.filled(6, null);
 
   Future<void> _selectImage(int index) async {
@@ -36,20 +35,26 @@ class _ProfileGridState extends State<ProfileGrid> {
                 ),
               ),
               onPressed: () async {
+                Navigator.pop(context);
+
                 PermissionStatus permissionStatus =
-                await Permission.camera.status;
+                    await Permission.camera.status;
+
                 if (permissionStatus.isGranted) {
+                  // Permission already granted, proceed with picking image
                   final pickedFile =
-                  await ImagePicker().pickImage(source: ImageSource.camera);
+                      await ImagePicker().pickImage(source: ImageSource.camera);
                   if (pickedFile != null) {
                     setState(() {
                       selectedImages[index] = File(pickedFile.path);
                     });
                   }
-                  Navigator.of(context).pop();
                 } else if (permissionStatus.isDenied) {
-                  PermissionStatus status = await Permission.camera.request();
-                  if (status.isGranted) {
+                  // Request permission again
+                  PermissionStatus newStatus =
+                      await Permission.camera.request();
+                  if (newStatus.isGranted) {
+                    // Permission granted after request, pick image
                     final pickedFile = await ImagePicker()
                         .pickImage(source: ImageSource.camera);
                     if (pickedFile != null) {
@@ -57,18 +62,16 @@ class _ProfileGridState extends State<ProfileGrid> {
                         selectedImages[index] = File(pickedFile.path);
                       });
                     }
-                    Navigator.of(context).pop();
-                  } else if (status.isPermanentlyDenied) {
+                  } else {
+                    // If permission is denied again, show settings alert
                     showCupertinoDialog(
                       context: context,
                       builder: (BuildContext context) {
                         return CupertinoAlertDialog(
-                          title: Text("Permission is required"),
+                          title: Text("Permission Required"),
                           content: Text(
-                            "This app needs access to camera. Would you like to go to the app settings to turn it on?",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
+                            "This app needs access to the camera. Would you like to go to the app settings to enable it?",
+                            style: TextStyle(fontSize: 14),
                           ),
                           actions: <Widget>[
                             CupertinoDialogAction(
@@ -80,7 +83,6 @@ class _ProfileGridState extends State<ProfileGrid> {
                                 ),
                               ),
                               onPressed: () {
-                                Navigator.of(context).pop();
                                 Navigator.of(context).pop();
                               },
                             ),
@@ -95,7 +97,6 @@ class _ProfileGridState extends State<ProfileGrid> {
                               onPressed: () {
                                 openAppSettings();
                                 Navigator.of(context).pop();
-                                Navigator.of(context).pop();
                               },
                             ),
                           ],
@@ -103,6 +104,47 @@ class _ProfileGridState extends State<ProfileGrid> {
                       },
                     );
                   }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Permission permanently denied, show settings dialog
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CupertinoAlertDialog(
+                        title: Text("Permission Required"),
+                        content: Text(
+                          "This app needs access to the camera. Please enable permissions in settings.",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Settings",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              openAppSettings();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
               },
             ),
@@ -116,9 +158,13 @@ class _ProfileGridState extends State<ProfileGrid> {
                 ),
               ),
               onPressed: () async {
+                Navigator.pop(context);
+
                 PermissionStatus permissionStatus =
-                await Permission.photos.status;
+                    await Permission.photos.status;
+
                 if (permissionStatus.isGranted) {
+                  // Permission already granted, proceed with picking image
                   final pickedFile = await ImagePicker()
                       .pickImage(source: ImageSource.gallery);
                   if (pickedFile != null) {
@@ -126,10 +172,12 @@ class _ProfileGridState extends State<ProfileGrid> {
                       selectedImages[index] = File(pickedFile.path);
                     });
                   }
-                  Navigator.of(context).pop();
                 } else if (permissionStatus.isDenied) {
-                  PermissionStatus status = await Permission.photos.request();
-                  if (status.isGranted) {
+                  // Request permission again
+                  PermissionStatus newStatus =
+                      await Permission.photos.request();
+                  if (newStatus.isGranted) {
+                    // Permission granted after request, pick image
                     final pickedFile = await ImagePicker()
                         .pickImage(source: ImageSource.gallery);
                     if (pickedFile != null) {
@@ -137,8 +185,8 @@ class _ProfileGridState extends State<ProfileGrid> {
                         selectedImages[index] = File(pickedFile.path);
                       });
                     }
-                    Navigator.of(context).pop();
-                  } else if (status.isPermanentlyDenied) {
+                  } else {
+                    // If permission is denied again, show alert
                     showCupertinoDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -165,7 +213,6 @@ class _ProfileGridState extends State<ProfileGrid> {
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                Navigator.of(context).pop();
                               },
                             ),
                             CupertinoDialogAction(
@@ -179,7 +226,6 @@ class _ProfileGridState extends State<ProfileGrid> {
                               onPressed: () {
                                 openAppSettings();
                                 Navigator.of(context).pop();
-                                Navigator.of(context).pop();
                               },
                             ),
                           ],
@@ -187,6 +233,53 @@ class _ProfileGridState extends State<ProfileGrid> {
                       },
                     );
                   }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Permission permanently denied, show settings dialog
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CupertinoAlertDialog(
+                        title: Text(
+                          "Permission Required",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: TColors.black,
+                          ),
+                        ),
+                        content: Text(
+                          "This app needs access to your photos. Please enable permissions in settings.",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Settings",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              openAppSettings();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 }
               },
             ),
@@ -221,7 +314,9 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 192,
                         width: containerWidth,
                         decoration: BoxDecoration(
-                          border: selectedImages[0] != null ? null : Border.all(color: TColors.imageborder),
+                          border: selectedImages[0] != null
+                              ? null
+                              : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[0] != null
@@ -270,7 +365,9 @@ class _ProfileGridState extends State<ProfileGrid> {
                             height: 91,
                             width: imageWidth,
                             decoration: BoxDecoration(
-                              border: selectedImages[1] != null ? null : Border.all(color: TColors.imageborder),
+                              border: selectedImages[1] != null
+                                  ? null
+                                  : Border.all(color: TColors.imageborder),
                               color: TColors.stroke,
                               borderRadius: BorderRadius.circular(10),
                               image: selectedImages[1] != null
@@ -317,7 +414,9 @@ class _ProfileGridState extends State<ProfileGrid> {
                             height: 91,
                             width: imageWidth,
                             decoration: BoxDecoration(
-                              border: selectedImages[2] != null ? null : Border.all(color: TColors.imageborder),
+                              border: selectedImages[2] != null
+                                  ? null
+                                  : Border.all(color: TColors.imageborder),
                               color: TColors.stroke,
                               borderRadius: BorderRadius.circular(10),
                               image: selectedImages[2] != null
@@ -370,7 +469,9 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
-                          border: selectedImages[3] != null ? null : Border.all(color: TColors.imageborder),
+                          border: selectedImages[3] != null
+                              ? null
+                              : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[3] != null
@@ -417,7 +518,9 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
-                          border: selectedImages[4] != null ? null : Border.all(color: TColors.imageborder),
+                          border: selectedImages[4] != null
+                              ? null
+                              : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[4] != null
@@ -464,7 +567,9 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
-                          border: selectedImages[5] != null ? null : Border.all(color: TColors.imageborder),
+                          border: selectedImages[5] != null
+                              ? null
+                              : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[5] != null

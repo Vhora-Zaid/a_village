@@ -27,8 +27,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 26),
             child: GestureDetector(
-              onTap: () {
-              },
+              onTap: () {},
               child: Image.asset(
                 ImageStrings.notificationlogo,
                 height: 24,
@@ -39,6 +38,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
         ],
       ),
       body: CustomScrollView(
+        physics: ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,

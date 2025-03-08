@@ -364,7 +364,7 @@ class ProfileCard extends StatelessWidget {
                             style: TextStyle(
                               color: Colors.black,
                               fontSize: 14,
-                              fontWeight: FontWeight.w400,
+                              fontWeight: FontWeight.w500,
                               fontFamily: AppFonts.interbold,
                             ),
                           ),
@@ -428,7 +428,7 @@ class ProfileCard extends StatelessWidget {
                                   style: TextStyle(
                                     color: Colors.white,
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w400,
+                                    fontWeight: FontWeight.w500,
                                     fontFamily: AppFonts.interregular,
                                   ),
                                 ),

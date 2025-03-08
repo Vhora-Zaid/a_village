@@ -165,11 +165,10 @@ class _MatchedAnimationState extends State<MatchedAnimation>
               height: 135,
               width: 125.24,
               decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: AssetImage(ImageStrings.matchedleft),
-                ),
-                borderRadius: BorderRadius.circular(15)
-              ),
+                  image: DecorationImage(
+                    image: AssetImage(ImageStrings.matchedleft),
+                  ),
+                  borderRadius: BorderRadius.circular(15)),
             ),
           ),
           SizedBox(
@@ -220,8 +219,7 @@ class _MatchedAnimationState extends State<MatchedAnimation>
                   image: DecorationImage(
                     image: AssetImage(ImageStrings.matchedright),
                   ),
-                  borderRadius: BorderRadius.circular(15)
-              ),
+                  borderRadius: BorderRadius.circular(15)),
             ),
           ),
           SizedBox(

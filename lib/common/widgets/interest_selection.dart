@@ -294,7 +294,7 @@ class _GenderSelectionState extends State<GenderSelection> {
               selected: isSelected,
               onSelected: (selected) {
                 setState(
-                      () {
+                  () {
                     selectedPreference.clear();
                     if (selected) {
                       selectedPreference.add(preference);
@@ -417,18 +417,19 @@ class _UserInterestSelectionState extends State<UserInterestSelection> {
           children: interests.map((interest) {
             bool isSelected = selectedInterests.contains(interest);
             return Chip(
+              padding:
+                  EdgeInsets.only(left: 20, top: 10, bottom: 10, right: 20),
               avatar: getAvatarForInterest(interest),
               label: Text(interest),
               backgroundColor: TColors.white,
               shape: RoundedRectangleBorder(
-                side: BorderSide(
-                  color: isSelected ? Colors.transparent : Color(0xffE3E3E3),
-                ),
+                side: BorderSide(color: Color(0xffE3E3E3), width: 2),
                 borderRadius: BorderRadius.circular(40),
               ),
               labelStyle: TextStyle(
                 fontSize: 14,
                 color: TColors.black,
+                fontWeight: FontWeight.w500,
                 fontFamily: AppFonts.interregular,
               ),
             );

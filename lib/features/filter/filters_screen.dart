@@ -27,7 +27,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
       appBar: MyAppBar(
         leading: GestureDetector(
           onTap: () {
-           Navigator.pop(context);
+            Navigator.pop(context);
           },
           child: Padding(
             padding: const EdgeInsets.only(left: 16),
@@ -53,6 +53,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 style: TextStyle(
                   color: TColors.blue,
                   fontSize: 14,
+                  fontWeight: FontWeight.w500,
                   fontFamily: AppFonts.interregular,
                 ),
               ),
@@ -108,9 +109,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {
-
-                    },
+                    onTap: () {},
                     child: Text(
                       AppLocalizations.of(context)!.selectall,
                       style: TextStyle(
@@ -136,7 +135,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                   fontFamily: AppFonts.interregular,
                   fontSize: 14,
                   color: TColors.blue,
-                  fontWeight: FontWeight.w400,
+                  fontWeight: FontWeight.w500,
                 ),
               ),
               SizedBox(
@@ -230,7 +229,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
       ),
       bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 20),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 30),
         child: AppButton(
           title: AppLocalizations.of(context)!.apply,
           onTap: () {

@@ -1,4 +1,5 @@
 import 'package:a_village/common/widgets/profile_grid.dart';
+import 'package:a_village/features/my_interests/my_interests_screen.dart';
 import 'package:a_village/features/personal%20info/personal_info_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
@@ -109,10 +110,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                           fontWeight: FontWeight.w400,
                         ),
                       ),
-                      Image.asset(
-                        ImageStrings.editicon,
-                        height: 24,
-                        width: 24,
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => MyInterestsScreen(),
+                            ),
+                          );
+                        },
+                        child: Image.asset(
+                          ImageStrings.editicon,
+                          height: 24,
+                          width: 24,
+                        ),
                       ),
                     ],
                   ),

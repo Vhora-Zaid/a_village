@@ -36,6 +36,7 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
           fontFamily: AppFonts.interbold,
         ),
       ),
+      centerTitle: false,
       leading: leading,
       actions: actions,
     );

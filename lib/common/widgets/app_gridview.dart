@@ -110,22 +110,22 @@ class _SelectableGridState extends State<SelectableGrid> {
                 ),
               ),
               Positioned(
-                right: 10,
-                top: 10,
+                right: MediaQuery.sizeOf(context).width * 0.045,
+                top: MediaQuery.sizeOf(context).height * 0.012,
                 child: selectedItems[index]
                     ? Container(
-                        height: 24,
-                        width: 24,
+                        height: MediaQuery.sizeOf(context).width * 0.06,
+                        width: MediaQuery.sizeOf(context).width * 0.06,
                         decoration: BoxDecoration(
                           color: Colors.transparent,
                           borderRadius: BorderRadius.circular(50),
                         ),
                         child: Image.asset(
                           ImageStrings.tick,
-                          scale: 4,
+                          scale: MediaQuery.sizeOf(context).width / 400,
                         ),
                       )
-                    : Container(),
+                    : const SizedBox(),
               ),
             ],
           ),
@@ -259,15 +259,115 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
                 ),
               ),
               onPressed: () async {
-                Navigator.of(context).pop();
-                bool hasPermission = await _requestCameraPermission();
-                if (hasPermission) {
-                  _pickImage(index, ImageSource.camera);
-                }
-                else {
-                  _showSettingsDialog(
-                      title: 'Permission Required',
-                      content: 'This app needs access to your camera. Please enable it in settings.'
+                Navigator.pop(context);
+
+                PermissionStatus permissionStatus =
+                    await Permission.camera.status;
+
+                if (permissionStatus.isGranted) {
+                  // Permission already granted, proceed with picking image
+                  final pickedFile =
+                      await ImagePicker().pickImage(source: ImageSource.camera);
+                  if (pickedFile != null) {
+                    setState(() {
+                      selectedImages[index] = File(pickedFile.path);
+                    });
+                  }
+                } else if (permissionStatus.isDenied) {
+                  // Request permission again
+                  PermissionStatus newStatus =
+                      await Permission.camera.request();
+                  if (newStatus.isGranted) {
+                    // Permission granted after request, pick image
+                    final pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.camera);
+                    if (pickedFile != null) {
+                      setState(() {
+                        selectedImages[index] = File(pickedFile.path);
+                      });
+                    }
+                  } else {
+                    // If permission is denied again, show settings alert
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: Text("Permission Required"),
+                          content: Text(
+                            "This app needs access to the camera. Would you like to go to the app settings to enable it?",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Settings",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                openAppSettings();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Permission permanently denied, show settings dialog
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CupertinoAlertDialog(
+                        title: Text("Permission Required"),
+                        content: Text(
+                          "This app needs access to the camera. Please enable permissions in settings.",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Settings",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              openAppSettings();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   );
                 }
               },
@@ -282,15 +382,127 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
                 ),
               ),
               onPressed: () async {
-                Navigator.of(context).pop();
-                bool hasPermission = await _requestGalleryPermission();
-                if (hasPermission) {
-                  _pickImage(index, ImageSource.gallery);
-                }
-                else {
-                  _showSettingsDialog(
-                      title: 'Permission Required',
-                      content: 'This app needs access to your photos and videos. Please enable it in settings.'
+                Navigator.pop(context);
+
+                PermissionStatus permissionStatus =
+                    await Permission.photos.status;
+
+                if (permissionStatus.isGranted) {
+                  // Permission already granted, proceed with picking image
+                  final pickedFile = await ImagePicker()
+                      .pickImage(source: ImageSource.gallery);
+                  if (pickedFile != null) {
+                    setState(() {
+                      selectedImages[index] = File(pickedFile.path);
+                    });
+                  }
+                } else if (permissionStatus.isDenied) {
+                  // Request permission again
+                  PermissionStatus newStatus =
+                      await Permission.photos.request();
+                  if (newStatus.isGranted) {
+                    // Permission granted after request, pick image
+                    final pickedFile = await ImagePicker()
+                        .pickImage(source: ImageSource.gallery);
+                    if (pickedFile != null) {
+                      setState(() {
+                        selectedImages[index] = File(pickedFile.path);
+                      });
+                    }
+                  } else {
+                    // If permission is denied again, show alert
+                    showCupertinoDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return CupertinoAlertDialog(
+                          title: Text(
+                            "Permission is required",
+                            style: TextStyle(
+                              fontSize: 20,
+                              color: TColors.black,
+                            ),
+                          ),
+                          content: Text(
+                            "This app needs access to photos and videos. Would you like to go to the app settings to turn it on?",
+                            style: TextStyle(fontSize: 14),
+                          ),
+                          actions: <Widget>[
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            CupertinoDialogAction(
+                              child: Text(
+                                "Settings",
+                                style: TextStyle(
+                                  color: TColors.black,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              onPressed: () {
+                                openAppSettings();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                } else if (permissionStatus.isPermanentlyDenied) {
+                  // Permission permanently denied, show settings dialog
+                  showCupertinoDialog(
+                    context: context,
+                    builder: (BuildContext context) {
+                      return CupertinoAlertDialog(
+                        title: Text(
+                          "Permission Required",
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: TColors.black,
+                          ),
+                        ),
+                        content: Text(
+                          "This app needs access to your photos. Please enable permissions in settings.",
+                          style: TextStyle(fontSize: 14),
+                        ),
+                        actions: <Widget>[
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Cancel",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          CupertinoDialogAction(
+                            child: Text(
+                              "Settings",
+                              style: TextStyle(
+                                color: TColors.black,
+                                fontSize: 14,
+                              ),
+                            ),
+                            onPressed: () {
+                              openAppSettings();
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      );
+                    },
                   );
                 }
               },
@@ -299,88 +511,6 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
         );
       },
     );
-  }
-
-  Future<bool> _requestCameraPermission() async {
-    PermissionStatus status = await Permission.camera.status;
-
-    if (status.isGranted) {
-      return true;
-    } else if (status.isDenied) {
-      // First time request
-      status = await Permission.camera.request();
-      if (status.isGranted) return true;
-
-      // Second request before showing settings
-      status = await Permission.camera.request();
-      if (status.isGranted) return true;
-    }
-
-    if (status.isPermanentlyDenied) {
-      _showSettingsDialog(
-        title: "Camera Permission Required",
-        content: "This app needs access to the camera. Please enable it in settings.",
-      );
-    }
-    return false;
-  }
-
-  Future<bool> _requestGalleryPermission() async {
-    PermissionStatus status = await Permission.photos.status;
-
-    if (status.isGranted) {
-      return true;
-    } else if (status.isDenied) {
-      // First time request
-      status = await Permission.photos.request();
-      if (status.isGranted) return true;
-
-      // Second request before showing settings
-      status = await Permission.photos.request();
-      if (status.isGranted) return true;
-    }
-
-    if (status.isPermanentlyDenied) {
-      _showSettingsDialog(
-        title: "Gallery Permission Required",
-        content: "This app needs access to your photos. Please enable it in settings.",
-      );
-    }
-    return false;
-  }
-
-  void _showSettingsDialog({required String title, required String content}) {
-    showCupertinoDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return CupertinoAlertDialog(
-          title: Text(title),
-          content: Text(content, style: TextStyle(fontSize: 14)),
-          actions: <Widget>[
-            CupertinoDialogAction(
-              child: Text("Cancel", style: TextStyle(color: TColors.black, fontSize: 14)),
-              onPressed: () => Navigator.of(context).pop(),
-            ),
-            CupertinoDialogAction(
-              child: Text("Settings", style: TextStyle(color: TColors.black, fontSize: 14)),
-              onPressed: () {
-                openAppSettings();
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-
-  Future<void> _pickImage(int index, ImageSource source) async {
-    final pickedFile = await ImagePicker().pickImage(source: source);
-    if (pickedFile != null) {
-      setState(() {
-        selectedImages[index] = File(pickedFile.path);
-      });
-    }
   }
 
   void _removeImage(int index) {
@@ -543,7 +673,7 @@ class ProfileGridView extends StatelessWidget {
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontFamily: AppFonts.interregular,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: TColors.black,
                               ),
                               overflow: TextOverflow.ellipsis,

@@ -15,7 +15,6 @@ class DiscoverScreen extends StatefulWidget {
 }
 
 class _DiscoverScreenState extends State<DiscoverScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,7 +33,6 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => FiltersScreen(),
-                    fullscreenDialog: true,
                   ),
                 );
               },
@@ -48,6 +46,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
         ],
       ),
       body: CustomScrollView(
+        physics: ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,
@@ -66,7 +65,7 @@ class _DiscoverScreenState extends State<DiscoverScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 8),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                    (context, index) {
+                (context, index) {
                   return ProfileGridView();
                 },
                 childCount: 1,

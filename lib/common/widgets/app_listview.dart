@@ -13,6 +13,7 @@ class AppListView extends StatelessWidget {
       height: 100,
       width: MediaQuery.sizeOf(context).width,
       child: ListView.builder(
+        physics: ClampingScrollPhysics(),
         padding: const EdgeInsets.only(left: 10, right: 10),
         scrollDirection: Axis.horizontal,
         itemCount: 8,
@@ -235,7 +236,8 @@ class _AppListViewBlockedState extends State<AppListViewBlocked> {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: AssetImage(widget.profileImages[index % widget.profileImages.length]),
+                    image: AssetImage(widget
+                        .profileImages[index % widget.profileImages.length]),
                     fit: BoxFit.cover,
                   ),
                 ),
@@ -259,8 +261,12 @@ class _AppListViewBlockedState extends State<AppListViewBlocked> {
                         builder: (context) {
                           return AlertDialog(
                             backgroundColor: TColors.white,
-                            title: Text(AppLocalizations.of(context)!.unblock, style: TextStyle(fontWeight: FontWeight.w500),),
-                            content: Text(AppLocalizations.of(context)!.sureunblock),
+                            title: Text(
+                              AppLocalizations.of(context)!.unblock,
+                              style: TextStyle(fontWeight: FontWeight.w500),
+                            ),
+                            content:
+                                Text(AppLocalizations.of(context)!.sureunblock),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.of(context).pop(),
@@ -283,10 +289,10 @@ class _AppListViewBlockedState extends State<AppListViewBlocked> {
                                 child: Text(
                                   AppLocalizations.of(context)!.yes,
                                   style: const TextStyle(
-                                      color: TColors.black,
-                                      fontWeight: FontWeight.bold,
-                                      fontFamily: AppFonts.interbold,
-                                      fontSize: 16,
+                                    color: TColors.black,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: AppFonts.interbold,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ),
@@ -320,6 +326,7 @@ class _AppListViewBlockedState extends State<AppListViewBlocked> {
     );
   }
 }
+
 class AppListViewFavorites extends StatelessWidget {
   const AppListViewFavorites({super.key});
 
@@ -396,6 +403,7 @@ class AppListViewFavorites extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
       child: ListView.builder(
+        physics: ClampingScrollPhysics(),
         padding: const EdgeInsets.symmetric(vertical: 5),
         itemCount: profiles.length,
         itemBuilder: (BuildContext context, int index) {
@@ -461,7 +469,7 @@ class AppListViewFavorites extends StatelessWidget {
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontFamily: AppFonts.interregular,
-                                fontWeight: FontWeight.w400,
+                                fontWeight: FontWeight.w500,
                                 color: TColors.black,
                               ),
                               overflow: TextOverflow.ellipsis,
@@ -564,7 +572,6 @@ class MatchesView extends StatelessWidget {
       height: MediaQuery.sizeOf(context).height,
       width: MediaQuery.sizeOf(context).width,
       child: ListView.builder(
-        padding: const EdgeInsets.symmetric(vertical: 5),
         itemCount: profiles.length,
         itemBuilder: (BuildContext context, int index) {
           final profile = profiles[index % profiles.length];
@@ -648,4 +655,3 @@ class MatchesView extends StatelessWidget {
     );
   }
 }
-

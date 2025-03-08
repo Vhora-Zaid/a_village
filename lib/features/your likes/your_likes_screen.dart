@@ -15,7 +15,6 @@ class YourLikesScreen extends StatefulWidget {
 }
 
 class _YourLikesScreenState extends State<YourLikesScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,28 +53,14 @@ class _YourLikesScreenState extends State<YourLikesScreen> {
                   color: TColors.black,
                   fontSize: 27,
                   fontWeight: FontWeight.bold,
-                  fontFamily: AppFonts.interbold
-              ),
-            ),
-          ),
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-            elevation: 0,
-            floating: false,
-            pinned: true,
-            centerTitle: false,
-            title: const Padding(
-              padding: EdgeInsets.only(bottom: 15, top: 10),
-              child: AppSearchBar(),
+                  fontFamily: AppFonts.interbold),
             ),
           ),
           SliverPadding(
             padding: const EdgeInsets.symmetric(horizontal: 8),
             sliver: SliverList(
               delegate: SliverChildBuilderDelegate(
-                    (context, index) {
+                (context, index) {
                   return LikesView();
                 },
                 childCount: 1,
