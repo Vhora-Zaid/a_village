@@ -115,22 +115,21 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 }
 
+
 class PhoneTextField extends StatefulWidget {
   final TextEditingController phoneController;
-  final String? selectedCountryCode;
-  final List countryData;
-  final VoidCallback? onTap;
-  final VoidCallback? onEditingComplete;
-  final String? Function(String?)? validator;
+  final String? initialCountryCode;
+  final List<Map<String, dynamic>> countryData;
+  final void Function(String) onCountryCodeChanged;
+  final String? Function(String?, String) validator;
 
   const PhoneTextField({
     Key? key,
     required this.phoneController,
-    this.selectedCountryCode,
+    this.initialCountryCode,
     required this.countryData,
-    this.onTap,
-    this.onEditingComplete,
-    this.validator,
+    required this.onCountryCodeChanged,
+    required this.validator,
   }) : super(key: key);
 
   @override
@@ -138,99 +137,102 @@ class PhoneTextField extends StatefulWidget {
 }
 
 class _PhoneTextFieldState extends State<PhoneTextField> {
+  late String selectedCountryCode;
+  String? errorMessage; // ✅ Store error message separately
+
+  @override
+  void initState() {
+    super.initState();
+    selectedCountryCode = widget.initialCountryCode ??
+        (widget.countryData.isNotEmpty ? widget.countryData.first['code'] : '+1');
+  }
+
+  void validatePhoneNumber() {
+    setState(() {
+      errorMessage = widget.validator(widget.phoneController.text, selectedCountryCode);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      validator: widget.validator,
-      keyboardType: TextInputType.phone,
-      controller: widget.phoneController,
-      cursorColor: const Color(0xff3E1D0D),
-      decoration: InputDecoration(
-        contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(
-            color: Color(0xffE8E8E8),
-            width: 1.0,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(
-            color: Color(0xffE8E8E8),
-            width: 1.0,
-          ),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(
-            color: Colors.red,
-            width: 0.5,
-          ),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(50),
-          borderSide: const BorderSide(
-            color: Colors.red,
-            width: 0.5,
-          ),
-        ),
-        border: const OutlineInputBorder(
-          borderRadius: BorderRadius.all(
-            Radius.circular(50),
-          ),
-        ),
-        hintText: 'Mobile',
-        hintStyle: const TextStyle(
-          fontSize: 14,
-          color: Color(0xff8D8E8D),
-          fontWeight: FontWeight.w400,
-          fontFamily: 'BeVietnamRegular',
-        ),
-        prefixIcon: DropdownButtonHideUnderline(
-          child: Padding(
-            padding: const EdgeInsets.only(left: 25),
-            child: DropdownButton<String>(
-              value: widget.selectedCountryCode,
-              items: widget.countryData.map((country) {
-                final uniqueValue =
-                    '${country['code']}|${country['name']}';
-                return DropdownMenuItem<String>(
-                  value: uniqueValue,
-                  child: Row(
-                    children: [
-                      Text(
-                        country['flag']!,
-                        style: const TextStyle(
-                          fontSize: 18,
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        country['code']!,
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400,
-                          fontFamily: 'BeVietnamRegular',
-                        ),
-                      ),
-                    ],
-                  ),
-                );
-              }).toList(),
-              onChanged: (value) {
-                setState(() {
-                  // widget.selectedCountryCode = value!;
-                });
-              },
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        TextFormField(
+          controller: widget.phoneController,
+          keyboardType: TextInputType.phone,
+          onChanged: (_) => validatePhoneNumber(), // ✅ Validate only on text change
+          decoration: InputDecoration(
+            contentPadding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: const BorderSide(color: Colors.red, width: 0.5),
             ),
+            focusedErrorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: const BorderSide(color: Colors.red, width: 0.5),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: const BorderSide(
+                color: Color(0xffDBDDE2),
+                width: 1.0,
+              ),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: const BorderSide(
+                color: Color(0xffDBDDE2),
+                width: 1.0,
+              ),
+            ),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(50),
+              borderSide: const BorderSide(color: Color(0xffDBDDE2), width: 1.0),
+            ),
+            prefixIcon: Padding(
+              padding: const EdgeInsets.only(left: 16, right: 5),
+              child: DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  value: selectedCountryCode,
+                  items: widget.countryData.map((country) {
+                    return DropdownMenuItem<String>(
+                      value: country['code'],
+                      child: Row(
+                        children: [
+                          Text(country['flag'] ?? '🌍', style: const TextStyle(fontSize: 18)),
+                          const SizedBox(width: 8),
+                          Text(country['code'], style: const TextStyle(fontSize: 14, color: Colors.black)),
+                        ],
+                      ),
+                    );
+                  }).toList(),
+                  onChanged: (value) {
+                    if (value != null) {
+                      setState(() {
+                        selectedCountryCode = value;
+                      });
+                      widget.onCountryCodeChanged(value);
+                      validatePhoneNumber();
+                    }
+                  },
+                  alignment: AlignmentDirectional.center,
+                  dropdownColor: TColors.white,
+                ),
+
+              ),
+            ),
+            hintText: "Enter mobile number",
+            hintStyle: const TextStyle(fontSize: 14, color: Color(0xff8D8E8D)),
+            errorText: errorMessage, // ✅ Show error only once
           ),
         ),
-      ),
+      ],
     );
   }
 }
+
+
 
 class PinCodeTextFieldWidget extends StatelessWidget {
   final BuildContext appContext;

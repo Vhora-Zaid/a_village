@@ -263,51 +263,83 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               SizedBox(
                 height: 7,
               ),
-              TextFormField(
-                textAlignVertical: TextAlignVertical.center,
-                cursorColor: Color(0xff3E1D0D),
-                controller: dobController,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
-                  errorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(color: Colors.red, width: 0.5),
-                  ),
-                  focusedErrorBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(color: Colors.red, width: 0.5),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      color: Color(0xffDBDDE2),
-                      width: 1.0,
+              GestureDetector(
+                onTap: () async {
+                  final DateTime? picked = await showDatePicker(
+                    context: context,
+                    initialDate: DateTime.now(),
+                    firstDate: DateTime(1900),
+                    lastDate: DateTime(2100),
+                    builder: (BuildContext context, Widget? child) {
+                      return Theme(
+                        data: Theme.of(context).copyWith(
+                          colorScheme: ColorScheme.light(
+                            primary: TColors.blue.withOpacity(0.3),
+                            onPrimary: TColors.black,
+                            onSurface: TColors.black,
+                          ),
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              foregroundColor: TColors.blue,
+                            ),
+                          ),
+                        ),
+                        child: child!,
+                      );
+                    },
+                  );
+                  if (picked != null) {
+                    dobController.text =
+                        '${picked.day}/${picked.month}/${picked.year}';
+                  }
+                },
+                child: AbsorbPointer(
+                  child: TextFormField(
+                    textAlignVertical: TextAlignVertical.center,
+                    cursorColor: Color(0xff3E1D0D),
+                    controller: dobController,
+                    decoration: InputDecoration(
+                      contentPadding: const EdgeInsets.fromLTRB(16, 10, 11, 15),
+                      errorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(color: Colors.red, width: 0.5),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(color: Colors.red, width: 0.5),
+                      ),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          color: Color(0xffDBDDE2),
+                          width: 1.0,
+                        ),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(20),
+                        borderSide: const BorderSide(
+                          color: Color(0xffDBDDE2),
+                          width: 1.0,
+                        ),
+                      ),
+                      border: const OutlineInputBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20),
+                        ),
+                      ),
+                      hintText: '15/08/1995',
+                      hintStyle: const TextStyle(
+                        fontSize: 15,
+                        color: TColors.black,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: AppFonts.interregular,
+                      ),
                     ),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: const BorderSide(
-                      color: Color(0xffDBDDE2),
-                      width: 1.0,
-                    ),
-                  ),
-                  border: const OutlineInputBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20),
-                    ),
-                  ),
-                  hintText: '15/08/1995',
-                  hintStyle: const TextStyle(
-                    fontSize: 15,
-                    color: TColors.black,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AppFonts.interregular,
                   ),
                 ),
               ),
               SizedBox(
-                height: 7,
+                height: 20,
               ),
               Text(
                 AppLocalizations.of(context)!.gender,
@@ -323,7 +355,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               ),
               GenderSelection(),
               SizedBox(
-                height: 7,
+                height: 20,
               ),
               Text(
                 AppLocalizations.of(context)!.interest,
@@ -339,7 +371,7 @@ class _PersonalInfoScreenState extends State<PersonalInfoScreen> {
               ),
               InterestsSelection(),
               SizedBox(
-                height: 7,
+                height: 20,
               ),
               Text(
                 AppLocalizations.of(context)!.writesomething,

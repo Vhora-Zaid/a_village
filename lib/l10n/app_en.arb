@@ -115,6 +115,7 @@
   "langsettings": "Language Settings",
   "changelang": "Change Language",
   "english": "English",
+  "chinese": "Chinese",
   "contact": "Contact Us",
   "security": "Security",
   "changepass": "Change Password",
@@ -156,5 +157,13 @@
   "no": "No",
   "faq": "Frequently Asked Questions",
   "reportsent": "Report Sent Successfully!",
-  "userblocked": "You blocked the user"
+  "userblocked": "You blocked the user",
+  "noti": "Notifications",
+  "cody": "Cody Fisher",
+  "newnoti": "New Notifications",
+  "oldnoti": "Older Notifications",
+  "reportuser": "Report User",
+  "passmismatch": "Password Mismatch",
+  "passlength": "Password must be at least 8 characters",
+  "subscribenow": "Subscribe Now"
 }

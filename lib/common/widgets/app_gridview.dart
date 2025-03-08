@@ -259,73 +259,16 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
                 ),
               ),
               onPressed: () async {
-                PermissionStatus permissionStatus =
-                    await Permission.camera.status;
-                if (permissionStatus.isGranted) {
-                  final pickedFile =
-                      await ImagePicker().pickImage(source: ImageSource.camera);
-                  if (pickedFile != null) {
-                    setState(() {
-                      selectedImages[index] = File(pickedFile.path);
-                    });
-                  }
-                  Navigator.of(context).pop();
-                } else if (permissionStatus.isDenied) {
-                  PermissionStatus status = await Permission.camera.request();
-                  if (status.isGranted) {
-                    final pickedFile = await ImagePicker()
-                        .pickImage(source: ImageSource.camera);
-                    if (pickedFile != null) {
-                      setState(() {
-                        selectedImages[index] = File(pickedFile.path);
-                      });
-                    }
-                    Navigator.of(context).pop();
-                  } else if (status.isPermanentlyDenied) {
-                    showCupertinoDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CupertinoAlertDialog(
-                          title: Text("Permission is required"),
-                          content: Text(
-                            "This app needs access to camera. Would you like to go to the app settings to turn it on?",
-                            style: TextStyle(
-                              fontSize: 14,
-                            ),
-                          ),
-                          actions: <Widget>[
-                            CupertinoDialogAction(
-                              child: Text(
-                                "Cancel",
-                                style: TextStyle(
-                                  color: TColors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            CupertinoDialogAction(
-                              child: Text(
-                                "Settings",
-                                style: TextStyle(
-                                  color: TColors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              onPressed: () {
-                                openAppSettings();
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
+                Navigator.of(context).pop();
+                bool hasPermission = await _requestCameraPermission();
+                if (hasPermission) {
+                  _pickImage(index, ImageSource.camera);
+                }
+                else {
+                  _showSettingsDialog(
+                      title: 'Permission Required',
+                      content: 'This app needs access to your camera. Please enable it in settings.'
+                  );
                 }
               },
             ),
@@ -339,77 +282,16 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
                 ),
               ),
               onPressed: () async {
-                PermissionStatus permissionStatus =
-                    await Permission.photos.status;
-                if (permissionStatus.isGranted) {
-                  final pickedFile = await ImagePicker()
-                      .pickImage(source: ImageSource.gallery);
-                  if (pickedFile != null) {
-                    setState(() {
-                      selectedImages[index] = File(pickedFile.path);
-                    });
-                  }
-                  Navigator.of(context).pop();
-                } else if (permissionStatus.isDenied) {
-                  PermissionStatus status = await Permission.photos.request();
-                  if (status.isGranted) {
-                    final pickedFile = await ImagePicker()
-                        .pickImage(source: ImageSource.gallery);
-                    if (pickedFile != null) {
-                      setState(() {
-                        selectedImages[index] = File(pickedFile.path);
-                      });
-                    }
-                    Navigator.of(context).pop();
-                  } else if (status.isPermanentlyDenied) {
-                    showCupertinoDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return CupertinoAlertDialog(
-                          title: Text(
-                            "Permission is required",
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: TColors.black,
-                            ),
-                          ),
-                          content: Text(
-                            "This app needs access to photos and videos. Would you like to go to the app settings to turn it on?",
-                            style: TextStyle(fontSize: 14),
-                          ),
-                          actions: <Widget>[
-                            CupertinoDialogAction(
-                              child: Text(
-                                "Cancel",
-                                style: TextStyle(
-                                  color: TColors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                            CupertinoDialogAction(
-                              child: Text(
-                                "Settings",
-                                style: TextStyle(
-                                  color: TColors.black,
-                                  fontSize: 14,
-                                ),
-                              ),
-                              onPressed: () {
-                                openAppSettings();
-                                Navigator.of(context).pop();
-                                Navigator.of(context).pop();
-                              },
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  }
+                Navigator.of(context).pop();
+                bool hasPermission = await _requestGalleryPermission();
+                if (hasPermission) {
+                  _pickImage(index, ImageSource.gallery);
+                }
+                else {
+                  _showSettingsDialog(
+                      title: 'Permission Required',
+                      content: 'This app needs access to your photos and videos. Please enable it in settings.'
+                  );
                 }
               },
             ),
@@ -417,6 +299,88 @@ class _SelectableImageGridState extends State<SelectableImageGrid> {
         );
       },
     );
+  }
+
+  Future<bool> _requestCameraPermission() async {
+    PermissionStatus status = await Permission.camera.status;
+
+    if (status.isGranted) {
+      return true;
+    } else if (status.isDenied) {
+      // First time request
+      status = await Permission.camera.request();
+      if (status.isGranted) return true;
+
+      // Second request before showing settings
+      status = await Permission.camera.request();
+      if (status.isGranted) return true;
+    }
+
+    if (status.isPermanentlyDenied) {
+      _showSettingsDialog(
+        title: "Camera Permission Required",
+        content: "This app needs access to the camera. Please enable it in settings.",
+      );
+    }
+    return false;
+  }
+
+  Future<bool> _requestGalleryPermission() async {
+    PermissionStatus status = await Permission.photos.status;
+
+    if (status.isGranted) {
+      return true;
+    } else if (status.isDenied) {
+      // First time request
+      status = await Permission.photos.request();
+      if (status.isGranted) return true;
+
+      // Second request before showing settings
+      status = await Permission.photos.request();
+      if (status.isGranted) return true;
+    }
+
+    if (status.isPermanentlyDenied) {
+      _showSettingsDialog(
+        title: "Gallery Permission Required",
+        content: "This app needs access to your photos. Please enable it in settings.",
+      );
+    }
+    return false;
+  }
+
+  void _showSettingsDialog({required String title, required String content}) {
+    showCupertinoDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return CupertinoAlertDialog(
+          title: Text(title),
+          content: Text(content, style: TextStyle(fontSize: 14)),
+          actions: <Widget>[
+            CupertinoDialogAction(
+              child: Text("Cancel", style: TextStyle(color: TColors.black, fontSize: 14)),
+              onPressed: () => Navigator.of(context).pop(),
+            ),
+            CupertinoDialogAction(
+              child: Text("Settings", style: TextStyle(color: TColors.black, fontSize: 14)),
+              onPressed: () {
+                openAppSettings();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _pickImage(int index, ImageSource source) async {
+    final pickedFile = await ImagePicker().pickImage(source: source);
+    if (pickedFile != null) {
+      setState(() {
+        selectedImages[index] = File(pickedFile.path);
+      });
+    }
   }
 
   void _removeImage(int index) {

@@ -5,8 +5,7 @@ import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
 
 class SplashScreen extends StatefulWidget {
-  final Function(Locale) changeLanguage;
-  const SplashScreen({super.key, required this.changeLanguage});
+  const SplashScreen({super.key});
 
   @override
   SplashScreenState createState() => SplashScreenState();
@@ -18,10 +17,10 @@ class SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(
       const Duration(seconds: 3),
-      () => Navigator.pushReplacement(
+          () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => SelectLanguageScreen(changeLanguage: widget.changeLanguage,),
+          builder: (context) => const SelectLanguageScreen(),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:a_village/common/widgets/app_appbar.dart';
+import 'package:a_village/common/widgets/app_button.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -14,7 +15,6 @@ class SubscriptionScreen extends StatefulWidget {
 }
 
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
-
   String _selectedPlan = "monthly";
 
   @override
@@ -38,8 +38,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding:
-          const EdgeInsets.only(left: 16, right: 16),
+          padding: const EdgeInsets.only(left: 16, right: 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -97,6 +96,14 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
             ],
           ),
         ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.only(left: 16, right: 16, top: 20, bottom: 30),
+        child: AppButton(
+            title: AppLocalizations.of(context)!.subscribenow,
+            onTap: () {
+              Navigator.pop(context);
+            }),
       ),
     );
   }

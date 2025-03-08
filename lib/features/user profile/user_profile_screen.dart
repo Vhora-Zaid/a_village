@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
+import '../../common/widgets/report_dialog.dart';
+
 class UserProfileScreen extends StatefulWidget {
   const UserProfileScreen({super.key});
 
@@ -101,7 +103,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       Navigator.pop(context);
                     },
                     child: Padding(
-                      padding: const EdgeInsets.only(left: 16, top: 40),
+                      padding: EdgeInsets.only(
+                        left: MediaQuery.of(context).size.width * 0.045,
+                        top: MediaQuery.of(context).size.height * 0.08,
+                      ),
                       child: Image.asset(
                         ImageStrings.backarrow,
                         height: 44,
@@ -111,7 +116,8 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                   ),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(top: 20),
+                    margin: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.06),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: List.generate(
@@ -183,230 +189,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               height: 24,
                               width: 24,
                             ),
-                            PopupMenuButton<String>(
-                              position: PopupMenuPosition.under,
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              color: TColors.white,
-                              elevation: 6,
-                              icon: Icon(
-                                Icons.more_vert,
-                                color: TColors.black,
-                              ),
-                              onSelected: (value) {
-                                if (value == 'Report') {
-                                  showDialog(
-                                    context: context,
-                                    builder: (context) {
-                                      TextEditingController reportController =
-                                          TextEditingController();
-                                      return AlertDialog(
-                                        scrollable: true,
-                                        backgroundColor: TColors.white,
-                                        insetPadding: EdgeInsets.zero,
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        title: Text(
-                                          AppLocalizations.of(context)!
-                                              .report,
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold,
-                                            fontFamily: AppFonts.interbold,
-                                            color: TColors.black,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Text(
-                                              AppLocalizations.of(context)!
-                                                  .whyreport,
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamily:
-                                                    AppFonts.interregular,
-                                                color: TColors.black,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            SizedBox(height: 12),
-                                            TextField(
-                                              controller: reportController,
-                                              cursorColor: TColors.placeholder,
-                                              maxLines: 15,
-                                              decoration: InputDecoration(
-                                                hintText: AppLocalizations.of(
-                                                        context)!
-                                                    .enterreason,
-                                                hintStyle: TextStyle(
-                                                  color: TColors.placeholder,
-                                                  fontSize: 14,
-                                                ),
-                                                border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  borderSide: BorderSide(
-                                                      color: TColors.stroke),
-                                                ),
-                                                focusedBorder:
-                                                    OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.circular(12),
-                                                  borderSide: BorderSide(
-                                                      color: TColors.placeholder),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .cancel,
-                                              style: TextStyle(
-                                                  color: TColors.placeholder),
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: TColors.blue,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              Fluttertoast.showToast(
-                                                msg: AppLocalizations.of(
-                                                        context)!
-                                                    .reportsent,
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.BOTTOM,
-                                                backgroundColor: TColors.blue,
-                                                textColor: TColors.white,
-                                                fontSize: 14,
-                                              );
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .report,
-                                              style: TextStyle(
-                                                  color: TColors.white),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                } else if (value == 'Block') {
-                                  showDialog(
-                                    context: context,
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                        backgroundColor: TColors.white,
-                                        title: Text(
-                                          AppLocalizations.of(context)!
-                                              .blockuser,
-                                          style: TextStyle(
-                                            fontSize: 22,
-                                            fontWeight: FontWeight.bold,
-                                            color: TColors.black,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        content: Text(
-                                          AppLocalizations.of(context)!
-                                              .sureblock,
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            color: TColors.black,
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        actions: [
-                                          TextButton(
-                                            onPressed: () =>
-                                                Navigator.pop(context),
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .cancel,
-                                              style: TextStyle(
-                                                  color: TColors.placeholder),
-                                            ),
-                                          ),
-                                          ElevatedButton(
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor: TColors.blue,
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(8),
-                                              ),
-                                            ),
-                                            onPressed: () {
-                                              Fluttertoast.showToast(
-                                                msg: AppLocalizations.of(
-                                                        context)!
-                                                    .userblocked,
-                                                toastLength: Toast.LENGTH_SHORT,
-                                                gravity: ToastGravity.BOTTOM,
-                                                backgroundColor:
-                                                    Colors.redAccent,
-                                                textColor: TColors.white,
-                                                fontSize: 14,
-                                              );
-                                              Navigator.pop(context);
-                                            },
-                                            child: Text(
-                                              AppLocalizations.of(context)!
-                                                  .block,
-                                              style: TextStyle(
-                                                  color: TColors.white),
-                                            ),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
+                            SizedBox(
+                              width: 15,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                UserActionBottomSheet.show(context);
                               },
-                              itemBuilder: (BuildContext context) =>
-                                  <PopupMenuEntry<String>>[
-                                PopupMenuItem<String>(
-                                  value: 'Report',
-                                  child: ListTile(
-                                    leading: Icon(Icons.report,
-                                        color: Colors.redAccent),
-                                    title: Text(
-                                      AppLocalizations.of(context)!.report,
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                ),
-                                PopupMenuItem<String>(
-                                  value: 'Block',
-                                  child: ListTile(
-                                    leading:
-                                        Icon(Icons.block, color: TColors.black),
-                                    title: Text(
-                                      AppLocalizations.of(context)!.block,
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ),
-                                ),
-                              ],
+                              child: Icon(Icons.more_vert),
                             ),
                           ],
                         ),

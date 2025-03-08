@@ -12,7 +12,7 @@ class InterestSelection extends StatefulWidget {
 }
 
 class _InterestSelectionState extends State<InterestSelection> {
-  List<String> selectedInterests = ['Book & Novel', 'Movie'];
+  List<String> selectedInterests = [''];
 
   @override
   Widget build(BuildContext context) {
@@ -129,7 +129,7 @@ class PreferenceSelection extends StatefulWidget {
 }
 
 class _PreferenceSelectionState extends State<PreferenceSelection> {
-  List<String> selectedPreference = ['Men'];
+  List<String> selectedPreference = [''];
 
   @override
   Widget build(BuildContext context) {
@@ -205,7 +205,13 @@ class _InterestsSelectionState extends State<InterestsSelection> {
             bool isSelected = selectedPreference.contains(preference);
             return ChoiceChip(
               showCheckmark: false,
-              label: Text(preference),
+              label: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.027,
+                  vertical: 3,
+                ),
+                child: Text(preference),
+              ),
               backgroundColor: TColors.white,
               selectedColor: TColors.yellow,
               shape: RoundedRectangleBorder(
@@ -263,7 +269,13 @@ class _GenderSelectionState extends State<GenderSelection> {
             bool isSelected = selectedPreference.contains(preference);
             return ChoiceChip(
               showCheckmark: false,
-              label: Text(preference),
+              label: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: MediaQuery.of(context).size.width * 0.115,
+                  vertical: 3,
+                ),
+                child: Text(preference),
+              ),
               backgroundColor: TColors.white,
               selectedColor: TColors.yellow,
               shape: RoundedRectangleBorder(
@@ -307,7 +319,7 @@ class InterestFilterSelection extends StatefulWidget {
 }
 
 class _InterestFilterSelectionState extends State<InterestFilterSelection> {
-  List<String> selectedInterests = ['Dancing & Singing', 'Language'];
+  List<String> selectedInterests = [''];
 
   @override
   Widget build(BuildContext context) {

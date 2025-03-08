@@ -26,11 +26,11 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
   }
 
   void _onItemTapped(int index) {
-    setState(
-      () {
+    if (_selectedIndex != index) {
+      setState(() {
         _selectedIndex = index;
-      },
-    );
+      });
+    }
   }
 
   final List<Widget> _screens = [
@@ -65,32 +65,34 @@ class _AppBottomNavBarState extends State<AppBottomNavBar> {
         index: _selectedIndex,
         children: _screens,
       ),
-      bottomNavigationBar: ClipRRect(
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(28),
-          topRight: Radius.circular(28),
+      bottomNavigationBar: Theme(
+        data: Theme.of(context).copyWith(
+          splashFactory: NoSplash.splashFactory,
+          highlightColor: Colors.transparent,
         ),
-        child: BottomNavigationBar(
-          elevation: 0,
-          currentIndex: _selectedIndex,
-          onTap: _onItemTapped,
-          backgroundColor: TColors.white,
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          items: List.generate(
-            5,
-            (index) {
-              return BottomNavigationBarItem(
+        child: ClipRRect(
+          borderRadius: const BorderRadius.only(
+            topLeft: Radius.circular(28),
+            topRight: Radius.circular(28),
+          ),
+          child: BottomNavigationBar(
+            elevation: 0,
+            currentIndex: _selectedIndex,
+            onTap: _onItemTapped,
+            backgroundColor: TColors.white,
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            items: List.generate(
+              _screens.length,
+                  (index) => BottomNavigationBarItem(
                 icon: Image.asset(
-                  _selectedIndex == index
-                      ? _activeIcons[index]
-                      : _inactiveIcons[index],
+                  _selectedIndex == index ? _activeIcons[index] : _inactiveIcons[index],
                   height: 24,
                 ),
                 label: '',
-              );
-            },
+              ),
+            ),
           ),
         ),
       ),

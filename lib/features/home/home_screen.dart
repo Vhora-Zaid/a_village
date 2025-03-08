@@ -1,5 +1,6 @@
 import 'package:a_village/common/widgets/app_bottomnavigation.dart';
 import 'package:a_village/common/widgets/card_swipe.dart';
+import 'package:a_village/features/notification/notification_screen.dart';
 import 'package:flutter/material.dart';
 import '../../common/widgets/app_appbar.dart';
 import '../../utils/constants/colors.dart';
@@ -53,7 +54,14 @@ class _HomeScreenState extends State<HomeScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 16),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NotificationScreen(),
+                  ),
+                );
+              },
               child: Image.asset(
                 ImageStrings.notificationlogo,
                 height: 24,

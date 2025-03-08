@@ -4,8 +4,10 @@ import 'package:a_village/features/change%20password/change_password_screen.dart
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:provider/provider.dart';
 import '../../common/widgets/app_appbar.dart';
 import '../../common/widgets/app_slider.dart';
+import '../../providers/language_provider.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/image_strings.dart';
 
@@ -19,6 +21,157 @@ class SettingsScreen extends StatefulWidget {
 class _SettingsScreenState extends State<SettingsScreen> {
   RangeValues _distancevalue = RangeValues(0, 80);
   RangeValues _agevalue = RangeValues(18, 40);
+
+  void _showLanguageDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        Locale currentLocale =
+            Provider.of<AppLanguageProvider>(context, listen: false).appLocal;
+        String selectedLanguage = currentLocale.languageCode;
+
+        return AlertDialog(
+          backgroundColor: TColors.white,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: Center(
+            child: Text(
+              AppLocalizations.of(context)!.selectLanguage,
+              style: TextStyle(
+                fontSize: 20,
+                color: TColors.black,
+                fontWeight: FontWeight.bold,
+                fontFamily: AppFonts.interbold,
+              ),
+            ),
+          ),
+          content: StatefulBuilder(
+            builder: (BuildContext context, StateSetter setState) {
+              return Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  _buildLanguageOption(
+                    context,
+                    title: AppLocalizations.of(context)!.english,
+                    value: 'en',
+                    selectedValue: selectedLanguage,
+                    icon: Icons.language,
+                    onSelect: (value) {
+                      setState(() {
+                        selectedLanguage = value!;
+                      });
+                    },
+                  ),
+                  _buildLanguageOption(
+                    context,
+                    title: AppLocalizations.of(context)!.chinese,
+                    value: 'zh',
+                    selectedValue: selectedLanguage,
+                    icon: Icons.translate,
+                    onSelect: (value) {
+                      setState(() {
+                        selectedLanguage = value!;
+                      });
+                    },
+                  ),
+                ],
+              );
+            },
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context),
+              child: Text(
+                AppLocalizations.of(context)!.cancel,
+                style: TextStyle(
+                  color: TColors.placeholder,
+                  fontFamily: AppFonts.interregular,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                backgroundColor: TColors.blue,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
+                ),
+              ),
+              onPressed: () {
+                Provider.of<AppLanguageProvider>(context, listen: false)
+                    .changeLanguage(Locale(selectedLanguage));
+                Navigator.pop(context);
+              },
+              child: Text(
+                AppLocalizations.of(context)!.ok,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontFamily: AppFonts.interbold,
+                  fontSize: 16,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Widget _buildLanguageOption(
+    BuildContext context, {
+    required String title,
+    required String value,
+    required String selectedValue,
+    required IconData icon,
+    required Function(String?) onSelect,
+  }) {
+    bool isSelected = value == selectedValue;
+
+    return GestureDetector(
+      onTap: () => onSelect(value),
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 300),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 16),
+        margin: const EdgeInsets.symmetric(vertical: 5),
+        decoration: BoxDecoration(
+          color:
+              isSelected ? TColors.blue.withOpacity(0.1) : Colors.transparent,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color: isSelected ? TColors.blue : TColors.stroke,
+            width: 1.5,
+          ),
+        ),
+        child: Row(
+          children: [
+            Icon(
+              icon,
+              color: isSelected ? TColors.blue : Colors.grey.shade700,
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: TextStyle(
+                  fontSize: 16,
+                  fontFamily: AppFonts.interregular,
+                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+                  color: isSelected ? TColors.blue : TColors.black,
+                ),
+              ),
+            ),
+            Radio<String>(
+              value: value,
+              groupValue: selectedValue,
+              activeColor: TColors.blue,
+              onChanged: onSelect,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -272,26 +425,34 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       fontWeight: FontWeight.w400,
                     ),
                   ),
-                  Row(
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.english,
-                        style: TextStyle(
-                          color: TColors.blue,
-                          fontFamily: AppFonts.interbold,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
+                  GestureDetector(
+                    onTap: () {
+                      _showLanguageDialog(context);
+                    },
+                    child: Row(
+                      children: [
+                        Text(
+                          Provider.of<AppLanguageProvider>(context)
+                                      .appLocal
+                                      .languageCode ==
+                                  'en'
+                              ? AppLocalizations.of(context)!.english
+                              : AppLocalizations.of(context)!.chinese,
+                          style: TextStyle(
+                            color: TColors.blue,
+                            fontFamily: AppFonts.interbold,
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        width: 14,
-                      ),
-                      Image.asset(
-                        ImageStrings.rightarrow,
-                        height: 9.98,
-                        width: 5.98,
-                      ),
-                    ],
+                        const SizedBox(width: 14),
+                        Image.asset(
+                          ImageStrings.rightarrow,
+                          height: 9.98,
+                          width: 5.98,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),

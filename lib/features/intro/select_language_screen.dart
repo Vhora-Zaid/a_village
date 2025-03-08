@@ -1,16 +1,15 @@
 import 'package:a_village/common/widgets/language_container.dart';
-import 'package:a_village/features/intro/first_intro_screen.dart';
+import 'package:a_village/features/intro/intro_screen.dart';
+import 'package:a_village/providers/language_provider.dart';
 import 'package:a_village/utils/constants/app_fonts.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import 'intro_screen.dart';
-
 class SelectLanguageScreen extends StatefulWidget {
-  final Function(Locale) changeLanguage;
-  const SelectLanguageScreen({super.key, required this.changeLanguage});
+  const SelectLanguageScreen({super.key});
 
   @override
   State<SelectLanguageScreen> createState() => _SelectLanguageScreenState();
@@ -26,19 +25,22 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Select Language',
-              style: TextStyle(fontFamily: AppFonts.interbold, fontSize: 30, fontWeight: FontWeight.bold),
+              AppLocalizations.of(context)!.selectLanguage,
+              style: TextStyle(
+                fontFamily: AppFonts.interbold,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 35),
+
             LanguageContainer.container(
               onTap: () {
-                widget.changeLanguage(const Locale('en'));
-                setState(() {});
+                Provider.of<AppLanguageProvider>(context, listen: false)
+                    .changeLanguage(const Locale('en'));
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => IntroScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const IntroScreen()),
                 );
               },
               imagePath: ImageStrings.englishLanguageLogo,
@@ -48,24 +50,24 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
               color: TColors.primary,
             ),
             const SizedBox(height: 9),
+
             LanguageContainer.container(
               onTap: () {
-                widget.changeLanguage(const Locale('zh'));
-                setState(() {});
+                Provider.of<AppLanguageProvider>(context, listen: false)
+                    .changeLanguage(const Locale('zh'));
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(
-                    builder: (context) => IntroScreen(),
-                  ),
+                  MaterialPageRoute(builder: (context) => const IntroScreen()),
                 );
               },
               imagePath: ImageStrings.chineseLanguageLogo,
-              text: 'Chinese',
+              text: AppLocalizations.of(context)!.chinese,
               textColor: Colors.black,
               height: 145,
               color: TColors.secondary,
             ),
             const SizedBox(height: 23),
+
             Text(
               AppLocalizations.of(context)!.lorem,
               textAlign: TextAlign.center,

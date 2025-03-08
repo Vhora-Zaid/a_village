@@ -10,8 +10,8 @@ class AppSearchBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      onTapOutside: (_) => FocusScope.of(context).unfocus(),
       autofocus: false,
+      onTapOutside: (_) => FocusScope.of(context).unfocus(),
       textAlignVertical: TextAlignVertical.center,
       cursorColor: TColors.grey,
       decoration: InputDecoration(

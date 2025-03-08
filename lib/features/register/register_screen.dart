@@ -17,13 +17,47 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
   TextEditingController nameController = TextEditingController();
-  TextEditingController numberController = TextEditingController();
+  TextEditingController phoneController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
+  String selectedCountryCode = "+1";
+  List<Map<String, dynamic>> countryData = [
+    {'code': '+91', 'name': 'India', 'flag': '🇮🇳', 'regex': r'^[6-9]\d{9}$'},
+    {'code': '+1', 'name': 'USA', 'flag': '🇺🇸', 'regex': r'^\d{10}$'},
+    {'code': '+44', 'name': 'UK', 'flag': '🇬🇧', 'regex': r'^\d{10}$'},
+    {'code': '+61', 'name': 'Australia', 'flag': '🇦🇺', 'regex': r'^[4]\d{8}$'},
+    {'code': '+49', 'name': 'Germany', 'flag': '🇩🇪', 'regex': r'^\d{10,11}$'},
+    {'code': '+33', 'name': 'France', 'flag': '🇫🇷', 'regex': r'^[67]\d{8}$'},
+    {'code': '+81', 'name': 'Japan', 'flag': '🇯🇵', 'regex': r'^\d{9,10}$'},
+    {'code': '+82', 'name': 'South Korea', 'flag': '🇰🇷', 'regex': r'^\d{9,10}$'},
+    {'code': '+86', 'name': 'China', 'flag': '🇨🇳', 'regex': r'^\d{11}$'},
+    {'code': '+39', 'name': 'Italy', 'flag': '🇮🇹', 'regex': r'^[3]\d{9}$'},
+    {'code': '+7', 'name': 'Russia', 'flag': '🇷🇺', 'regex': r'^\d{10}$'},
+    {'code': '+55', 'name': 'Brazil', 'flag': '🇧🇷', 'regex': r'^\d{10,11}$'},
+    {'code': '+27', 'name': 'South Africa', 'flag': '🇿🇦', 'regex': r'^[678]\d{8}$'},
+    {'code': '+34', 'name': 'Spain', 'flag': '🇪🇸', 'regex': r'^[67]\d{8}$'},
+    {'code': '+52', 'name': 'Mexico', 'flag': '🇲🇽', 'regex': r'^[1-9]\d{9}$'},
+    {'code': '+971', 'name': 'UAE', 'flag': '🇦🇪', 'regex': r'^[5]\d{8}$'},
+    {'code': '+966', 'name': 'Saudi Arabia', 'flag': '🇸🇦', 'regex': r'^[5]\d{8}$'},
+    {'code': '+90', 'name': 'Turkey', 'flag': '🇹🇷', 'regex': r'^[5]\d{9}$'},
+    {'code': '+31', 'name': 'Netherlands', 'flag': '🇳🇱', 'regex': r'^[6]\d{8}$'},
+    {'code': '+46', 'name': 'Sweden', 'flag': '🇸🇪', 'regex': r'^[7]\d{8}$'},
+    {'code': '+41', 'name': 'Switzerland', 'flag': '🇨🇭', 'regex': r'^[7]\d{8}$'},
+    {'code': '+32', 'name': 'Belgium', 'flag': '🇧🇪', 'regex': r'^[4]\d{8}$'},
+    {'code': '+351', 'name': 'Portugal', 'flag': '🇵🇹', 'regex': r'^[9]\d{8}$'},
+    {'code': '+64', 'name': 'New Zealand', 'flag': '🇳🇿', 'regex': r'^[2]\d{8,9}$'},
+    {'code': '+20', 'name': 'Egypt', 'flag': '🇪🇬', 'regex': r'^[1]\d{9}$'},
+    {'code': '+234', 'name': 'Nigeria', 'flag': '🇳🇬', 'regex': r'^[789]\d{9}$'},
+    {'code': '+63', 'name': 'Philippines', 'flag': '🇵🇭', 'regex': r'^[9]\d{9}$'},
+    {'code': '+66', 'name': 'Thailand', 'flag': '🇹🇭', 'regex': r'^[689]\d{8}$'},
+    {'code': '+98', 'name': 'Iran', 'flag': '🇮🇷', 'regex': r'^[9]\d{9}$'},
+    {'code': '+62', 'name': 'Indonesia', 'flag': '🇮🇩', 'regex': r'^[8]\d{9,10}$'},
+  ];
+
 
   @override
   void dispose() {
@@ -31,7 +65,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
     passwordController.dispose();
     confirmPasswordController.dispose();
     nameController.dispose();
-    numberController.dispose();
+    phoneController.dispose();
     super.dispose();
   }
 
@@ -77,7 +111,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
       body: SingleChildScrollView(
         physics: ClampingScrollPhysics(),
         child: Padding(
-          padding: const EdgeInsets.only(left: 32, right: 32, top: 100, bottom: 62),
+          padding:
+              const EdgeInsets.only(left: 32, right: 32, top: 100, bottom: 62),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -115,13 +150,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     SizedBox(
                       height: 20,
                     ),
-                    AppTextField(
-                      controller: numberController,
-                      imagePath: ImageStrings.mobile,
-                      suffixImage: null,
-                      hintText: AppLocalizations.of(context)!.mobile,
-                      validator: (value) =>
-                          AllValidators.validatePhoneNumber(value, context),
+                    PhoneTextField(
+                      phoneController: phoneController,
+                      countryData: countryData,
+                      initialCountryCode: selectedCountryCode ?? (countryData.isNotEmpty ? countryData.first['code'] : '+1'),
+                      onCountryCodeChanged: (code) {
+                        setState(() {
+                          selectedCountryCode = code;
+                        });
+                      },
+                      validator: (value, countryCode) =>
+                          AllValidators.validatePhoneNumber(value, countryCode ?? '', countryData),
                     ),
                     SizedBox(
                       height: 20,
@@ -156,7 +195,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                       obscureText: false,
                       hintText: AppLocalizations.of(context)!.confirmpassword,
                       validator: (value) =>
-                          AllValidators.validatePassword(value, context),
+                          AllValidators.validateConfirmPassword(
+                              value, passwordController.text, context),
                     ),
                   ],
                 ),
@@ -166,16 +206,17 @@ class _RegisterScreenState extends State<RegisterScreen> {
               ),
               AppButton(
                 title: AppLocalizations.of(context)!.register,
-                onTap: () {
-                  if (_formKey.currentState!.validate()) {
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => VerificationScreen(),
-                      ),
-                    );
+                  onTap: () {
+                    FocusScope.of(context).unfocus();
+
+                    if (_formKey.currentState?.validate() ?? false) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => VerificationScreen(),),
+                      );
+                    }
                   }
-                },
+
               ),
             ],
           ),

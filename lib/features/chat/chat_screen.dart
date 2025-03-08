@@ -184,7 +184,7 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16, top: 8, bottom: 20),
+              padding: const EdgeInsets.only(left: 16, top: 8, bottom: 20, right: 8),
               child: Row(
                 children: [
                   Expanded(
@@ -218,6 +218,7 @@ class _ChatScreenState extends State<ChatScreen> {
                       ),
                     ),
                   ),
+                  SizedBox(width: 6),
                   IconButton(
                     icon: Image.asset(ImageStrings.send, height: 24, width: 24),
                     onPressed: () {

@@ -16,39 +16,39 @@ class _PrivacyPolicyScreenState extends State<PrivacyPolicyScreen> {
 
   final List<Map<String, String>> privacyPolicySections = [
     {
-      "title": "Introduction",
+      "title": "1. Introduction",
       "content": "Welcome to our Privacy Policy. Your privacy is critically important to us. This section explains our approach to handling your personal information."
     },
     {
-      "title": "Data Collection",
+      "title": "2. Data Collection",
       "content": "We collect user data to improve the app experience and provide better services. This may include information such as your name, email, and usage data."
     },
     {
-      "title": "Data Usage",
+      "title": "3. Data Usage",
       "content": "Your data is used only for app functionality and is not shared with third parties without your consent. We may use it to enhance user experience and for analytical purposes."
     },
     {
-      "title": "Cookie Policy",
+      "title": "4. Cookie Policy",
       "content": "We use cookies to enhance your browsing experience. These cookies help us understand how you use our app and improve our services accordingly."
     },
     {
-      "title": "Children’s Privacy",
+      "title": "5. Children’s Privacy",
       "content": "Our app is not intended for children under the age of 18. We do not knowingly collect personal information from children without parental consent."
     },
     {
-      "title": "Security",
+      "title": "6. Security",
       "content": "We take strong measures to ensure your data remains safe and protected. Encryption and secure servers are used to safeguard your information."
     },
     {
-      "title": "Changes to Privacy Policy",
+      "title": "7. Changes to Privacy Policy",
       "content": "We may update this Privacy Policy from time to time. Any changes will be communicated via app updates or notifications."
     },
     {
-      "title": "Complaints",
+      "title": "8. Complaints",
       "content": "If you have any complaints regarding how we handle your data, you may contact our support team. We take privacy concerns seriously and will respond promptly."
     },
     {
-      "title": "Contact Us",
+      "title": "9. Contact Us",
       "content": "If you have any questions about this Privacy Policy, feel free to reach out to us via email or through our customer support section in the app."
     },
   ];

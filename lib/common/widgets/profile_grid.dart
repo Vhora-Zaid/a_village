@@ -221,6 +221,7 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 192,
                         width: containerWidth,
                         decoration: BoxDecoration(
+                          border: selectedImages[0] != null ? null : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[0] != null
@@ -269,6 +270,7 @@ class _ProfileGridState extends State<ProfileGrid> {
                             height: 91,
                             width: imageWidth,
                             decoration: BoxDecoration(
+                              border: selectedImages[1] != null ? null : Border.all(color: TColors.imageborder),
                               color: TColors.stroke,
                               borderRadius: BorderRadius.circular(10),
                               image: selectedImages[1] != null
@@ -315,6 +317,7 @@ class _ProfileGridState extends State<ProfileGrid> {
                             height: 91,
                             width: imageWidth,
                             decoration: BoxDecoration(
+                              border: selectedImages[2] != null ? null : Border.all(color: TColors.imageborder),
                               color: TColors.stroke,
                               borderRadius: BorderRadius.circular(10),
                               image: selectedImages[2] != null
@@ -367,6 +370,7 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
+                          border: selectedImages[3] != null ? null : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[3] != null
@@ -413,6 +417,7 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
+                          border: selectedImages[4] != null ? null : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[4] != null
@@ -459,6 +464,7 @@ class _ProfileGridState extends State<ProfileGrid> {
                         height: 91,
                         width: imageWidth,
                         decoration: BoxDecoration(
+                          border: selectedImages[5] != null ? null : Border.all(color: TColors.imageborder),
                           color: TColors.stroke,
                           borderRadius: BorderRadius.circular(10),
                           image: selectedImages[5] != null

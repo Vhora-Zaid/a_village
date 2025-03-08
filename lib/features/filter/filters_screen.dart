@@ -40,6 +40,12 @@ class _FiltersScreenState extends State<FiltersScreen> {
         ),
         actions: [
           GestureDetector(
+            onTap: () {
+              setState(() {
+                _distancevalues = RangeValues(20, 40);
+                _agevalues = RangeValues(18, 35);
+              });
+            },
             child: Padding(
               padding: const EdgeInsets.only(right: 16),
               child: Text(
@@ -102,7 +108,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: () {
+
+                    },
                     child: Text(
                       AppLocalizations.of(context)!.selectall,
                       style: TextStyle(

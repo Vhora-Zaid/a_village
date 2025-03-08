@@ -76,6 +76,17 @@ class _VerificationScreenState extends State<VerificationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: TColors.white,
+      appBar: MyAppBar(
+        leading: GestureDetector(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Image.asset(ImageStrings.backarrow, height: 44, width: 44),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.only(left: 32, right: 32),
         child: Column(
