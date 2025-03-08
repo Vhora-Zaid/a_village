@@ -1,4 +1,5 @@
 import 'package:a_village/common/widgets/interest_selection.dart';
+import 'package:a_village/common/widgets/matched_animation.dart';
 import 'package:a_village/utils/constants/app_fonts.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
@@ -183,11 +184,16 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         ),
                         Row(
                           children: [
-                            Image.asset(
-                              ImageStrings.homefavorite,
-                              color: TColors.black,
-                              height: 24,
-                              width: 24,
+                            GestureDetector(
+                              onTap: () {
+                                Navigator.push(context, MaterialPageRoute(builder: (context) => MatchedAnimation()));
+                              },
+                              child: Image.asset(
+                                ImageStrings.homefavorite,
+                                color: TColors.black,
+                                height: 24,
+                                width: 24,
+                              ),
                             ),
                             SizedBox(
                               width: 15,
