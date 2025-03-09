@@ -57,14 +57,15 @@ class SubscriptionCard extends StatelessWidget {
                       price,
                       style: TextStyle(
                         fontSize: 20,
-                        fontWeight: FontWeight.w800,
+                        fontWeight: FontWeight.w600,
                         fontFamily: AppFonts.interbold,
                         color: TColors.black,
                       ),
                     ),
                     SizedBox(height: 5),
                     Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 3),
                       decoration: BoxDecoration(
                         color: TColors.trialbox,
                         borderRadius: BorderRadius.circular(50),

@@ -53,7 +53,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 children: [
                   _buildLanguageOption(
                     context,
-                    title: AppLocalizations.of(context)!.english,
+                    title: 'English',
                     value: 'en',
                     selectedValue: selectedLanguage,
                     icon: Icons.language,
@@ -508,9 +508,11 @@ class _SettingsScreenState extends State<SettingsScreen> {
               GestureDetector(
                 onTap: () {
                   Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => ChangePasswordScreen()));
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => ChangePasswordScreen(),
+                    ),
+                  );
                 },
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,

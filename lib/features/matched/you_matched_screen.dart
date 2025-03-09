@@ -18,6 +18,8 @@ class _YouMatchedScreenState extends State<YouMatchedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
+        width: double.infinity,
+        height: double.infinity,
         decoration: BoxDecoration(
           image: DecorationImage(
             image: AssetImage(ImageStrings.heartsgroup),
@@ -32,61 +34,61 @@ class _YouMatchedScreenState extends State<YouMatchedScreen> {
             ],
           ),
         ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 120),
-              child: Column(
-                children: [
-                  Text(
-                    'You Matched!',
-                    style: TextStyle(
-                      color: TColors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 36,
-                      fontFamily: AppFonts.interbold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  SizedBox(
-                    width: 180,
-                    child: Text(
-                      'You and Leslie have liked each other',
-                      style: TextStyle(
-                        fontSize: 15,
-                        color: TColors.white,
-                        fontFamily: AppFonts.interregular,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 150,
-                    height: 315,
-                    child: MatchedAnimation(),
-                  ),
-                  AppButton2(
-                    title: AppLocalizations.of(context)!.sendmssg,
-                    onTap: () {},
-                    color: TColors.secondary,
-                    textColor: TColors.black,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  AppButton2(
-                    title: AppLocalizations.of(context)!.keepplay,
-                    onTap: () {},
-                    color: TColors.black,
-                    textColor: TColors.white,
-                  )
-                ],
-              ),
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.sizeOf(context).height * 0.02,
             ),
-          ],
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  'You Matched!',
+                  style: TextStyle(
+                    color: TColors.white,
+                    fontWeight: FontWeight.bold,
+                    fontSize: MediaQuery.sizeOf(context).width * 0.09,
+                    fontFamily: AppFonts.interbold,
+                  ),
+                ),
+                SizedBox(height: MediaQuery.sizeOf(context).height * 0.01),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.5,
+                  child: Text(
+                    'You and Leslie have liked each other',
+                    style: TextStyle(
+                      fontSize: MediaQuery.sizeOf(context).width * 0.04,
+                      color: TColors.white,
+                      fontFamily: AppFonts.interregular,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+                SizedBox(
+                  width: MediaQuery.sizeOf(context).width * 0.4,
+                  height: MediaQuery.sizeOf(context).height * 0.4,
+                  child: MatchedAnimation(),
+                ),
+                SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+                AppButton2(
+                  title: AppLocalizations.of(context)!.sendmssg,
+                  onTap: () {},
+                  color: TColors.secondary,
+                  textColor: TColors.black,
+                ),
+                SizedBox(height: MediaQuery.sizeOf(context).height * 0.02),
+                AppButton2(
+                  title: AppLocalizations.of(context)!.keepplay,
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  color: TColors.black,
+                  textColor: TColors.white,
+                ),
+              ],
+            ),
+          ),
         ),
       ),
     );

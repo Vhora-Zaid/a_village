@@ -50,7 +50,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       AppLocalizations.of(context)!.privacy,
       AppLocalizations.of(context)!.deleteaccount,
       AppLocalizations.of(context)!.logout
-
     ];
 
     return Scaffold(
@@ -73,6 +72,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
       ),
       body: SingleChildScrollView(
+        physics: ClampingScrollPhysics(),
         child: Column(
           children: [
             Padding(
@@ -137,7 +137,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Text(
                                 AppLocalizations.of(context)!.likes,
                                 style: TextStyle(
-                                  color: TColors.black,
+                                  color: Color(0xff707070),
                                   fontSize: 13,
                                   fontFamily: AppFonts.interregular,
                                 ),
@@ -162,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               Text(
                                 AppLocalizations.of(context)!.matched,
                                 style: TextStyle(
-                                  color: TColors.black,
+                                  color: Color(0xff707070),
                                   fontSize: 13,
                                   fontFamily: AppFonts.interregular,
                                 ),
@@ -179,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ListView.builder(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 35),
+              padding: const EdgeInsets.symmetric(vertical: 30),
               itemCount: names.length,
               itemBuilder: (BuildContext context, int index) {
                 return Column(
@@ -255,9 +255,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             showOkCancelAlertDialog(
                               context: context,
                               message: AppLocalizations.of(context)!.suredelete,
-                              okButtonTitle: AppLocalizations.of(context)!.delete,
+                              okButtonTitle:
+                                  AppLocalizations.of(context)!.delete,
                               cancelButtonTitle:
-                              AppLocalizations.of(context)!.cancel,
+                                  AppLocalizations.of(context)!.cancel,
                               cancelButtonAction: () {},
                               okButtonAction: () {
                                 // Navigator.pushReplacement(

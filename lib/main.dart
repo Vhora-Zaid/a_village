@@ -37,32 +37,30 @@ class MyApp extends StatelessWidget {
 
     return Consumer<AppLanguageProvider>(
       builder: (context, languageProvider, child) {
-        return SafeArea(
-          child: MaterialApp(
-            debugShowCheckedModeBanner: false,
-            locale: languageProvider.appLocal,
-            supportedLocales: AppLocalizations.supportedLocales,
-            localizationsDelegates: const [
-              AppLocalizations.delegate,
-              GlobalMaterialLocalizations.delegate,
-              GlobalWidgetsLocalizations.delegate,
-              GlobalCupertinoLocalizations.delegate,
-            ],
-            localeResolutionCallback: (locale, supportedLocales) {
-              for (var supportedLocale in supportedLocales) {
-                if (supportedLocale.languageCode == locale?.languageCode &&
-                    supportedLocale.countryCode == locale?.countryCode) {
-                  return supportedLocale;
-                }
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          locale: languageProvider.appLocal,
+          supportedLocales: AppLocalizations.supportedLocales,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          localeResolutionCallback: (locale, supportedLocales) {
+            for (var supportedLocale in supportedLocales) {
+              if (supportedLocale.languageCode == locale?.languageCode &&
+                  supportedLocale.countryCode == locale?.countryCode) {
+                return supportedLocale;
               }
-              return supportedLocales.first;
-            },
-            initialRoute: '/',
-            routes: {
-              '/': (context) => const SplashScreen(),
-              '/chat': (context) => const ChatScreen(),
-            },
-          ),
+            }
+            return supportedLocales.first;
+          },
+          initialRoute: '/',
+          routes: {
+            '/': (context) => const SplashScreen(),
+            '/chat': (context) => const ChatScreen(),
+          },
         );
       },
     );

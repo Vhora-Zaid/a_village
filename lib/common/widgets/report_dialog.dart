@@ -44,7 +44,7 @@ class UserActionBottomSheet {
                   icon: Icons.block,
                   title: "Block User",
                   subtitle: "You won’t see their profile again",
-                  color: Colors.black87,
+                  color: Colors.redAccent,
                 ),
               ),
               SizedBox(height: 12),
@@ -113,7 +113,7 @@ class UserActionBottomSheet {
     TextEditingController reportController = TextEditingController();
     showGeneralDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierLabel: "Report",
       transitionDuration: Duration(milliseconds: 300),
       transitionBuilder: (context, animation, secondaryAnimation, child) {
@@ -162,14 +162,14 @@ class UserActionBottomSheet {
                   ),
                   SizedBox(height: 15),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
                     decoration: BoxDecoration(
                       color: Colors.grey[200],
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: TextField(
                       controller: reportController,
-                      maxLines: 4,
+                      maxLines: 8,
                       style: TextStyle(fontSize: 14),
                       decoration: InputDecoration(
                         hintText: "Enter your reason...",
@@ -245,7 +245,7 @@ class UserActionBottomSheet {
       BuildContext context, String username, String profileImage) {
     showGeneralDialog(
       context: context,
-      barrierDismissible: true,
+      barrierDismissible: false,
       barrierLabel: "Block User",
       transitionDuration: Duration(milliseconds: 300),
       transitionBuilder: (context, animation, secondaryAnimation, child) {

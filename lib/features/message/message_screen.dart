@@ -26,6 +26,7 @@ class _MessageScreenState extends State<MessageScreen> {
         fontSize: 27,
       ),
       body: CustomScrollView(
+        physics: ClampingScrollPhysics(),
         slivers: [
           SliverAppBar(
             automaticallyImplyLeading: false,

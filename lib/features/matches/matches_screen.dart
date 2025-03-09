@@ -50,21 +50,7 @@ class _MatchesScreenState extends State<MatchesScreen> {
                   color: TColors.black,
                   fontSize: 27,
                   fontWeight: FontWeight.bold,
-                fontFamily: AppFonts.interbold
-              ),
-            ),
-          ),
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            backgroundColor: Colors.white,
-            surfaceTintColor: Colors.white,
-            elevation: 0,
-            floating: true,
-            pinned: true,
-            centerTitle: false,
-            title: const Padding(
-              padding: EdgeInsets.only(bottom: 15, top: 10),
-              child: AppSearchBar(),
+                  fontFamily: AppFonts.interbold),
             ),
           ),
           SliverFillRemaining(
