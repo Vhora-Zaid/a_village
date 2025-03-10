@@ -1,4 +1,6 @@
 import 'dart:async';
+import 'package:a_village/features/intro/first_intro_screen.dart';
+import 'package:a_village/features/intro/intro_screen.dart';
 import 'package:a_village/features/intro/select_language_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:a_village/utils/constants/image_strings.dart';
@@ -20,7 +22,7 @@ class SplashScreenState extends State<SplashScreen> {
           () => Navigator.pushReplacement(
         context,
         MaterialPageRoute(
-          builder: (context) => const SelectLanguageScreen(),
+          builder: (context) => const IntroScreen(),
         ),
       ),
     );

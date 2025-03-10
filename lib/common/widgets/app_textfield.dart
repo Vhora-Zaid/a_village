@@ -115,7 +115,6 @@ class _AppTextFieldState extends State<AppTextField> {
   }
 }
 
-
 class PhoneTextField extends StatefulWidget {
   final TextEditingController phoneController;
   final String? initialCountryCode;
@@ -138,18 +137,21 @@ class PhoneTextField extends StatefulWidget {
 
 class _PhoneTextFieldState extends State<PhoneTextField> {
   late String selectedCountryCode;
-  String? errorMessage; // ✅ Store error message separately
+  String? errorMessage;
 
   @override
   void initState() {
     super.initState();
     selectedCountryCode = widget.initialCountryCode ??
-        (widget.countryData.isNotEmpty ? widget.countryData.first['code'] : '+1');
+        (widget.countryData.isNotEmpty
+            ? widget.countryData.first['code']
+            : '+1');
   }
 
   void validatePhoneNumber() {
     setState(() {
-      errorMessage = widget.validator(widget.phoneController.text, selectedCountryCode);
+      errorMessage =
+          widget.validator(widget.phoneController.text, selectedCountryCode);
     });
   }
 
@@ -161,7 +163,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
         TextFormField(
           controller: widget.phoneController,
           keyboardType: TextInputType.phone,
-          onChanged: (_) => validatePhoneNumber(), // ✅ Validate only on text change
+          onChanged: (_) => validatePhoneNumber(),
           decoration: InputDecoration(
             contentPadding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
             errorBorder: OutlineInputBorder(
@@ -188,10 +190,11 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50),
-              borderSide: const BorderSide(color: Color(0xffDBDDE2), width: 1.0),
+              borderSide:
+                  const BorderSide(color: Color(0xffDBDDE2), width: 1.0),
             ),
             prefixIcon: Padding(
-              padding: const EdgeInsets.only(left: 16, right: 5),
+              padding: const EdgeInsets.only(left: 10, right: 5),
               child: DropdownButtonHideUnderline(
                 child: DropdownButton<String>(
                   value: selectedCountryCode,
@@ -200,9 +203,16 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                       value: country['code'],
                       child: Row(
                         children: [
-                          Text(country['flag'] ?? '🌍', style: const TextStyle(fontSize: 18)),
+                          Text(
+                            country['flag'] ?? '🌍',
+                            style: const TextStyle(fontSize: 18),
+                          ),
                           const SizedBox(width: 8),
-                          Text(country['code'], style: const TextStyle(fontSize: 14, color: Colors.black)),
+                          Text(
+                            country['code'],
+                            style: const TextStyle(
+                                fontSize: 14, color: Colors.black),
+                          ),
                         ],
                       ),
                     );
@@ -219,7 +229,6 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                   alignment: AlignmentDirectional.center,
                   dropdownColor: TColors.white,
                 ),
-
               ),
             ),
             hintText: "Enter mobile number",
@@ -231,8 +240,6 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
     );
   }
 }
-
-
 
 class PinCodeTextFieldWidget extends StatelessWidget {
   final BuildContext appContext;

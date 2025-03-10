@@ -439,3 +439,57 @@ class _UserInterestSelectionState extends State<UserInterestSelection> {
     );
   }
 }
+
+class CustomChip extends StatelessWidget {
+  List<String> selectedOptions;
+  ValueChanged<List<String>> onSelectionChanged;
+
+  CustomChip({
+    required this.selectedOptions,
+    required this.onSelectionChanged,
+    super.key,
+  });
+
+  List<String> options = ['Yes', 'No', 'Unsure'];
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: 10,
+      children: options.map((option) {
+        bool isSelected = selectedOptions.contains(option);
+        return ChoiceChip(
+          showCheckmark: false,
+          label: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8),
+            child: Text(option),
+          ),
+          backgroundColor: TColors.white,
+          selectedColor: TColors.yellow,
+          shape: RoundedRectangleBorder(
+            side: BorderSide(
+              color: isSelected ? Colors.transparent : const Color(0xffE3E3E3),
+            ),
+            borderRadius: BorderRadius.circular(isSelected ? 50 : 20),
+          ),
+          labelStyle: TextStyle(
+            fontSize: 14,
+            color: TColors.black,
+            fontFamily: AppFonts.interregular,
+          ),
+          selected: isSelected,
+          onSelected: (selected) {
+            List<String> newSelectedOptions = [];
+            if (selected) {
+              newSelectedOptions.add(option);
+            }
+            onSelectionChanged(newSelectedOptions);
+          },
+          padding: EdgeInsets.symmetric(
+            horizontal: MediaQuery.of(context).size.width * 0.059,
+          ),
+        );
+      }).toList(),
+    );
+  }
+}

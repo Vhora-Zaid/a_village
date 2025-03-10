@@ -63,8 +63,11 @@ class _ChatScreenState extends State<ChatScreen> {
     final chatMessages = chatProvider.getChatMessages(index);
 
     if (chatMessages.isEmpty) {
-      chatProvider.addInitialMessage(index, initialMessages[index]);
+      WidgetsBinding.instance.addPostFrameCallback((_) {
+        chatProvider.addInitialMessage(index, initialMessages[index]);
+      });
     }
+
 
     return Container(
       decoration: const BoxDecoration(

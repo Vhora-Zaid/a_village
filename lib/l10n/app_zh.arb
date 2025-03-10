@@ -159,11 +159,16 @@
   "userblocked": "您阻止了用户",
   "noti": "通知",
   "cody": "科迪·费舍尔",
-  "newnoti": "新通知",
+  "newnoti": "新",
   "oldnoti": "旧通知",
   "reportuser": "报告用户",
   "chinese": "中文",
   "passmismatch": "密码不匹配",
   "passlength": "密码必须至少为8个字符",
-  "subscribenow": "立即订阅"
+  "subscribenow": "立即订阅",
+  "errorloading": "加载错误",
+  "nonoti": "没有通知",
+  "earlier": "较早",
+  "writeus": "写信给我们",
+  "next": "下一个"
 }

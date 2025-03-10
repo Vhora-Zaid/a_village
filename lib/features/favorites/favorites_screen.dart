@@ -5,6 +5,7 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/app_appbar.dart';
 import '../../common/widgets/app_searchbar.dart';
 import '../../utils/constants/image_strings.dart';
+import '../notification/notification_screen.dart';
 
 class FavoritesScreen extends StatefulWidget {
   const FavoritesScreen({super.key});
@@ -27,7 +28,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 26),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NotificationScreen(),
+                  ),
+                );
+              },
               child: Image.asset(
                 ImageStrings.notificationlogo,
                 height: 24,

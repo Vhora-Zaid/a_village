@@ -187,6 +187,7 @@ class _HomeCardsState extends State<HomeCards> {
       children: [
         Expanded(
           child: CardSwiper(
+            maxAngle: 0.0,
             controller: _controller,
             padding: EdgeInsets.only(left: 16, right: 16, top: 5, bottom: 25),
             allowedSwipeDirection: AllowedSwipeDirection.only(

@@ -108,4 +108,8 @@ class ImageStrings {
   static const String cardwidget6 = 'assets/images/cardwidget6.png';
   static const String cardwidget7 = 'assets/images/cardwidget7.png';
   static const String deleteaccount = 'assets/images/deleteaccount.png';
+  static const String nodata = 'assets/images/nodata.png';
+  static const String contactus = 'assets/images/contactus.png';
+  static const String call = 'assets/images/call.png';
+  static const String contactvector = 'assets/images/contactvector.jpg';
 }

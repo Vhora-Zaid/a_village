@@ -160,10 +160,15 @@
   "userblocked": "You blocked the user",
   "noti": "Notifications",
   "cody": "Cody Fisher",
-  "newnoti": "New Notifications",
+  "newnoti": "New",
   "oldnoti": "Older Notifications",
   "reportuser": "Report User",
   "passmismatch": "Password Mismatch",
   "passlength": "Password must be at least 8 characters",
-  "subscribenow": "Subscribe Now"
+  "subscribenow": "Subscribe Now",
+  "errorloading": "Error Loading",
+  "nonoti": "No Notifications",
+  "earlier": "Earlier",
+  "writeus": "Write us at",
+  "next": "Next"
 }

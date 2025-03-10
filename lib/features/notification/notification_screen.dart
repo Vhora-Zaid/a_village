@@ -1,27 +1,55 @@
-import 'package:a_village/common/widgets/app_appbar.dart';
-import 'package:a_village/common/widgets/interest_selection.dart';
-import 'package:a_village/features/discover/discover_screen.dart';
-import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import '../../common/widgets/app_button.dart';
-import '../../common/widgets/app_slider.dart';
+import '../../common/widgets/notification_tile.dart';
+import '../../models/notification_model.dart';
+import '../../utils/constants/colors.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/image_strings.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class NotificationScreen extends StatefulWidget {
+class NotificationScreen extends StatelessWidget {
   const NotificationScreen({super.key});
 
   @override
-  State<NotificationScreen> createState() => _NotificationScreenState();
-}
-
-class _NotificationScreenState extends State<NotificationScreen> {
-  @override
   Widget build(BuildContext context) {
+    final List<NotificationModel> dummyNotifications = [
+      NotificationModel(
+        userName: "Sophie",
+        message: "Liked your profile",
+        avatarUrl: ImageStrings.profile1,
+        timeAgo: "2h ago",
+        isNew: true,
+      ),
+      NotificationModel(
+        userName: "Emma",
+        message: "Sent you a message",
+        avatarUrl: ImageStrings.profile2,
+        timeAgo: "5h ago",
+        isNew: true,
+      ),
+      NotificationModel(
+        userName: "James",
+        message: "Visited your profile",
+        avatarUrl: ImageStrings.profile3,
+        timeAgo: "2 days ago",
+        isNew: false,
+      ),
+      NotificationModel(
+        userName: "Olivia",
+        message: "Matched with you",
+        avatarUrl: ImageStrings.profile4,
+        timeAgo: "3 days ago",
+        isNew: false,
+      ),
+    ];
+
+    final newNotis = dummyNotifications.where((n) => n.isNew).toList();
+    final oldNotis = dummyNotifications.where((n) => !n.isNew).toList();
+
     return Scaffold(
       backgroundColor: TColors.white,
-      appBar: MyAppBar(
+      appBar: AppBar(
+        backgroundColor: TColors.white,
+        elevation: 0,
         leading: GestureDetector(
           onTap: () {
             Navigator.pop(context);
@@ -35,26 +63,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
           ),
         ),
-        actions: [
-          GestureDetector(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16),
-              // child: Text(
-              //   AppLocalizations.of(context)!.clear,
-              //   style: TextStyle(
-              //     color: TColors.blue,
-              //     fontSize: 14,
-              //     fontFamily: AppFonts.interregular,
-              //   ),
-              // ),
-            ),
-          ),
-        ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding:
-          const EdgeInsets.only(left: 16, right: 16, bottom: 10),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -70,156 +82,35 @@ class _NotificationScreenState extends State<NotificationScreen> {
               SizedBox(
                 height: 15,
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    AppLocalizations.of(context)!.newnoti,
-                    style: TextStyle(
-                      color: TColors.blue,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: AppFonts.interregular,
-                    ),
+              if (newNotis.isNotEmpty) ...[
+                Text(
+                  AppLocalizations.of(context)!.newnoti,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: TColors.blue,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AppFonts.interregular,
                   ),
-                  SizedBox(
-                    height: 15,
+                ),
+                const SizedBox(height: 10),
+                ...newNotis.map((n) => NotificationTile(notification: n)),
+              ],
+              if (oldNotis.isNotEmpty) ...[
+                const SizedBox(height: 5),
+                const Divider(color: TColors.stroke),
+                const SizedBox(height: 10),
+                Text(
+                  AppLocalizations.of(context)!.earlier,
+                  style: TextStyle(
+                    fontSize: 16,
+                    color: TColors.blue,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AppFonts.interregular,
                   ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 3,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 15),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: TColors.stroke,
-                              radius: 20,
-                              backgroundImage: AssetImage(ImageStrings.profile7),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.cody,
-                                  style: TextStyle(
-                                    color: TColors.black,
-                                    fontSize: 14,
-                                    fontFamily: AppFonts.interregular,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    AppLocalizations.of(context)!.lorem,
-                                    style: TextStyle(
-                                      color: TColors.placeholder,
-                                      fontSize: 12,
-                                      fontFamily: AppFonts.interregular,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Text(
-                              '2h ago',
-                              style: TextStyle(
-                                color: TColors.placeholder,
-                                fontSize: 12,
-                                fontFamily: AppFonts.interregular,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                  Divider(
-                    height: 1,
-                    color: TColors.stroke,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    AppLocalizations.of(context)!.oldnoti,
-                    style: TextStyle(
-                      color: TColors.blue,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: AppFonts.interregular,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  ListView.builder(
-                    shrinkWrap: true,
-                    physics: NeverScrollableScrollPhysics(),
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        margin: EdgeInsets.only(bottom: 15),
-                        child: Row(
-                          children: [
-                            CircleAvatar(
-                              backgroundColor: TColors.stroke,
-                              radius: 20,
-                              backgroundImage: AssetImage(ImageStrings.profile9),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  AppLocalizations.of(context)!.arthur,
-                                  style: TextStyle(
-                                    color: TColors.black,
-                                    fontSize: 14,
-                                    fontFamily: AppFonts.interregular,
-                                  ),
-                                ),
-                                SizedBox(
-                                  width: 200,
-                                  child: Text(
-                                    AppLocalizations.of(context)!.lorem,
-                                    style: TextStyle(
-                                      color: TColors.placeholder,
-                                      fontSize: 12,
-                                      fontFamily: AppFonts.interregular,
-                                    ),
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Spacer(),
-                            Text(
-                              '2 Days ago',
-                              style: TextStyle(
-                                color: TColors.placeholder,
-                                fontSize: 12,
-                                fontFamily: AppFonts.interregular,
-                              ),
-                            ),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(height: 10),
+                ...oldNotis.map((n) => NotificationTile(notification: n)),
+              ],
             ],
           ),
         ),

@@ -1,6 +1,7 @@
 import 'package:a_village/features/splash/splash_screen.dart';
 import 'package:a_village/providers/chat_provider.dart';
 import 'package:a_village/providers/language_provider.dart';
+import 'package:a_village/providers/notification_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
       providers: [
         ChangeNotifierProvider(create: (_) => ChatProvider()),
         ChangeNotifierProvider(create: (_) => appLanguage),
+        // ChangeNotifierProvider(create: (_) => NotificationProvider()),
       ],
       child: const MyApp(),
     ),

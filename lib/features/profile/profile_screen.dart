@@ -1,9 +1,9 @@
 import 'package:a_village/features/edit%20profile/edit_profile_screen.dart';
 import 'package:a_village/features/login/login_screen.dart';
+import 'package:a_village/features/notification/notification_screen.dart';
 import 'package:a_village/features/privacy%20policy/privacy_policy_screen.dart';
 import 'package:a_village/features/settings/settings_screen.dart';
 import 'package:a_village/features/subscription/subscription_screen.dart';
-import 'package:a_village/features/Matched/you_matched_screen.dart';
 import 'package:a_village/features/support/support_screen.dart';
 import 'package:a_village/features/who%20likes%20you/who_likes.dart';
 import 'package:a_village/features/your%20likes/your_likes_screen.dart';
@@ -24,21 +24,10 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  final List<String> profileIcons = [
-    ImageStrings.editprofile,
-    ImageStrings.matches,
-    ImageStrings.wholikesyou,
-    ImageStrings.yourlikes,
-    ImageStrings.subscription,
-    ImageStrings.settings,
-    ImageStrings.support,
-    ImageStrings.privacy,
-    ImageStrings.deleteaccount,
-    ImageStrings.logout
-  ];
 
   @override
   Widget build(BuildContext context) {
+
     final List<String> names = [
       AppLocalizations.of(context)!.editprofile,
       AppLocalizations.of(context)!.matches,
@@ -52,6 +41,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       AppLocalizations.of(context)!.logout
     ];
 
+    final List<String> profileIcons = [
+      ImageStrings.editprofile,
+      ImageStrings.matches,
+      ImageStrings.wholikesyou,
+      ImageStrings.yourlikes,
+      ImageStrings.subscription,
+      ImageStrings.settings,
+      ImageStrings.support,
+      ImageStrings.privacy,
+      ImageStrings.deleteaccount,
+      ImageStrings.logout
+    ];
+
     return Scaffold(
       backgroundColor: TColors.white,
       appBar: MyAppBar(
@@ -61,7 +63,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
           Padding(
             padding: const EdgeInsets.only(right: 26),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => NotificationScreen(),
+                  ),
+                );
+              },
               child: Image.asset(
                 ImageStrings.notificationlogo,
                 height: 24,
@@ -176,15 +185,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 ],
               ),
             ),
-            ListView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              shrinkWrap: true,
-              padding: const EdgeInsets.symmetric(vertical: 30),
-              itemCount: names.length,
-              itemBuilder: (BuildContext context, int index) {
-                return Column(
-                  children: [
-                    ListTile(
+            Theme(
+              data: Theme.of(context).copyWith(
+                splashFactory: NoSplash.splashFactory,
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+              ),
+              child: ListView.builder(
+                physics: const NeverScrollableScrollPhysics(),
+                shrinkWrap: true,
+                padding: const EdgeInsets.symmetric(vertical: 35),
+                itemCount: names.length,
+                itemBuilder: (BuildContext context, int index) {
+                  return Container(
+                    decoration: BoxDecoration(
+                      border: Border(
+                        bottom: BorderSide(
+                          color: TColors.stroke,
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    child: ListTile(
                       onTap: () {
                         switch (index) {
                           case 0:
@@ -253,6 +275,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             break;
                           case 8:
                             showOkCancelAlertDialog(
+                              isCancelEnable: false,
                               context: context,
                               message: AppLocalizations.of(context)!.suredelete,
                               okButtonTitle:
@@ -260,25 +283,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               cancelButtonTitle:
                                   AppLocalizations.of(context)!.cancel,
                               cancelButtonAction: () {},
-                              okButtonAction: () {
-                                // Navigator.pushReplacement(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) => LoginScreen(),
-                                //   ),
-                                // );
-                              },
+                              okButtonAction: () {},
                             );
                             break;
                           case 9:
                             showOkCancelAlertDialog(
+                              isCancelEnable: false,
                               context: context,
                               message: AppLocalizations.of(context)!.areyousure,
                               okButtonTitle: AppLocalizations.of(context)!.ok,
                               cancelButtonTitle:
                                   AppLocalizations.of(context)!.cancel,
                               cancelButtonAction: () {},
-                              okButtonAction: () {
+                              okButtonAction: () async {
+                                showDialog(
+                                  context: context,
+                                  barrierDismissible: false,
+                                  builder: (context) {
+                                    return Center(
+                                      child: CircularProgressIndicator(
+                                        color: TColors.blue,
+                                      ),
+                                    );
+                                  },
+                                );
+                                await Future.delayed(Duration(seconds: 2));
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
@@ -313,16 +342,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 75),
-                      child: Divider(
-                        color: TColors.stroke,
-                        thickness: 1,
-                      ),
-                    ),
-                  ],
-                );
-              },
+                  );
+                },
+              ),
             ),
           ],
         ),

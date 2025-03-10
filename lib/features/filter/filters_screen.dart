@@ -1,6 +1,5 @@
 import 'package:a_village/common/widgets/app_appbar.dart';
 import 'package:a_village/common/widgets/interest_selection.dart';
-import 'package:a_village/features/discover/discover_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:a_village/common/widgets/app_appbar.dart';
 import 'package:a_village/common/widgets/app_button.dart';
-import 'package:a_village/features/register/your_interests_screen.dart';
+import 'package:a_village/features/register/questions_screen_1.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -174,7 +174,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
             onPressed: () {
               Navigator.of(context).pop();
               getPermission(context: context);
-              // getImageFromGallery();
+              getImageFromGallery();
             },
           ),
         ],
@@ -317,7 +317,7 @@ class _CompleteProfileScreenState extends State<CompleteProfileScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => YourInterestsScreen(),
+                builder: (context) => QuestionsScreen1(),
               ),
             );
           },
