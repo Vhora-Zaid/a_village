@@ -28,6 +28,7 @@ dependencies:
   flutter_dash: ^1.0.0
   dotted_border: ^2.0.0+3
   url_launcher: ^6.2.5
+  flutter_advanced_switch: ^3.1.0
 
 dev_dependencies:
   flutter_test:

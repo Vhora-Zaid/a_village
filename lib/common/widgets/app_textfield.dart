@@ -190,8 +190,10 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
             ),
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(50),
-              borderSide:
-                  const BorderSide(color: Color(0xffDBDDE2), width: 1.0),
+              borderSide: const BorderSide(
+                color: Color(0xffDBDDE2),
+                width: 1.0,
+              ),
             ),
             prefixIcon: Padding(
               padding: const EdgeInsets.only(left: 10, right: 5),
@@ -211,7 +213,9 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                           Text(
                             country['code'],
                             style: const TextStyle(
-                                fontSize: 14, color: Colors.black),
+                              fontSize: 14,
+                              color: Colors.black,
+                            ),
                           ),
                         ],
                       ),
@@ -219,9 +223,11 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
                   }).toList(),
                   onChanged: (value) {
                     if (value != null) {
-                      setState(() {
-                        selectedCountryCode = value;
-                      });
+                      setState(
+                        () {
+                          selectedCountryCode = value;
+                        },
+                      );
                       widget.onCountryCodeChanged(value);
                       validatePhoneNumber();
                     }
@@ -232,8 +238,11 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
               ),
             ),
             hintText: "Enter mobile number",
-            hintStyle: const TextStyle(fontSize: 14, color: Color(0xff8D8E8D)),
-            errorText: errorMessage, // ✅ Show error only once
+            hintStyle: const TextStyle(
+              fontSize: 14,
+              color: Color(0xff8D8E8D),
+            ),
+            errorText: errorMessage,
           ),
         ),
       ],

@@ -4,7 +4,6 @@ import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../../common/widgets/app_button.dart';
-import '../../common/widgets/app_slider.dart';
 import '../../utils/constants/app_fonts.dart';
 import '../../utils/constants/image_strings.dart';
 
@@ -14,6 +13,7 @@ class FiltersScreen extends StatefulWidget {
   @override
   State<FiltersScreen> createState() => _FiltersScreenState();
 }
+
 
 class _FiltersScreenState extends State<FiltersScreen> {
   RangeValues _distancevalues = RangeValues(20, 40);
@@ -158,70 +158,80 @@ class _FiltersScreenState extends State<FiltersScreen> {
                         "${_distancevalues.start.toInt()} - ${_distancevalues.end.toInt()} miles",
                         style: TextStyle(
                           fontSize: 14,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 14,
-              ),
-              DistanceSlider(
-                values: _distancevalues,
-                onChanged: (value) {
-                  setState(() {
-                    _distancevalues = value;
-                  });
-                },
-                activeColor: TColors.yellow,
-                inactiveColor: TColors.slidergrey,
-                textColor: TColors.blue,
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.agerange,
-                        style: TextStyle(
-                          fontFamily: AppFonts.interregular,
-                          fontSize: 15,
-                          color: TColors.black,
+                          color: TColors.blue,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
-                      Text(
-                        "${_agevalues.start.toInt()} - ${_agevalues.end.toInt()}",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.blue,
-                          fontWeight: FontWeight.w400,
-                        ),
-                      ),
                     ],
                   ),
                 ],
               ),
               SizedBox(
-                height: 14,
+                height: 24,
               ),
-              DistanceSlider(
-                values: _agevalues,
-                onChanged: (value) {
-                  setState(() {
-                    _agevalues = value;
-                  });
-                },
-                activeColor: TColors.yellow,
-                inactiveColor: TColors.slidergrey,
-                textColor: TColors.blue,
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackHeight: 2,
+                  overlayShape: RoundSliderOverlayShape(overlayRadius: 0),
+                ),
+                child: RangeSlider(
+                  min: 0,
+                  max: 100,
+                  values: _distancevalues,
+                  onChanged: (RangeValues value) {
+                    setState(() {
+                      _distancevalues = value;
+                    });
+                  },
+                  activeColor: TColors.yellow,
+                  inactiveColor: TColors.slidergrey,
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    AppLocalizations.of(context)!.agerange,
+                    style: TextStyle(
+                      fontFamily: AppFonts.interregular,
+                      fontSize: 15,
+                      color: TColors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    "${_agevalues.start.toInt()} - ${_agevalues.end.toInt()}",
+                    style: TextStyle(
+                      fontSize: 14,
+                      color: TColors.blue,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+              SizedBox(
+                height: 24,
+              ),
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackHeight: 2,
+                  overlayShape: RoundSliderOverlayShape(overlayRadius: 0),
+                ),
+                child: RangeSlider(
+                  min: 0,
+                  max: 100,
+                  values: _agevalues,
+                  onChanged: (RangeValues value) {
+                    setState(() {
+                      _agevalues = value;
+                    });
+                  },
+                  activeColor: TColors.yellow,
+                  inactiveColor: TColors.slidergrey,
+                ),
               ),
             ],
           ),

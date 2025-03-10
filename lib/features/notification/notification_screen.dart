@@ -13,37 +13,31 @@ class NotificationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final List<NotificationModel> dummyNotifications = [
       NotificationModel(
-        userName: "Sophie",
-        message: "Liked your profile",
+        title: "Ava liked your profile",
+        subtitle: ' Maybe its a match!',
         avatarUrl: ImageStrings.profile1,
-        timeAgo: "2h ago",
-        isNew: true,
+        timeAgo: '2h ago',
       ),
       NotificationModel(
-        userName: "Emma",
-        message: "Sent you a message",
+        title: "Liam sent you a message",
+        subtitle: '\"Hey, how’s it going? 👋\"',
         avatarUrl: ImageStrings.profile2,
-        timeAgo: "5h ago",
-        isNew: true,
+        timeAgo: '5h ago',
       ),
       NotificationModel(
-        userName: "James",
-        message: "Visited your profile",
+        title: "Emma viewed your profile.",
+        subtitle: 'Someone’s curious! 😉',
         avatarUrl: ImageStrings.profile3,
-        timeAgo: "2 days ago",
-        isNew: false,
+        timeAgo: '2 days ago',
       ),
       NotificationModel(
-        userName: "Olivia",
-        message: "Matched with you",
+        title: "You and Noah are a match!",
+        subtitle: 'Say hi and start chatting.',
         avatarUrl: ImageStrings.profile4,
-        timeAgo: "3 days ago",
-        isNew: false,
+        timeAgo: '3 days ago',
       ),
     ];
 
-    final newNotis = dummyNotifications.where((n) => n.isNew).toList();
-    final oldNotis = dummyNotifications.where((n) => !n.isNew).toList();
 
     return Scaffold(
       backgroundColor: TColors.white,
@@ -82,35 +76,7 @@ class NotificationScreen extends StatelessWidget {
               SizedBox(
                 height: 15,
               ),
-              if (newNotis.isNotEmpty) ...[
-                Text(
-                  AppLocalizations.of(context)!.newnoti,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: TColors.blue,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AppFonts.interregular,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                ...newNotis.map((n) => NotificationTile(notification: n)),
-              ],
-              if (oldNotis.isNotEmpty) ...[
-                const SizedBox(height: 5),
-                const Divider(color: TColors.stroke),
-                const SizedBox(height: 10),
-                Text(
-                  AppLocalizations.of(context)!.earlier,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: TColors.blue,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AppFonts.interregular,
-                  ),
-                ),
-                const SizedBox(height: 10),
-                ...oldNotis.map((n) => NotificationTile(notification: n)),
-              ],
+              ...dummyNotifications.map((n) => NotificationTile(notification: n)),
             ],
           ),
         ),

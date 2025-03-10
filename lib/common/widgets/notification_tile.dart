@@ -26,21 +26,21 @@ class NotificationTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  notification.userName,
+                  notification.title,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
                     fontSize: 14,
                     fontFamily: AppFonts.interregular,
                     color: TColors.black,
-                    fontWeight: FontWeight.w500
                   ),
                 ),
-                const SizedBox(height: 4),
                 Text(
-                  notification.message,
+                  notification.subtitle,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                   style: const TextStyle(
-                    fontSize: 13,
+                    fontSize: 12,
                     fontFamily: AppFonts.interregular,
                     color: TColors.placeholder,
                   ),

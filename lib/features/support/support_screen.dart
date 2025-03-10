@@ -83,7 +83,6 @@ class _SupportScreenState extends State<SupportScreen> {
                     query: encodeQueryParameters(
                         <String, String>{'subject': 'Support Request'}),
                   );
-
                   if (await canLaunchUrl(emailLaunchUri)) {
                     await launchUrl(emailLaunchUri);
                   } else {

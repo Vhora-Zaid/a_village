@@ -1,9 +1,9 @@
-import 'package:a_village/common/widgets/toggle_button.dart';
 import 'package:a_village/features/blocked%20users/blocked_users_screen.dart';
 import 'package:a_village/features/change%20password/change_password_screen.dart';
 import 'package:a_village/features/contact_us/contact_us_screen.dart';
 import 'package:a_village/utils/constants/colors.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_switch/flutter_advanced_switch.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 // import 'package:provider/provider.dart';
 import '../../common/widgets/app_appbar.dart';
@@ -20,8 +20,35 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  RangeValues distanceValue = RangeValues(0, 80);
+  bool smsSwitch = false;
+  bool emailSwitch = false;
+  double distanceValue = 100;
   RangeValues ageValue = RangeValues(18, 40);
+  final _emailController = ValueNotifier<bool>(false);
+  final _smsController = ValueNotifier<bool>(false);
+
+  @override
+  void initState() {
+    super.initState();
+    _emailController.addListener(() {
+      setState(() {
+        if (_emailController.value) {
+          emailSwitch = true;
+        } else {
+          emailSwitch = false;
+        }
+      });
+    });
+    _smsController.addListener(() {
+      setState(() {
+        if (_smsController.value) {
+          emailSwitch = true;
+        } else {
+          emailSwitch = false;
+        }
+      });
+    });
+  }
 
   // void _showLanguageDialog(BuildContext context) {
   //   showDialog(
@@ -282,52 +309,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SizedBox(
                 height: 23,
               ),
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.maxdistance,
-                        style: TextStyle(
-                          color: TColors.black,
-                          fontFamily: AppFonts.interregular,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        "${distanceValue.start.toInt()} - ${distanceValue.end.toInt()} miles",
-                        style: TextStyle(
-                          color: TColors.black,
-                          fontFamily: AppFonts.interbold,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    AppLocalizations.of(context)!.maxdistance,
+                    style: TextStyle(
+                      color: TColors.black,
+                      fontFamily: AppFonts.interregular,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    "${distanceValue.toInt()} miles",
+                    style: TextStyle(
+                      color: TColors.black,
+                      fontFamily: AppFonts.interbold,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
-              RangeSlider(
-                values: distanceValue,
-                min: 0,
-                max: 250,
-                onChanged: (RangeValues value) {
-                  setState(
-                    () {
-                      distanceValue = value;
-                    },
-                  );
-                },
-                activeColor: TColors.blue,
-                inactiveColor: TColors.slidergrey,
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackHeight: 2,
+                  overlayShape: RoundSliderOverlayShape(overlayRadius: 0),
+                ),
+                child: Slider(
+                  value: distanceValue,
+                  min: 0,
+                  max: 250,
+                  onChanged: (double value) {
+                    setState(
+                      () {
+                        distanceValue = value;
+                      },
+                    );
+                  },
+                  activeColor: TColors.blue,
+                  inactiveColor: TColors.slidergrey,
+                ),
               ),
               SizedBox(
-                height: 15,
+                height: 32,
               ),
               Divider(
                 height: 1,
@@ -336,52 +365,54 @@ class _SettingsScreenState extends State<SettingsScreen> {
               SizedBox(
                 height: 23,
               ),
-              Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        AppLocalizations.of(context)!.agerange,
-                        style: TextStyle(
-                          color: TColors.black,
-                          fontFamily: AppFonts.interregular,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                      Text(
-                        "${ageValue.start.toInt()} - ${ageValue.end.toInt()}",
-                        style: TextStyle(
-                          color: TColors.black,
-                          fontFamily: AppFonts.interbold,
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
+                  Text(
+                    AppLocalizations.of(context)!.agerange,
+                    style: TextStyle(
+                      color: TColors.black,
+                      fontFamily: AppFonts.interregular,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                  Text(
+                    "${ageValue.start.toInt()} - ${ageValue.end.toInt()}",
+                    style: TextStyle(
+                      color: TColors.black,
+                      fontFamily: AppFonts.interbold,
+                      fontSize: 14,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ],
               ),
               SizedBox(
-                height: 10,
+                height: 20,
               ),
-              RangeSlider(
-                min: 0,
-                max: 100,
-                values: ageValue,
-                onChanged: (value) {
-                  setState(
-                    () {
-                      ageValue = value;
-                    },
-                  );
-                },
-                activeColor: TColors.blue,
-                inactiveColor: TColors.slidergrey,
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackHeight: 2,
+                  overlayShape: RoundSliderOverlayShape(overlayRadius: 0),
+                ),
+                child: RangeSlider(
+                  min: 0,
+                  max: 100,
+                  values: ageValue,
+                  onChanged: (RangeValues value) {
+                    setState(
+                      () {
+                        ageValue = value;
+                      },
+                    );
+                  },
+                  activeColor: TColors.blue,
+                  inactiveColor: TColors.slidergrey,
+                ),
               ),
               SizedBox(
-                height: 15,
+                height: 32,
               ),
               Divider(
                 height: 1,
@@ -615,12 +646,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                trailing: AnimatedToggle(
-                  onToggleCallback: (value) {
-                    setState(
-                      () {},
-                    );
-                  },
+                trailing: AdvancedSwitch(
+                  controller: _emailController,
+                  activeColor: TColors.blue,
+                  inactiveColor: TColors.togglebackground,
+                  borderRadius: BorderRadius.all(const Radius.circular(50)),
+                  width: 51.0,
+                  height: 32.0,
+                  enabled: true,
                 ),
               ),
               ListTile(
@@ -634,12 +667,14 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     fontWeight: FontWeight.w500,
                   ),
                 ),
-                trailing: AnimatedToggle(
-                  onToggleCallback: (value) {
-                    setState(
-                      () {},
-                    );
-                  },
+                trailing: AdvancedSwitch(
+                  controller: _smsController,
+                  activeColor: TColors.blue,
+                  inactiveColor: TColors.togglebackground,
+                  borderRadius: BorderRadius.all(const Radius.circular(50)),
+                  width: 51.0,
+                  height: 32.0,
+                  enabled: true,
                 ),
               ),
             ],
